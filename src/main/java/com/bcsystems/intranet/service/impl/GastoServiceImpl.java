@@ -1,0 +1,131 @@
+package com.bcsystems.intranet.service.impl;
+
+import com.bcsystems.intranet.domain.*;
+import com.bcsystems.intranet.domain.en.*;
+import com.bcsystems.intranet.dto.GastoRequest;
+import com.bcsystems.intranet.dto.GastoResponse;
+import com.bcsystems.intranet.exception.InvalidEntryException;
+import com.bcsystems.intranet.exception.NotFoundException;
+import com.bcsystems.intranet.repository.*;
+import com.bcsystems.intranet.service.AuditoriaService;
+import com.bcsystems.intranet.service.GastoService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class GastoServiceImpl implements GastoService {
+
+    private final GastoRepository gastoRepository;
+    private final CajaRepository cajaRepository;
+    private final PersonaRepository personaRepository;
+    private final AuditoriaService auditoriaService;
+
+    @Override
+    @Transactional
+    public GastoResponse solicitar(GastoRequest request) {
+        Caja caja = cajaRepository.findById(request.idCaja())
+                .orElseThrow(() -> new NotFoundException("Caja no encontrada"));
+
+        Persona usuario = obtenerPersonaActual();
+
+        Gasto gasto = Gasto.builder()
+                .caja(caja)
+                .descripcion(request.descripcion())
+                .monto(request.monto())
+                .usuario(usuario)
+                .estado(EstadoGasto.PENDIENTE)
+                .fechaCreacion(LocalDateTime.now())
+                .build();
+        gasto = gastoRepository.save(gasto);
+
+        return toResponse(gasto);
+    }
+
+    @Override
+    public List<GastoResponse> pendientes() {
+        return gastoRepository.findByEstadoOrderByFechaCreacionDesc(EstadoGasto.PENDIENTE).stream()
+                .map(this::toResponse).toList();
+    }
+
+    @Override
+    public List<GastoResponse> listarPorCaja(Integer idCaja) {
+        return gastoRepository.findByCajaIdCajaOrderByFechaCreacionDesc(idCaja).stream()
+                .map(this::toResponse).toList();
+    }
+
+    @Override
+    @Transactional
+    public GastoResponse autorizar(Integer idGasto) {
+        Gasto gasto = gastoRepository.findById(idGasto)
+                .orElseThrow(() -> new NotFoundException("Gasto no encontrado"));
+        if (gasto.getEstado() != EstadoGasto.PENDIENTE) {
+            throw new InvalidEntryException("El gasto no está pendiente");
+        }
+
+        Persona autorizador = obtenerPersonaActual();
+        Rol rol = autorizador.getRol();
+        if (rol != Rol.ADMINISTRADOR && rol != Rol.AUDITORIAS) {
+            throw new InvalidEntryException("No tienes permisos para autorizar gastos");
+        }
+
+        // Deduct from cash register when authorized
+        Caja caja = gasto.getCaja();
+        if (caja.getSaldoActual() < gasto.getMonto()) {
+            throw new InvalidEntryException("Saldo insuficiente en caja");
+        }
+        caja.setSaldoActual(caja.getSaldoActual() - gasto.getMonto());
+        cajaRepository.save(caja);
+
+        gasto.setEstado(EstadoGasto.AUTORIZADO);
+        gasto.setAutorizador(autorizador);
+        gasto.setFechaAutorizacion(LocalDateTime.now());
+        gasto = gastoRepository.save(gasto);
+
+        return toResponse(gasto);
+    }
+
+    @Override
+    @Transactional
+    public GastoResponse rechazar(Integer idGasto) {
+        Gasto gasto = gastoRepository.findById(idGasto)
+                .orElseThrow(() -> new NotFoundException("Gasto no encontrado"));
+        if (gasto.getEstado() != EstadoGasto.PENDIENTE) {
+            throw new InvalidEntryException("El gasto no está pendiente");
+        }
+
+        Persona autorizador = obtenerPersonaActual();
+        Rol rol = autorizador.getRol();
+        if (rol != Rol.ADMINISTRADOR && rol != Rol.AUDITORIAS) {
+            throw new InvalidEntryException("No tienes permisos para rechazar gastos");
+        }
+
+        gasto.setEstado(EstadoGasto.RECHAZADO);
+        gasto.setAutorizador(autorizador);
+        gasto.setFechaAutorizacion(LocalDateTime.now());
+        gasto = gastoRepository.save(gasto);
+
+        return toResponse(gasto);
+    }
+
+    private Persona obtenerPersonaActual() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return personaRepository.findByUsuario(username)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+    }
+
+    private GastoResponse toResponse(Gasto g) {
+        return new GastoResponse(
+                g.getIdGasto(), g.getCaja().getIdCaja(),
+                g.getCaja().getNombre(), g.getDescripcion(),
+                g.getMonto(), g.getUsuario().getUsuario(),
+                g.getAutorizador() != null ? g.getAutorizador().getUsuario() : null,
+                g.getEstado().name(), g.getFechaCreacion(),
+                g.getFechaAutorizacion());
+    }
+}

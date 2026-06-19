@@ -1,0 +1,257 @@
+package com.bcsystems.intranet.service.impl;
+
+import com.bcsystems.intranet.domain.*;
+import com.bcsystems.intranet.domain.en.*;
+import com.bcsystems.intranet.dto.*;
+import com.bcsystems.intranet.exception.InvalidEntryException;
+import com.bcsystems.intranet.exception.NotFoundException;
+import com.bcsystems.intranet.repository.*;
+import com.bcsystems.intranet.service.AuditoriaService;
+import com.bcsystems.intranet.service.VentaService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class VentaServiceImpl implements VentaService {
+
+    private final VentaRepository ventaRepository;
+    private final VentaDetalleRepository ventaDetalleRepository;
+    private final CajaRepository cajaRepository;
+    private final ClienteRepository clienteRepository;
+    private final ProductoRepository productoRepository;
+    private final InventarioSucursalRepository inventarioSucursalRepository;
+    private final PersonaRepository personaRepository;
+    private final AuditoriaService auditoriaService;
+
+    @Override
+    @Transactional
+    public VentaResponse crear(VentaRequest request) {
+        Caja caja = cajaRepository.findById(request.idCaja())
+                .orElseThrow(() -> new NotFoundException("Caja no encontrada"));
+        if (caja.getEstado() != CajaEstado.ABIERTA) {
+            throw new InvalidEntryException("La caja debe estar abierta");
+        }
+
+        Persona usuario = obtenerPersonaActual();
+        Cliente cliente = request.idCliente() != null
+                ? clienteRepository.findById(request.idCliente()).orElse(null) : null;
+
+        Venta venta = Venta.builder()
+                .caja(caja)
+                .cliente(cliente)
+                .usuario(usuario)
+                .tipoVenta(TipoVenta.valueOf(request.tipoVenta()))
+                .precioSeleccionado(request.precioSeleccionado())
+                .subtotal(request.subtotal())
+                .descuento(request.descuento())
+                .total(request.total())
+                .estado(EstadoVenta.COMPLETADA)
+                .fecha(LocalDateTime.now())
+                .build();
+        venta = ventaRepository.save(venta);
+
+        Sucursal sucursal = caja.getSucursal();
+
+        List<VentaDetalle> detalles = new ArrayList<>();
+        for (VentaDetalleRequest dto : request.detalles()) {
+            VentaDetalle detalle = VentaDetalle.builder()
+                    .venta(venta)
+                    .producto(dto.idProducto() != null
+                            ? productoRepository.findById(dto.idProducto()).orElse(null) : null)
+                    .descripcion(dto.descripcion())
+                    .cantidad(dto.cantidad())
+                    .precioUnitario(dto.precioUnitario())
+                    .subtotal(dto.subtotal())
+                    .build();
+            detalles.add(ventaDetalleRepository.save(detalle));
+
+            if (dto.idProducto() != null && dto.idProducto() > 0) {
+                Producto p = productoRepository.findById(dto.idProducto()).orElse(null);
+                if (p != null) {
+                    InventarioSucursal inv = inventarioSucursalRepository
+                            .findByProductoIdProductoAndSucursalIdSucursal(dto.idProducto(), sucursal.getIdSucursal())
+                            .orElse(null);
+                    if (inv != null && inv.getStock() < dto.cantidad()) {
+                        throw new InvalidEntryException("Stock insuficiente en " + sucursal.getNombre()
+                                + " para: " + p.getNombre() + " (disponible: " + inv.getStock()
+                                + ", solicitado: " + dto.cantidad() + ")");
+                    }
+                    p.setStockActual(p.getStockActual() - dto.cantidad());
+                    productoRepository.save(p);
+                    if (inv != null) {
+                        inv.setStock(inv.getStock() - dto.cantidad());
+                        inventarioSucursalRepository.save(inv);
+                    }
+                }
+            }
+        }
+
+        caja.setSaldoActual(caja.getSaldoActual() + request.total());
+        cajaRepository.save(caja);
+
+        auditoriaService.registrar("Venta", venta.getIdVenta(), AccionAuditoria.CREACION.name(),
+                usuario.getUsuario(), "Venta $" + request.total() + " - " + caja.getNombre());
+
+        return toResponse(venta, detalles);
+    }
+
+    @Override
+    public VentaResponse obtenerPorId(Integer id) {
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Venta no encontrada"));
+        List<VentaDetalle> detalles = ventaDetalleRepository.findByVentaIdVenta(id);
+        return toResponse(venta, detalles);
+    }
+
+    @Override
+    public List<VentaResponse> listarPorCaja(Integer idCaja) {
+        return ventaRepository.findByCajaIdCajaAndEstadoOrderByFechaDesc(idCaja, EstadoVenta.COMPLETADA)
+                .stream().map(v -> toResponse(v, ventaDetalleRepository.findByVentaIdVenta(v.getIdVenta())))
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public VentaResponse cancelar(Integer id) {
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Venta no encontrada"));
+        if (venta.getEstado() == EstadoVenta.CANCELADA) {
+            throw new InvalidEntryException("La venta ya está cancelada");
+        }
+        venta.setEstado(EstadoVenta.CANCELADA);
+        venta = ventaRepository.save(venta);
+
+        Sucursal sucursal = venta.getCaja().getSucursal();
+        List<VentaDetalle> detalles = ventaDetalleRepository.findByVentaIdVenta(id);
+        for (VentaDetalle d : detalles) {
+            if (d.getProducto() != null) {
+                Producto p = d.getProducto();
+                p.setStockActual(p.getStockActual() + d.getCantidad());
+                productoRepository.save(p);
+                InventarioSucursal inv = inventarioSucursalRepository
+                        .findByProductoIdProductoAndSucursalIdSucursal(p.getIdProducto(), sucursal.getIdSucursal())
+                        .orElse(null);
+                if (inv != null) {
+                    inv.setStock(inv.getStock() + d.getCantidad());
+                    inventarioSucursalRepository.save(inv);
+                }
+            }
+        }
+
+        Caja caja = venta.getCaja();
+        caja.setSaldoActual(caja.getSaldoActual() - venta.getTotal());
+        cajaRepository.save(caja);
+
+        return toResponse(venta, detalles);
+    }
+
+    @Override
+    @Transactional
+    public VentaResponse ponerEnEspera(Integer id) {
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Venta no encontrada"));
+        venta.setEstado(EstadoVenta.ESPERA);
+        venta = ventaRepository.save(venta);
+        return toResponse(venta, ventaDetalleRepository.findByVentaIdVenta(id));
+    }
+
+    @Override
+    @Transactional
+    public VentaResponse reanudar(Integer id) {
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Venta no encontrada"));
+        if (venta.getEstado() != EstadoVenta.ESPERA) {
+            throw new InvalidEntryException("La venta no está en espera");
+        }
+        venta.setEstado(EstadoVenta.COMPLETADA);
+        venta = ventaRepository.save(venta);
+        return toResponse(venta, ventaDetalleRepository.findByVentaIdVenta(id));
+    }
+
+    @Override
+    public List<VentaResponse> ventasEnEspera(Integer idCaja) {
+        return ventaRepository.findByCajaIdCajaAndEstadoOrderByFechaDesc(idCaja, EstadoVenta.ESPERA)
+                .stream().map(v -> toResponse(v, ventaDetalleRepository.findByVentaIdVenta(v.getIdVenta())))
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public VentaResponse ventaRapida(Integer idCaja, String descripcion, Double precioCompra,
+                                      Double precioVenta, Integer cantidad, Integer idCliente) {
+        Caja caja = cajaRepository.findById(idCaja)
+                .orElseThrow(() -> new NotFoundException("Caja no encontrada"));
+        if (caja.getEstado() != CajaEstado.ABIERTA) {
+            throw new InvalidEntryException("La caja debe estar abierta");
+        }
+
+        Persona usuario = obtenerPersonaActual();
+        Cliente cliente = idCliente != null
+                ? clienteRepository.findById(idCliente).orElse(null) : null;
+
+        Double subtotal = precioVenta * cantidad;
+
+        Venta venta = Venta.builder()
+                .caja(caja)
+                .cliente(cliente)
+                .usuario(usuario)
+                .tipoVenta(TipoVenta.CONTADO)
+                .precioSeleccionado(1)
+                .subtotal(subtotal)
+                .descuento(0.0)
+                .total(subtotal)
+                .estado(EstadoVenta.COMPLETADA)
+                .fecha(LocalDateTime.now())
+                .build();
+        venta = ventaRepository.save(venta);
+
+        VentaDetalle detalle = VentaDetalle.builder()
+                .venta(venta)
+                .descripcion(descripcion)
+                .cantidad(cantidad)
+                .precioUnitario(precioVenta)
+                .subtotal(subtotal)
+                .build();
+        ventaDetalleRepository.save(detalle);
+
+        caja.setSaldoActual(caja.getSaldoActual() + subtotal);
+        cajaRepository.save(caja);
+
+        return toResponse(venta, List.of(detalle));
+    }
+
+    private Persona obtenerPersonaActual() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return personaRepository.findByUsuario(username)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+    }
+
+    private VentaResponse toResponse(Venta v, List<VentaDetalle> detalles) {
+        List<VentaDetalleResponse> detalleResponses = detalles.stream()
+                .map(d -> new VentaDetalleResponse(
+                        d.getIdVentaDetalle(),
+                        d.getProducto() != null ? d.getProducto().getIdProducto() : null,
+                        d.getProducto() != null ? d.getProducto().getSku() : null,
+                        d.getProducto() != null ? d.getProducto().getNombre() : null,
+                        d.getDescripcion(),
+                        d.getCantidad(), d.getPrecioUnitario(), d.getSubtotal()))
+                .toList();
+
+        return new VentaResponse(
+                v.getIdVenta(), v.getCaja().getIdCaja(),
+                v.getCaja().getNombre(),
+                v.getCliente() != null ? v.getCliente().getIdCliente() : null,
+                v.getCliente() != null ? v.getCliente().getNombre() + " " + v.getCliente().getApellidoPaterno() : null,
+                v.getUsuario().getUsuario(),
+                v.getTipoVenta().name(), v.getPrecioSeleccionado(),
+                v.getSubtotal(), v.getDescuento(), v.getTotal(),
+                v.getEstado().name(), v.getFecha(), detalleResponses);
+    }
+}

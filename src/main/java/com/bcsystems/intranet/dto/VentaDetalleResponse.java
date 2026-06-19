@@ -1,0 +1,12 @@
+package com.bcsystems.intranet.dto;
+
+public record VentaDetalleResponse(
+        Integer idVentaDetalle,
+        Integer idProducto,
+        String productoSku,
+        String productoNombre,
+        String descripcion,
+        Integer cantidad,
+        Double precioUnitario,
+        Double subtotal
+) {}
