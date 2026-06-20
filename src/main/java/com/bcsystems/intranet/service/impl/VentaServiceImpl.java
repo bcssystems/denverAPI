@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +117,14 @@ public class VentaServiceImpl implements VentaService {
         return ventaRepository.findByCajaIdCajaAndEstadoOrderByFechaDesc(idCaja, EstadoVenta.COMPLETADA)
                 .stream().map(v -> toResponse(v, ventaDetalleRepository.findByVentaIdVenta(v.getIdVenta())))
                 .toList();
+    }
+
+    @Override
+    public Page<VentaResponse> listar(Integer idSucursal, Integer idCaja, String estado,
+                                       LocalDateTime fechaInicio, LocalDateTime fechaFin, Pageable pageable) {
+        EstadoVenta estadoEnum = estado != null ? EstadoVenta.valueOf(estado) : null;
+        return ventaRepository.listarConFiltros(idSucursal, idCaja, estadoEnum, fechaInicio, fechaFin, pageable)
+                .map(v -> toResponse(v, ventaDetalleRepository.findByVentaIdVenta(v.getIdVenta())));
     }
 
     @Override
@@ -247,6 +257,8 @@ public class VentaServiceImpl implements VentaService {
         return new VentaResponse(
                 v.getIdVenta(), v.getCaja().getIdCaja(),
                 v.getCaja().getNombre(),
+                v.getCaja().getSucursal().getIdSucursal(),
+                v.getCaja().getSucursal().getNombre(),
                 v.getCliente() != null ? v.getCliente().getIdCliente() : null,
                 v.getCliente() != null ? v.getCliente().getNombre() + " " + v.getCliente().getApellidoPaterno() : null,
                 v.getUsuario().getUsuario(),

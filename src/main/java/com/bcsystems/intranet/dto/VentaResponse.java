@@ -7,6 +7,8 @@ public record VentaResponse(
         Integer idVenta,
         Integer idCaja,
         String cajaNombre,
+        Integer idSucursal,
+        String sucursalNombre,
         Integer idCliente,
         String clienteNombre,
         String usuario,

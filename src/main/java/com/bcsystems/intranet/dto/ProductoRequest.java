@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record ProductoRequest(
+    @NotBlank String sku,
     @NotBlank String nombre,
     String descripcion,
     Double precio1,
@@ -13,6 +14,11 @@ public record ProductoRequest(
     @NotNull Integer stockActual,
     Integer stockMinimo,
     Integer stockMaximo,
+    String material,
+    String numeroMolde,
+    String talla,
+    String accesorio1,
+    String accesorio2,
     Boolean activo,
     Integer idSucursal
 ) {}

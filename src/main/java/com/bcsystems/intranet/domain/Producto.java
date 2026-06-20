@@ -43,6 +43,21 @@ public class Producto {
     private Integer stockMinimo;
     private Integer stockMaximo;
 
+    @Column(length = 100)
+    private String material;
+
+    @Column(name = "numero_molde", length = 50)
+    private String numeroMolde;
+
+    @Column(length = 20)
+    private String talla;
+
+    @Column(name = "accesorio_1", length = 100)
+    private String accesorio1;
+
+    @Column(name = "accesorio_2", length = 100)
+    private String accesorio2;
+
     @Column(nullable = false)
     private Boolean activo;
 

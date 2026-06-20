@@ -76,8 +76,12 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional
     @Override
     public ProductoResponse crear(ProductoRequest request) {
+        if (productoRepository.existsBySkuIgnoreCase(request.sku())) {
+            throw new InvalidEntryException("Ya existe un producto con el SKU: " + request.sku());
+        }
+
         Producto producto = Producto.builder()
-                .sku(codigoGenerator.generarSku())
+                .sku(request.sku())
                 .nombre(request.nombre())
                 .descripcion(request.descripcion())
                 .precio1(request.precio1())
@@ -87,6 +91,11 @@ public class ProductoServiceImpl implements ProductoService {
                 .stockActual(request.stockActual() != null ? request.stockActual() : 0)
                 .stockMinimo(request.stockMinimo())
                 .stockMaximo(request.stockMaximo())
+                .material(request.material())
+                .numeroMolde(request.numeroMolde())
+                .talla(request.talla())
+                .accesorio1(request.accesorio1())
+                .accesorio2(request.accesorio2())
                 .activo(request.activo() != null ? request.activo() : true)
                 .build();
 
@@ -143,6 +152,11 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setStockActual(request.stockActual() != null ? request.stockActual() : producto.getStockActual());
         producto.setStockMinimo(request.stockMinimo());
         producto.setStockMaximo(request.stockMaximo());
+        producto.setMaterial(request.material());
+        producto.setNumeroMolde(request.numeroMolde());
+        producto.setTalla(request.talla());
+        producto.setAccesorio1(request.accesorio1());
+        producto.setAccesorio2(request.accesorio2());
         if (request.activo() != null) producto.setActivo(request.activo());
 
         producto = productoRepository.save(producto);
@@ -433,6 +447,8 @@ public class ProductoServiceImpl implements ProductoService {
                 p.getIdProducto(), p.getSku(), p.getNombre(), p.getDescripcion(),
                 p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
                 p.getStockActual(), p.getStockMinimo(), p.getStockMaximo(),
+                p.getMaterial(), p.getNumeroMolde(), p.getTalla(),
+                p.getAccesorio1(), p.getAccesorio2(),
                 p.getActivo(), p.getFechaCreacion(), p.getFechaActualizacion(),
                 multimedia, inventario);
     }
