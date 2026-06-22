@@ -221,6 +221,7 @@ public class CajaServiceImpl implements CajaService {
         double saldoInicial = caja.getSaldoActual() - totalIngresos + totalEgresos - totalContado;
         double saldoEsperado = saldoInicial + totalVentas + totalIngresos - totalEgresos;
         return new CorteResponse(null, id, caja.getNombre(),
+                caja.getSucursal().getIdSucursal(), caja.getSucursal().getNombre(),
                 saldoInicial,
                 totalVentas, totalContado, totalCredito,
                 totalIngresos, totalEgresos, caja.getSaldoActual(),
@@ -261,6 +262,7 @@ public class CajaServiceImpl implements CajaService {
 
         return new CorteResponse(
                 corte.getIdCorte(), id, caja.getNombre(),
+                caja.getSucursal().getIdSucursal(), caja.getSucursal().getNombre(),
                 preview.saldoInicial(), preview.totalVentas(),
                 preview.totalVentasContado(), preview.totalVentasCredito(),
                 preview.totalIngresos(), preview.totalEgresos(),

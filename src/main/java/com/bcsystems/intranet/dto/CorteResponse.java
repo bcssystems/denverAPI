@@ -6,6 +6,8 @@ public record CorteResponse(
         Integer idCorte,
         Integer idCaja,
         String cajaNombre,
+        Integer idSucursal,
+        String sucursalNombre,
         Double saldoInicial,
         Double totalVentas,
         Double totalVentasContado,

@@ -31,6 +31,8 @@ public class VentaServiceImpl implements VentaService {
     private final InventarioSucursalRepository inventarioSucursalRepository;
     private final PersonaRepository personaRepository;
     private final AuditoriaService auditoriaService;
+    private final VentaPagoRepository ventaPagoRepository;
+    private final TipoPagoRepository tipoPagoRepository;
 
     @Override
     @Transactional
@@ -54,6 +56,7 @@ public class VentaServiceImpl implements VentaService {
                 .subtotal(request.subtotal())
                 .descuento(request.descuento())
                 .total(request.total())
+                .nota(request.nota())
                 .estado(EstadoVenta.COMPLETADA)
                 .fecha(LocalDateTime.now())
                 .build();
@@ -92,6 +95,25 @@ public class VentaServiceImpl implements VentaService {
                         inventarioSucursalRepository.save(inv);
                     }
                 }
+            }
+        }
+
+        if (request.pagos() != null && !request.pagos().isEmpty()) {
+            double sumaPagos = request.pagos().stream().mapToDouble(VentaPagoRequest::monto).sum();
+            if (sumaPagos + 0.01 < request.total()) {
+                throw new InvalidEntryException("La suma de los pagos ($" + String.format("%.2f", sumaPagos)
+                        + ") es menor al total de la venta ($" + String.format("%.2f", request.total()) + ")");
+            }
+            for (VentaPagoRequest pagoReq : request.pagos()) {
+                TipoPago tipoPago = tipoPagoRepository.findById(pagoReq.idTipoPago())
+                        .orElseThrow(() -> new NotFoundException("Tipo de pago no encontrado"));
+                VentaPago pago = VentaPago.builder()
+                        .venta(venta)
+                        .tipoPago(tipoPago)
+                        .monto(pagoReq.monto())
+                        .referencia(pagoReq.referencia())
+                        .build();
+                ventaPagoRepository.save(pago);
             }
         }
 
@@ -254,6 +276,15 @@ public class VentaServiceImpl implements VentaService {
                         d.getCantidad(), d.getPrecioUnitario(), d.getSubtotal()))
                 .toList();
 
+        List<VentaPagoResponse> pagoResponses = ventaPagoRepository.findByVentaIdVenta(v.getIdVenta())
+                .stream().map(p -> new VentaPagoResponse(
+                        p.getIdVentaPago(),
+                        p.getTipoPago().getIdTipoPago(),
+                        p.getTipoPago().getNombre(),
+                        p.getMonto(),
+                        p.getReferencia()))
+                .toList();
+
         return new VentaResponse(
                 v.getIdVenta(), v.getCaja().getIdCaja(),
                 v.getCaja().getNombre(),
@@ -264,6 +295,6 @@ public class VentaServiceImpl implements VentaService {
                 v.getUsuario().getUsuario(),
                 v.getTipoVenta().name(), v.getPrecioSeleccionado(),
                 v.getSubtotal(), v.getDescuento(), v.getTotal(),
-                v.getEstado().name(), v.getFecha(), detalleResponses);
+                v.getEstado().name(), v.getNota(), v.getFecha(), detalleResponses, pagoResponses);
     }
 }

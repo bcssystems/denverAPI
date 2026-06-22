@@ -18,6 +18,8 @@ public record VentaResponse(
         Double descuento,
         Double total,
         String estado,
+        String nota,
         LocalDateTime fecha,
-        List<VentaDetalleResponse> detalles
+        List<VentaDetalleResponse> detalles,
+        List<VentaPagoResponse> pagos
 ) {}

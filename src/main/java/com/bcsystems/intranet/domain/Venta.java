@@ -54,6 +54,9 @@ public class Venta {
     @Column(nullable = false, length = 10)
     private EstadoVenta estado;
 
+    @Column(length = 500)
+    private String nota;
+
     @Column(updatable = false)
     private LocalDateTime fecha;
 }
