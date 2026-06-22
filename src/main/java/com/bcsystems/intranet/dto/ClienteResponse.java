@@ -15,5 +15,8 @@ public record ClienteResponse(
         String cp,
         String direccion,
         Boolean activo,
-        LocalDateTime fechaRegistro
+        LocalDateTime fechaRegistro,
+        Boolean tieneCredito,
+        Double limiteCredito,
+        Double saldoActual
 ) {}

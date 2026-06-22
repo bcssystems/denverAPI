@@ -12,5 +12,7 @@ public record ClienteRequest(
         String empresa,
         @NotBlank String regimenFiscal,
         String cp,
-        String direccion
+        String direccion,
+        Boolean tieneCredito,
+        Double limiteCredito
 ) {}

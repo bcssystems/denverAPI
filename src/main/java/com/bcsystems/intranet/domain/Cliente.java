@@ -50,6 +50,12 @@ public class Cliente {
     @Column(length = 500)
     private String direccion;
 
+    private Boolean tieneCredito;
+
+    private Double limiteCredito;
+
+    private Double saldoActual;
+
     @Column(nullable = false)
     private Boolean activo;
 

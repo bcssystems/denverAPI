@@ -27,6 +27,9 @@ public class CajaServiceImpl implements CajaService {
     private final VentaRepository ventaRepository;
     private final PersonaRepository personaRepository;
     private final AuditoriaService auditoriaService;
+    private final VentaPagoRepository ventaPagoRepository;
+    private final CorteDetallePagoRepository corteDetallePagoRepository;
+    private final TipoPagoRepository tipoPagoRepository;
 
     @Override
     public List<CajaResponse> listar() {
@@ -220,13 +223,28 @@ public class CajaServiceImpl implements CajaService {
 
         double saldoInicial = caja.getSaldoActual() - totalIngresos + totalEgresos - totalContado;
         double saldoEsperado = saldoInicial + totalVentas + totalIngresos - totalEgresos;
+
+        List<VentaPago> pagosEnRango = ventaPagoRepository.findByCajaAndFechaRange(id, apertura, ahora);
+        List<CorteDetallePagoDto> detallePagos = pagosEnRango.stream()
+                .collect(java.util.stream.Collectors.groupingBy(
+                        vp -> vp.getTipoPago().getIdTipoPago(),
+                        java.util.stream.Collectors.summingDouble(VentaPago::getMonto)))
+                .entrySet().stream()
+                .map(e -> {
+                    TipoPago tp = pagosEnRango.stream()
+                            .filter(vp -> vp.getTipoPago().getIdTipoPago().equals(e.getKey()))
+                            .findFirst().get().getTipoPago();
+                    return new CorteDetallePagoDto(e.getKey(), tp.getNombre(), e.getValue());
+                })
+                .toList();
+
         return new CorteResponse(null, id, caja.getNombre(),
                 caja.getSucursal().getIdSucursal(), caja.getSucursal().getNombre(),
                 saldoInicial,
                 totalVentas, totalContado, totalCredito,
                 totalIngresos, totalEgresos, caja.getSaldoActual(),
                 saldoEsperado,
-                apertura, ahora, obtenerUsuarioActual());
+                apertura, ahora, obtenerUsuarioActual(), detallePagos);
     }
 
     @Override
@@ -257,6 +275,21 @@ public class CajaServiceImpl implements CajaService {
         caja.setFechaCierre(LocalDateTime.now());
         cajaRepository.save(caja);
 
+        if (preview.detallePagos() != null) {
+            for (CorteDetallePagoDto dto : preview.detallePagos()) {
+                TipoPago tp = tipoPagoRepository.findById(dto.idTipoPago())
+                        .orElse(null);
+                if (tp != null) {
+                    CorteDetallePago det = CorteDetallePago.builder()
+                            .corte(corte)
+                            .tipoPago(tp)
+                            .monto(dto.monto())
+                            .build();
+                    corteDetallePagoRepository.save(det);
+                }
+            }
+        }
+
         auditoriaService.registrar("CorteCaja", corte.getIdCorte(), AccionAuditoria.CREACION.name(),
                 usuario, "Corte realizado - Total ventas: $" + preview.totalVentas());
 
@@ -268,7 +301,7 @@ public class CajaServiceImpl implements CajaService {
                 preview.totalIngresos(), preview.totalEgresos(),
                 preview.saldoFinalContado(), preview.saldoEsperado(),
                 preview.fechaApertura(),
-                corte.getFechaCierre(), usuario);
+                corte.getFechaCierre(), usuario, preview.detallePagos());
     }
 
     private Caja buscarOExcepcion(Integer id) {

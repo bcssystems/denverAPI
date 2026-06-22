@@ -34,6 +34,12 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    public Page<ClienteResponse> listarCreditClients(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size, Sort.by("nombre"));
+        return clienteRepository.findCreditClients(pageable).map(this::toResponse);
+    }
+
+    @Override
     public ClienteResponse obtenerPorId(Integer id) {
         return toResponse(buscarOExcepcion(id));
     }
@@ -52,6 +58,9 @@ public class ClienteServiceImpl implements ClienteService {
                 .regimenFiscal(request.regimenFiscal())
                 .cp(request.cp())
                 .direccion(request.direccion())
+                .tieneCredito(request.tieneCredito() != null && request.tieneCredito())
+                .limiteCredito(request.limiteCredito() != null ? request.limiteCredito() : 0)
+                .saldoActual(0.0)
                 .activo(true)
                 .fechaRegistro(LocalDateTime.now())
                 .build();
@@ -73,6 +82,8 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.setRegimenFiscal(request.regimenFiscal());
         cliente.setCp(request.cp());
         cliente.setDireccion(request.direccion());
+        cliente.setTieneCredito(request.tieneCredito() != null && request.tieneCredito());
+        cliente.setLimiteCredito(request.limiteCredito() != null ? request.limiteCredito() : 0);
         cliente = clienteRepository.save(cliente);
         return toResponse(cliente);
     }
@@ -97,6 +108,7 @@ public class ClienteServiceImpl implements ClienteService {
                 c.getTelefono(), c.getCodigoPais(),
                 c.getWhatsapp(), c.getEmpresa(),
                 c.getRegimenFiscal(), c.getCp(), c.getDireccion(),
-                c.getActivo(), c.getFechaRegistro());
+                c.getActivo(), c.getFechaRegistro(),
+                c.getTieneCredito(), c.getLimiteCredito(), c.getSaldoActual());
     }
 }

@@ -4,6 +4,7 @@ public enum TipoMovimiento {
     ENTRADA,
     SALIDA,
     AJUSTE,
+    TRANSFERENCIA,
     CREACION,
     ACTUALIZACION
 }

@@ -14,6 +14,8 @@ public record VentaRequest(
         @NotNull Double descuento,
         @NotNull Double total,
         String nota,
+        Integer plazoMeses,
+        Double porcentajeInteres,
         @NotEmpty List<VentaDetalleRequest> detalles,
         List<VentaPagoRequest> pagos
 ) {}

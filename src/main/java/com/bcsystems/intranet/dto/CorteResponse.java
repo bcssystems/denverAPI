@@ -1,6 +1,7 @@
 package com.bcsystems.intranet.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record CorteResponse(
         Integer idCorte,
@@ -18,5 +19,6 @@ public record CorteResponse(
         Double saldoEsperado,
         LocalDateTime fechaApertura,
         LocalDateTime fechaCierre,
-        String usuario
+        String usuario,
+        List<CorteDetallePagoDto> detallePagos
 ) {}

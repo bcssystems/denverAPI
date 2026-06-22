@@ -73,6 +73,7 @@ public class AuditoriaServiceImpl implements AuditoriaService {
                 case "ENTRADA" -> AccionAuditoria.ENTRADA_STOCK;
                 case "SALIDA" -> AccionAuditoria.SALIDA_STOCK;
                 case "AJUSTE" -> AccionAuditoria.AJUSTE_STOCK;
+                case "TRANSFERENCIA" -> AccionAuditoria.TRANSFERENCIA_STOCK;
                 case "CREAR" -> AccionAuditoria.CREACION;
                 case "ACTUALIZAR" -> AccionAuditoria.ACTUALIZACION;
                 case "ELIMINAR" -> AccionAuditoria.ELIMINACION;

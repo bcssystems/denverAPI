@@ -17,4 +17,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     @Query("SELECT c FROM Cliente c WHERE c.activo = true ORDER BY c.nombre")
     Page<Cliente> findActivos(Pageable pageable);
+
+    @Query("SELECT c FROM Cliente c WHERE c.tieneCredito = true AND c.activo = true ORDER BY c.nombre")
+    Page<Cliente> findCreditClients(Pageable pageable);
 }

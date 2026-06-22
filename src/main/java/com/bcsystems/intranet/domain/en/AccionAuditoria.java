@@ -6,5 +6,6 @@ public enum AccionAuditoria {
     ELIMINACION,
     ENTRADA_STOCK,
     SALIDA_STOCK,
-    AJUSTE_STOCK
+    AJUSTE_STOCK,
+    TRANSFERENCIA_STOCK
 }

@@ -7,6 +7,7 @@ import com.bcsystems.intranet.domain.en.TipoMultimedia;
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
+import com.bcsystems.intranet.dto.TransferenciaRequest;
 import com.bcsystems.intranet.exception.InvalidEntryException;
 import com.bcsystems.intranet.exception.NotFoundException;
 import com.bcsystems.intranet.repository.*;
@@ -446,6 +447,85 @@ public class ProductoServiceImpl implements ProductoService {
                 request.tipoMovimiento() + " de " + cantidad + " unidades" +
                         (sucursal != null ? " en " + sucursal.getNombre() : ""),
                 request.referencia(), cantidad, stockAnteriorGlobal, nuevoStockGlobal);
+
+        return toResponse(producto);
+    }
+
+    @Transactional
+    @Override
+    public ProductoResponse transferirStock(Integer idProducto, TransferenciaRequest request) {
+        Producto producto = buscarOExcepcion(idProducto);
+        Sucursal origen = sucursalRepository.findById(request.idSucursalOrigen())
+                .orElseThrow(() -> new NotFoundException("Sucursal origen no encontrada"));
+        Sucursal destino = sucursalRepository.findById(request.idSucursalDestino())
+                .orElseThrow(() -> new NotFoundException("Sucursal destino no encontrada"));
+
+        if (origen.getIdSucursal().equals(destino.getIdSucursal())) {
+            throw new InvalidEntryException("La sucursal origen y destino deben ser diferentes");
+        }
+
+        int cantidad = request.cantidad();
+
+        InventarioSucursal invOrigen = inventarioSucursalRepository
+                .findByProductoIdProductoAndSucursalIdSucursal(idProducto, request.idSucursalOrigen())
+                .orElseThrow(() -> new InvalidEntryException("Producto sin inventario en sucursal origen"));
+
+        if (invOrigen.getStock() < cantidad) {
+            throw new InvalidEntryException("Stock insuficiente en sucursal origen. Actual: " + invOrigen.getStock() +
+                    ", solicitado: " + cantidad);
+        }
+
+        InventarioSucursal invDestino = inventarioSucursalRepository
+                .findByProductoIdProductoAndSucursalIdSucursal(idProducto, request.idSucursalDestino())
+                .orElse(InventarioSucursal.builder()
+                        .producto(producto)
+                        .sucursal(destino)
+                        .stock(0)
+                        .build());
+
+        int stockOrigenAntes = invOrigen.getStock();
+        int stockDestinoAntes = invDestino.getStock();
+
+        invOrigen.setStock(stockOrigenAntes - cantidad);
+        invDestino.setStock(stockDestinoAntes + cantidad);
+
+        inventarioSucursalRepository.save(invOrigen);
+        inventarioSucursalRepository.save(invDestino);
+
+        String usuario = obtenerUsuarioActual();
+        String referencia = request.referencia();
+        String observacion = request.observacion();
+
+        MovimientoStock movOrigen = MovimientoStock.builder()
+                .producto(producto)
+                .sucursal(origen)
+                .tipoMovimiento(TipoMovimiento.TRANSFERENCIA)
+                .cantidad(cantidad)
+                .stockAnterior(stockOrigenAntes)
+                .stockNuevo(invOrigen.getStock())
+                .referencia(referencia)
+                .usuario(usuario)
+                .observacion(observacion != null ? observacion : "Transferido a " + destino.getNombre())
+                .build();
+        movimientoStockRepository.save(movOrigen);
+
+        MovimientoStock movDestino = MovimientoStock.builder()
+                .producto(producto)
+                .sucursal(destino)
+                .tipoMovimiento(TipoMovimiento.TRANSFERENCIA)
+                .cantidad(cantidad)
+                .stockAnterior(stockDestinoAntes)
+                .stockNuevo(invDestino.getStock())
+                .referencia(referencia)
+                .usuario(usuario)
+                .observacion(observacion != null ? observacion : "Transferido desde " + origen.getNombre())
+                .build();
+        movimientoStockRepository.save(movDestino);
+
+        int stockGlobal = producto.getStockActual();
+        auditoriaService.registrarMovimiento("PRODUCTO", idProducto, TipoMovimiento.TRANSFERENCIA.name(), usuario,
+                "Transferencia de " + cantidad + " unidades de " + origen.getNombre() + " a " + destino.getNombre(),
+                referencia, cantidad, stockGlobal, stockGlobal);
 
         return toResponse(producto);
     }

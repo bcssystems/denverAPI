@@ -3,6 +3,7 @@ package com.bcsystems.intranet.service;
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
+import com.bcsystems.intranet.dto.TransferenciaRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,7 @@ public interface ProductoService {
     ProductoResponse marcarMultimediaPrincipal(Integer idProducto, Integer idMultimedia);
     ProductoResponse actualizarStockSucursal(Integer idProducto, Integer idSucursal, Integer nuevoStock);
     ProductoResponse registrarMovimientoStock(Integer idProducto, MovimientoStockRequest request);
+    ProductoResponse transferirStock(Integer idProducto, TransferenciaRequest request);
     ProductoStats obtenerStats();
 
     record ProductoStats(long total, long activos, long stockGlobal, long stockMinimo) {}

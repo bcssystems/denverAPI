@@ -33,6 +33,8 @@ public class VentaServiceImpl implements VentaService {
     private final AuditoriaService auditoriaService;
     private final VentaPagoRepository ventaPagoRepository;
     private final TipoPagoRepository tipoPagoRepository;
+    private final CreditoRepository creditoRepository;
+    private final MovimientoCreditoRepository movimientoCreditoRepository;
 
     @Override
     @Transactional
@@ -117,8 +119,56 @@ public class VentaServiceImpl implements VentaService {
             }
         }
 
-        caja.setSaldoActual(caja.getSaldoActual() + request.total());
-        cajaRepository.save(caja);
+        if (TipoVenta.CREDITO.name().equals(request.tipoVenta())) {
+            if (cliente == null) {
+                throw new InvalidEntryException("Se requiere un cliente para venta a credito");
+            }
+            if (cliente.getTieneCredito() == null || !cliente.getTieneCredito()) {
+                throw new InvalidEntryException("El cliente no tiene credito habilitado");
+            }
+            double disponible = (cliente.getLimiteCredito() != null ? cliente.getLimiteCredito() : 0)
+                    - (cliente.getSaldoActual() != null ? cliente.getSaldoActual() : 0);
+            if (request.total() > disponible) {
+                throw new InvalidEntryException("El total ($" + String.format("%.2f", request.total())
+                        + ") excede el limite de credito disponible ($" + String.format("%.2f", disponible) + ")");
+            }
+
+            double porcentajeInteres = request.porcentajeInteres() != null ? request.porcentajeInteres() : 0;
+            double montoOriginal = request.total() + (request.total() * porcentajeInteres / 100);
+            int plazoMeses = request.plazoMeses() != null ? request.plazoMeses() : 1;
+
+            Credito credito = Credito.builder()
+                    .venta(venta)
+                    .cliente(cliente)
+                    .montoOriginal(montoOriginal)
+                    .saldoPendiente(montoOriginal)
+                    .plazoMeses(plazoMeses)
+                    .porcentajeInteres(porcentajeInteres)
+                    .fechaVencimiento(LocalDateTime.now().plusMonths(plazoMeses))
+                    .estado(EstadoCredito.ACTIVO)
+                    .fechaCreacion(LocalDateTime.now())
+                    .usuario(usuario)
+                    .build();
+            credito = creditoRepository.save(credito);
+
+            MovimientoCredito mov = MovimientoCredito.builder()
+                    .credito(credito)
+                    .tipo(TipoMovimientoCredito.CARGO)
+                    .monto(montoOriginal)
+                    .saldoAnterior(cliente.getSaldoActual() != null ? cliente.getSaldoActual() : 0)
+                    .saldoNuevo((cliente.getSaldoActual() != null ? cliente.getSaldoActual() : 0) + montoOriginal)
+                    .descripcion("Cargo por venta a credito #" + venta.getIdVenta())
+                    .fecha(LocalDateTime.now())
+                    .usuario(usuario)
+                    .build();
+            movimientoCreditoRepository.save(mov);
+
+            cliente.setSaldoActual((cliente.getSaldoActual() != null ? cliente.getSaldoActual() : 0) + montoOriginal);
+            clienteRepository.save(cliente);
+        } else {
+            caja.setSaldoActual(caja.getSaldoActual() + request.total());
+            cajaRepository.save(caja);
+        }
 
         auditoriaService.registrar("Venta", venta.getIdVenta(), AccionAuditoria.CREACION.name(),
                 usuario.getUsuario(), "Venta $" + request.total() + " - " + caja.getNombre());

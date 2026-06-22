@@ -3,6 +3,7 @@ package com.bcsystems.intranet.controller;
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
+import com.bcsystems.intranet.dto.TransferenciaRequest;
 import com.bcsystems.intranet.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -91,5 +92,11 @@ public class ProductoController {
     public ResponseEntity<ProductoResponse> registrarMovimiento(
             @PathVariable Integer idProducto, @Valid @RequestBody MovimientoStockRequest request) {
         return ResponseEntity.ok(productoService.registrarMovimientoStock(idProducto, request));
+    }
+
+    @PostMapping("/{idProducto}/transferir")
+    public ResponseEntity<ProductoResponse> transferir(
+            @PathVariable Integer idProducto, @Valid @RequestBody TransferenciaRequest request) {
+        return ResponseEntity.ok(productoService.transferirStock(idProducto, request));
     }
 }

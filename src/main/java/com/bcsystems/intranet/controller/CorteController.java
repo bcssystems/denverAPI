@@ -1,8 +1,10 @@
 package com.bcsystems.intranet.controller;
 
 import com.bcsystems.intranet.domain.CorteCaja;
+import com.bcsystems.intranet.dto.CorteDetallePagoDto;
 import com.bcsystems.intranet.dto.CorteResponse;
 import com.bcsystems.intranet.repository.CorteCajaRepository;
+import com.bcsystems.intranet.repository.CorteDetallePagoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,15 +13,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cortes")
 public class CorteController {
 
     private final CorteCajaRepository corteCajaRepository;
+    private final CorteDetallePagoRepository corteDetallePagoRepository;
 
-    public CorteController(CorteCajaRepository corteCajaRepository) {
+    public CorteController(CorteCajaRepository corteCajaRepository,
+                           CorteDetallePagoRepository corteDetallePagoRepository) {
         this.corteCajaRepository = corteCajaRepository;
+        this.corteDetallePagoRepository = corteDetallePagoRepository;
     }
 
     @GetMapping
@@ -41,6 +47,12 @@ public class CorteController {
     }
 
     private CorteResponse toResponse(CorteCaja c) {
+        List<CorteDetallePagoDto> detallePagos = corteDetallePagoRepository.findByCorteIdCorte(c.getIdCorte())
+                .stream().map(d -> new CorteDetallePagoDto(
+                        d.getTipoPago().getIdTipoPago(),
+                        d.getTipoPago().getNombre(),
+                        d.getMonto()))
+                .toList();
         return new CorteResponse(
                 c.getIdCorte(), c.getCaja().getIdCaja(), c.getCaja().getNombre(),
                 c.getCaja().getSucursal().getIdSucursal(), c.getCaja().getSucursal().getNombre(),
@@ -49,6 +61,6 @@ public class CorteController {
                 c.getTotalIngresos(), c.getTotalEgresos(),
                 c.getSaldoFinalContado(), null,
                 c.getFechaApertura(), c.getFechaCierre(),
-                c.getUsuario().getUsuario());
+                c.getUsuario().getUsuario(), detallePagos);
     }
 }
