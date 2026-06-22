@@ -4,5 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record InventarioSucursalRequest(
     @NotNull Integer idSucursal,
-    @NotNull Integer stock
+    @NotNull Integer stock,
+    Integer stockMinimo,
+    Integer stockMaximo
 ) {}

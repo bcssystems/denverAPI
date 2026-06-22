@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Service
 public class KardexServiceImpl implements KardexService {
@@ -55,7 +56,7 @@ public class KardexServiceImpl implements KardexService {
 
     @Override
     public Page<KardexUnificadoResponse> listarTodo(LocalDateTime fechaInicio, LocalDateTime fechaFin,
-                                                     Pageable pageable) {
+                                                     String tipo, Pageable pageable) {
         List<MovimientoStock> movimientos = movimientoStockRepository
                 .buscarMovimientosPorFechas(fechaInicio, fechaFin);
         List<Auditoria> auditorias = auditoriaRepository.buscarPorFechas(fechaInicio, fechaFin);
@@ -93,6 +94,12 @@ public class KardexServiceImpl implements KardexService {
                     a.getStockNuevo(),
                     "AUDITORIA"
             ));
+        }
+
+        if (tipo != null && !tipo.isBlank()) {
+            combined = combined.stream()
+                    .filter(item -> item.tipo().equalsIgnoreCase(tipo))
+                    .collect(Collectors.toList());
         }
 
         combined.sort(Comparator.comparing(KardexUnificadoResponse::fecha).reversed());

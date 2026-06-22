@@ -50,6 +50,8 @@ public class ClienteServiceImpl implements ClienteService {
                 .whatsapp(request.whatsapp())
                 .empresa(request.empresa())
                 .regimenFiscal(request.regimenFiscal())
+                .cp(request.cp())
+                .direccion(request.direccion())
                 .activo(true)
                 .fechaRegistro(LocalDateTime.now())
                 .build();
@@ -69,6 +71,8 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.setWhatsapp(request.whatsapp());
         cliente.setEmpresa(request.empresa());
         cliente.setRegimenFiscal(request.regimenFiscal());
+        cliente.setCp(request.cp());
+        cliente.setDireccion(request.direccion());
         cliente = clienteRepository.save(cliente);
         return toResponse(cliente);
     }
@@ -92,7 +96,7 @@ public class ClienteServiceImpl implements ClienteService {
                 c.getApellidoPaterno(), c.getApellidoMaterno(),
                 c.getTelefono(), c.getCodigoPais(),
                 c.getWhatsapp(), c.getEmpresa(),
-                c.getRegimenFiscal(), c.getActivo(),
-                c.getFechaRegistro());
+                c.getRegimenFiscal(), c.getCp(), c.getDireccion(),
+                c.getActivo(), c.getFechaRegistro());
     }
 }

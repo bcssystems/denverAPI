@@ -34,6 +34,10 @@ public class InventarioSucursal {
     @Column(nullable = false)
     private Integer stock;
 
+    private Integer stockMinimo;
+
+    private Integer stockMaximo;
+
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime fechaActualizacion;

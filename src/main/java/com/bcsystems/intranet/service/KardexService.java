@@ -12,5 +12,5 @@ public interface KardexService {
                                                      LocalDateTime fechaInicio, LocalDateTime fechaFin,
                                                      Pageable pageable);
     Page<KardexUnificadoResponse> listarTodo(LocalDateTime fechaInicio, LocalDateTime fechaFin,
-                                              Pageable pageable);
+                                              String tipo, Pageable pageable);
 }

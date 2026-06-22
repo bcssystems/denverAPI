@@ -1,7 +1,7 @@
 package com.bcsystems.intranet.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.util.List;
 
 public record ProductoRequest(
     @NotBlank String sku,
@@ -11,14 +11,11 @@ public record ProductoRequest(
     Double precio2,
     Double precio3,
     Double precio4,
-    @NotNull Integer stockActual,
-    Integer stockMinimo,
-    Integer stockMaximo,
     String material,
-    String numeroMolde,
+    String tipoMolde,
     String talla,
     String accesorio1,
     String accesorio2,
     Boolean activo,
-    Integer idSucursal
+    List<InventarioSucursalRequest> inventarios
 ) {}

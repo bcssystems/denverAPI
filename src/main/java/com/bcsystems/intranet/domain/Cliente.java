@@ -44,6 +44,12 @@ public class Cliente {
     @Column(nullable = false, length = 50)
     private String regimenFiscal;
 
+    @Column(length = 10)
+    private String cp;
+
+    @Column(length = 500)
+    private String direccion;
+
     @Column(nullable = false)
     private Boolean activo;
 

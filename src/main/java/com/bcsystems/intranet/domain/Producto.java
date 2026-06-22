@@ -46,8 +46,8 @@ public class Producto {
     @Column(length = 100)
     private String material;
 
-    @Column(name = "numero_molde", length = 50)
-    private String numeroMolde;
+    @Column(name = "tipo_molde", length = 50)
+    private String tipoMolde;
 
     @Column(length = 20)
     private String talla;

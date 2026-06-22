@@ -12,6 +12,8 @@ public record ClienteResponse(
         String whatsapp,
         String empresa,
         String regimenFiscal,
+        String cp,
+        String direccion,
         Boolean activo,
         LocalDateTime fechaRegistro
 ) {}

@@ -80,6 +80,17 @@ public class ProductoServiceImpl implements ProductoService {
             throw new InvalidEntryException("Ya existe un producto con el SKU: " + request.sku());
         }
 
+        int stockTotal = 0;
+        int minTotal = 0;
+        int maxTotal = 0;
+        if (request.inventarios() != null) {
+            for (var invReq : request.inventarios()) {
+                stockTotal += invReq.stock() != null ? invReq.stock() : 0;
+                minTotal += invReq.stockMinimo() != null ? invReq.stockMinimo() : 0;
+                maxTotal += invReq.stockMaximo() != null ? invReq.stockMaximo() : 0;
+            }
+        }
+
         Producto producto = Producto.builder()
                 .sku(request.sku())
                 .nombre(request.nombre())
@@ -88,11 +99,11 @@ public class ProductoServiceImpl implements ProductoService {
                 .precio2(request.precio2())
                 .precio3(request.precio3())
                 .precio4(request.precio4())
-                .stockActual(request.stockActual() != null ? request.stockActual() : 0)
-                .stockMinimo(request.stockMinimo())
-                .stockMaximo(request.stockMaximo())
+                .stockActual(stockTotal)
+                .stockMinimo(minTotal)
+                .stockMaximo(maxTotal)
                 .material(request.material())
-                .numeroMolde(request.numeroMolde())
+                .tipoMolde(request.tipoMolde())
                 .talla(request.talla())
                 .accesorio1(request.accesorio1())
                 .accesorio2(request.accesorio2())
@@ -103,33 +114,39 @@ public class ProductoServiceImpl implements ProductoService {
 
         String usuario = obtenerUsuarioActual();
 
-        if (request.idSucursal() != null) {
-            Sucursal sucursal = sucursalRepository.findById(request.idSucursal())
-                    .orElseThrow(() -> new NotFoundException("Sucursal no encontrada"));
+        if (request.inventarios() != null) {
+            for (var invReq : request.inventarios()) {
+                Sucursal sucursal = sucursalRepository.findById(invReq.idSucursal())
+                        .orElseThrow(() -> new NotFoundException("Sucursal no encontrada"));
 
-            InventarioSucursal inventario = InventarioSucursal.builder()
-                    .producto(producto)
-                    .sucursal(sucursal)
-                    .stock(producto.getStockActual())
-                    .build();
-            inventarioSucursalRepository.save(inventario);
+                InventarioSucursal inventario = InventarioSucursal.builder()
+                        .producto(producto)
+                        .sucursal(sucursal)
+                        .stock(invReq.stock() != null ? invReq.stock() : 0)
+                        .stockMinimo(invReq.stockMinimo())
+                        .stockMaximo(invReq.stockMaximo())
+                        .build();
+                inventarioSucursalRepository.save(inventario);
 
-            MovimientoStock movimiento = MovimientoStock.builder()
-                    .producto(producto)
-                    .sucursal(sucursal)
-                    .tipoMovimiento(TipoMovimiento.ENTRADA)
-                    .cantidad(producto.getStockActual())
-                    .stockAnterior(0)
-                    .stockNuevo(producto.getStockActual())
-                    .referencia("Stock inicial")
-                    .usuario(usuario)
-                    .observacion("Stock inicial en sucursal: " + sucursal.getNombre())
-                    .build();
-            movimientoStockRepository.save(movimiento);
+                if (invReq.stock() != null && invReq.stock() > 0) {
+                    MovimientoStock movimiento = MovimientoStock.builder()
+                            .producto(producto)
+                            .sucursal(sucursal)
+                            .tipoMovimiento(TipoMovimiento.ENTRADA)
+                            .cantidad(invReq.stock())
+                            .stockAnterior(0)
+                            .stockNuevo(invReq.stock())
+                            .referencia("Stock inicial")
+                            .usuario(usuario)
+                            .observacion("Stock inicial en sucursal: " + sucursal.getNombre())
+                            .build();
+                    movimientoStockRepository.save(movimiento);
 
-            auditoriaService.registrarMovimiento("PRODUCTO", producto.getIdProducto(), "ENTRADA", usuario,
-                    "Stock inicial de " + producto.getStockActual() + " unidades en " + sucursal.getNombre(),
-                    "Stock inicial", producto.getStockActual(), 0, producto.getStockActual());
+                    auditoriaService.registrarMovimiento("PRODUCTO", producto.getIdProducto(), "ENTRADA", usuario,
+                            "Stock inicial de " + invReq.stock() + " unidades en " + sucursal.getNombre(),
+                            "Stock inicial", invReq.stock(), 0, invReq.stock());
+                }
+            }
         }
 
         auditoriaService.registrar("PRODUCTO", producto.getIdProducto(), AccionAuditoria.CREACION.name(), usuario,
@@ -149,15 +166,39 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setPrecio2(request.precio2());
         producto.setPrecio3(request.precio3());
         producto.setPrecio4(request.precio4());
-        producto.setStockActual(request.stockActual() != null ? request.stockActual() : producto.getStockActual());
-        producto.setStockMinimo(request.stockMinimo());
-        producto.setStockMaximo(request.stockMaximo());
         producto.setMaterial(request.material());
-        producto.setNumeroMolde(request.numeroMolde());
+        producto.setTipoMolde(request.tipoMolde());
         producto.setTalla(request.talla());
         producto.setAccesorio1(request.accesorio1());
         producto.setAccesorio2(request.accesorio2());
         if (request.activo() != null) producto.setActivo(request.activo());
+
+        if (request.inventarios() != null) {
+            int stockTotal = 0;
+            int minTotal = 0;
+            int maxTotal = 0;
+            for (var invReq : request.inventarios()) {
+                stockTotal += invReq.stock() != null ? invReq.stock() : 0;
+                minTotal += invReq.stockMinimo() != null ? invReq.stockMinimo() : 0;
+                maxTotal += invReq.stockMaximo() != null ? invReq.stockMaximo() : 0;
+
+                InventarioSucursal inv = inventarioSucursalRepository
+                        .findByProductoIdProductoAndSucursalIdSucursal(id, invReq.idSucursal())
+                        .orElse(InventarioSucursal.builder()
+                                .producto(producto)
+                                .sucursal(sucursalRepository.findById(invReq.idSucursal())
+                                        .orElseThrow(() -> new NotFoundException("Sucursal no encontrada")))
+                                .stock(0)
+                                .build());
+                inv.setStock(invReq.stock() != null ? invReq.stock() : 0);
+                inv.setStockMinimo(invReq.stockMinimo());
+                inv.setStockMaximo(invReq.stockMaximo());
+                inventarioSucursalRepository.save(inv);
+            }
+            producto.setStockActual(stockTotal);
+            producto.setStockMinimo(minTotal);
+            producto.setStockMaximo(maxTotal);
+        }
 
         producto = productoRepository.save(producto);
 
@@ -440,14 +481,15 @@ public class ProductoServiceImpl implements ProductoService {
         List<ProductoResponse.InventarioSucursalResponse> inventario = p.getInventarioSucursales().stream()
                 .map(i -> new ProductoResponse.InventarioSucursalResponse(
                         i.getId(), i.getSucursal().getIdSucursal(),
-                        i.getSucursal().getNombre(), i.getStock()))
+                        i.getSucursal().getNombre(), i.getStock(),
+                        i.getStockMinimo(), i.getStockMaximo()))
                 .collect(Collectors.toList());
 
         return new ProductoResponse(
                 p.getIdProducto(), p.getSku(), p.getNombre(), p.getDescripcion(),
                 p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
                 p.getStockActual(), p.getStockMinimo(), p.getStockMaximo(),
-                p.getMaterial(), p.getNumeroMolde(), p.getTalla(),
+                p.getMaterial(), p.getTipoMolde(), p.getTalla(),
                 p.getAccesorio1(), p.getAccesorio2(),
                 p.getActivo(), p.getFechaCreacion(), p.getFechaActualizacion(),
                 multimedia, inventario);

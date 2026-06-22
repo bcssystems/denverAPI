@@ -16,7 +16,7 @@ public record ProductoResponse(
     Integer stockMinimo,
     Integer stockMaximo,
     String material,
-    String numeroMolde,
+    String tipoMolde,
     String talla,
     String accesorio1,
     String accesorio2,
@@ -27,5 +27,5 @@ public record ProductoResponse(
     List<InventarioSucursalResponse> inventarioSucursales
 ) {
     public record MultimediaResponse(Integer idMultimedia, String tipo, String url, String nombreArchivo, Boolean esPrincipal) {}
-    public record InventarioSucursalResponse(Integer id, Integer idSucursal, String sucursalNombre, Integer stock) {}
+    public record InventarioSucursalResponse(Integer id, Integer idSucursal, String sucursalNombre, Integer stock, Integer stockMinimo, Integer stockMaximo) {}
 }
