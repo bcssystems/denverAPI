@@ -53,24 +53,50 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         final String jwt = authHeader.substring(7);
-        final String username = jwtService.extractUsername(jwt);
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Persona persona = personaRepository.findByUsuarioIgnoreCase(username).orElse(null);
-            if (persona != null && persona.getActiva()) {
-                var storedToken = tokenRepository.findByToken(jwt).orElse(null);
-                if (storedToken != null && !storedToken.getIsRevoked() && !storedToken.getIsExpired()) {
-                    if (jwtService.isTokenValid(jwt, persona)) {
-                        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities()
-                        );
-                        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(authToken);
-                    }
-                }
-            }
+        final String username;
+        try {
+            username = jwtService.extractUsername(jwt);
+        } catch (Exception e) {
+            writeError(response, HttpServletResponse.SC_UNAUTHORIZED, "invalid_token", "Token is malformed");
+            return;
         }
+
+        if (username == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        Persona persona = personaRepository.findByUsuarioIgnoreCase(username).orElse(null);
+        if (persona == null || !persona.getActiva()) {
+            writeError(response, HttpServletResponse.SC_UNAUTHORIZED, "invalid_token", "User not found for token");
+            return;
+        }
+
+        var storedToken = tokenRepository.findByToken(jwt).orElse(null);
+        if (storedToken == null || storedToken.getIsRevoked() || storedToken.getIsExpired()) {
+            writeError(response, HttpServletResponse.SC_UNAUTHORIZED, "token_invalid", "Token is invalid or revoked");
+            return;
+        }
+
+        if (!jwtService.isTokenValid(jwt, persona)) {
+            writeError(response, HttpServletResponse.SC_UNAUTHORIZED, "token_expired", "Token has expired");
+            return;
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities()
+        );
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+
         filterChain.doFilter(request, response);
+    }
+
+    private void writeError(HttpServletResponse response, int status, String error, String message) throws IOException {
+        response.setStatus(status);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"error\": \"" + error + "\", \"message\": \"" + message + "\"}");
     }
 }
