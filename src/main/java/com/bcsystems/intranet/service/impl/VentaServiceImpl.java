@@ -35,6 +35,7 @@ public class VentaServiceImpl implements VentaService {
     private final TipoPagoRepository tipoPagoRepository;
     private final CreditoRepository creditoRepository;
     private final MovimientoCreditoRepository movimientoCreditoRepository;
+    private final ReservaProductoRepository reservaProductoRepository;
 
     @Override
     @Transactional
@@ -82,6 +83,19 @@ public class VentaServiceImpl implements VentaService {
             if (dto.idProducto() != null && dto.idProducto() > 0) {
                 Producto p = productoRepository.findById(dto.idProducto()).orElse(null);
                 if (p != null) {
+                    ReservaProducto reserva = reservaProductoRepository
+                            .findByCajaIdCajaAndIdProducto(request.idCaja(), dto.idProducto())
+                            .orElseThrow(() -> new InvalidEntryException("El producto " + p.getNombre()
+                                    + " no est\u00e1 reservado para esta caja. Agr\u00e9galo nuevamente al carrito."));
+                    if (reserva.getExpiraEn().isBefore(LocalDateTime.now())) {
+                        throw new InvalidEntryException("La reserva del producto " + p.getNombre()
+                                + " ha expirado. Agr\u00e9galo nuevamente al carrito.");
+                    }
+                    if (reserva.getCantidad() < dto.cantidad()) {
+                        throw new InvalidEntryException("La cantidad reservada de " + p.getNombre()
+                                + " es insuficiente (reservado: " + reserva.getCantidad()
+                                + ", solicitado: " + dto.cantidad() + ")");
+                    }
                     InventarioSucursal inv = inventarioSucursalRepository
                             .findByProductoIdProductoAndSucursalIdSucursal(dto.idProducto(), sucursal.getIdSucursal())
                             .orElse(null);
@@ -169,6 +183,8 @@ public class VentaServiceImpl implements VentaService {
             caja.setSaldoActual(caja.getSaldoActual() + request.total());
             cajaRepository.save(caja);
         }
+
+        reservaProductoRepository.deleteByCajaIdCaja(request.idCaja());
 
         auditoriaService.registrar("Venta", venta.getIdVenta(), AccionAuditoria.CREACION.name(),
                 usuario.getUsuario(), "Venta $" + request.total() + " - " + caja.getNombre());
