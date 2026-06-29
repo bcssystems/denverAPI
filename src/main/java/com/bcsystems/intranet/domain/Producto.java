@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Audited
@@ -37,29 +38,28 @@ public class Producto {
     private Double precio3;
     private Double precio4;
 
+    @Builder.Default
     @Column(nullable = false)
-    private Integer stockActual;
+    private Boolean precioPersonalizado = false;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Integer stockActual = 0;
 
     private Integer stockMinimo;
     private Integer stockMaximo;
 
-    @Column(length = 100)
-    private String material;
-
-    @Column(name = "tipo_molde", length = 50)
-    private String tipoMolde;
-
-    @Column(length = 20)
-    private String talla;
-
-    @Column(name = "accesorio_1", length = 100)
-    private String accesorio1;
-
-    @Column(name = "accesorio_2", length = 100)
-    private String accesorio2;
-
+    @Builder.Default
     @Column(nullable = false)
-    private Boolean activo;
+    private Boolean tieneVariantes = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto_padre")
+    private Producto productoPadre;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Boolean activo = true;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -71,9 +71,13 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
-    private List<ProductoMultimedia> multimedia = new java.util.ArrayList<>();
+    private List<ProductoMultimedia> multimedia = new ArrayList<>();
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
-    private List<InventarioSucursal> inventarioSucursales = new java.util.ArrayList<>();
+    private List<InventarioSucursal> inventarioSucursales = new ArrayList<>();
+
+    @OneToMany(mappedBy = "productoVariante", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<ProductoVarianteAtributo> varianteAtributos = new ArrayList<>();
 }

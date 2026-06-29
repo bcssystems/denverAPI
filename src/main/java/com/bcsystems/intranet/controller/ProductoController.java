@@ -3,6 +3,7 @@ package com.bcsystems.intranet.controller;
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
+import com.bcsystems.intranet.dto.ProductoVentaResponse;
 import com.bcsystems.intranet.dto.TransferenciaRequest;
 import com.bcsystems.intranet.service.ProductoService;
 import jakarta.validation.Valid;
@@ -38,6 +39,14 @@ public class ProductoController {
             @RequestParam(required = false) Integer idSucursal,
             @PageableDefault(size = 10, sort = "idProducto", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(productoService.listar(search, activo, idSucursal, pageable));
+    }
+
+    @GetMapping("/para-venta")
+    public ResponseEntity<Page<ProductoVentaResponse>> listarParaVenta(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Integer idSucursal,
+            @PageableDefault(size = 50, sort = "sku", direction = Sort.Direction.ASC) Pageable pageable) {
+        return ResponseEntity.ok(productoService.listarParaVenta(search, idSucursal, pageable));
     }
 
     @GetMapping("/{id}")

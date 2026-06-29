@@ -1,30 +1,3 @@
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] -----------------------< com.bcsystems:intranet >-----------------------
-[INFO] Building intranet 0.0.1-SNAPSHOT
-[INFO]   from pom.xml
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] >>> spring-boot:4.1.0:run (default-cli) > test-compile @ intranet >>>
-[INFO] 
-[INFO] --- resources:3.5.0:resources (default-resources) @ intranet ---
-[INFO] Copying 1 resource from src\main\resources to target\classes
-[INFO] Copying 0 resource from src\main\resources to target\classes
-[INFO] 
-[INFO] --- compiler:3.15.0:compile (default-compile) @ intranet ---
-[INFO] Nothing to compile - all classes are up to date.
-[INFO] 
-[INFO] --- resources:3.5.0:testResources (default-testResources) @ intranet ---
-[INFO] skip non existing resourceDirectory C:\AppDevelopment\denver\intranetDenver\backend\intranet\src\test\resources
-[INFO] 
-[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ intranet ---
-[INFO] Nothing to compile - all classes are up to date.
-[INFO] 
-[INFO] <<< spring-boot:4.1.0:run (default-cli) < test-compile @ intranet <<<
-[INFO] 
-[INFO] 
-[INFO] --- spring-boot:4.1.0:run (default-cli) @ intranet ---
-[INFO] Attaching agents: []
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -35,23 +8,23 @@
 
  :: Spring Boot ::                (v4.1.0)
 
-2026-06-18T18:19:12.587-06:00  INFO 864 --- [intranet] [           main] c.b.intranet.IntranetApplication         : Starting IntranetApplication using Java 21.0.7 with PID 864 (C:\AppDevelopment\denver\intranetDenver\backend\intranet\target\classes started by Benyi Uriel in C:\AppDevelopment\denver\intranetDenver\backend\intranet)
-2026-06-18T18:19:12.590-06:00  INFO 864 --- [intranet] [           main] c.b.intranet.IntranetApplication         : No active profile set, falling back to 1 default profile: "default"
-2026-06-18T18:19:13.532-06:00  INFO 864 --- [intranet] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-18T18:19:13.669-06:00  INFO 864 --- [intranet] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 126 ms. Found 15 JPA repository interfaces.
-2026-06-18T18:19:14.334-06:00  INFO 864 --- [intranet] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
-2026-06-18T18:19:14.352-06:00  INFO 864 --- [intranet] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-06-18T18:19:14.352-06:00  INFO 864 --- [intranet] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-18T18:19:14.425-06:00  INFO 864 --- [intranet] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1775 ms
-2026-06-18T18:19:14.616-06:00  INFO 864 --- [intranet] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-18T18:19:14.682-06:00  INFO 864 --- [intranet] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-18T18:19:14.976-06:00  INFO 864 --- [intranet] [           main] o.h.e.boot.internal.EnversServiceImpl    : Envers integration enabled? : true
-2026-06-18T18:19:15.195-06:00  INFO 864 --- [intranet] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-18T18:19:15.230-06:00  INFO 864 --- [intranet] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-06-18T18:19:15.579-06:00  INFO 864 --- [intranet] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1174676f
-2026-06-18T18:19:15.581-06:00  INFO 864 --- [intranet] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-06-18T18:19:15.641-06:00  WARN 864 --- [intranet] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-06-18T18:19:15.661-06:00  INFO 864 --- [intranet] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-06-27T09:43:57.576-06:00  INFO 29312 --- [intranet] [           main] c.b.intranet.IntranetApplication         : Starting IntranetApplication using Java 21.0.7 with PID 29312 (C:\AppDevelopment\denver\intranetDenver\backend\intranet\target\classes started by Benyi Uriel in C:\AppDevelopment\denver\intranetDenver\backend\intranet)
+2026-06-27T09:43:57.579-06:00  INFO 29312 --- [intranet] [           main] c.b.intranet.IntranetApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-06-27T09:43:58.611-06:00  INFO 29312 --- [intranet] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27T09:43:58.789-06:00  INFO 29312 --- [intranet] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 169 ms. Found 27 JPA repository interfaces.
+2026-06-27T09:43:59.460-06:00  INFO 29312 --- [intranet] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-27T09:43:59.476-06:00  INFO 29312 --- [intranet] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-27T09:43:59.476-06:00  INFO 29312 --- [intranet] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-27T09:43:59.553-06:00  INFO 29312 --- [intranet] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1913 ms
+2026-06-27T09:43:59.782-06:00  INFO 29312 --- [intranet] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-27T09:43:59.872-06:00  INFO 29312 --- [intranet] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-27T09:44:00.187-06:00  INFO 29312 --- [intranet] [           main] o.h.e.boot.internal.EnversServiceImpl    : Envers integration enabled? : true
+2026-06-27T09:44:00.431-06:00  INFO 29312 --- [intranet] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27T09:44:00.476-06:00  INFO 29312 --- [intranet] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-27T09:44:00.920-06:00  INFO 29312 --- [intranet] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@434d001d
+2026-06-27T09:44:00.924-06:00  INFO 29312 --- [intranet] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-27T09:44:01.034-06:00  WARN 29312 --- [intranet] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-27T09:44:01.067-06:00  INFO 29312 --- [intranet] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:mysql://127.0.0.1:3306/intranet_sombrereria]
 	Database driver: MySQL Connector/J
 	Database dialect: MySQLDialect
@@ -63,56 +36,61 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-06-18T18:19:16.206-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Sucursal
-2026-06-18T18:19:16.208-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.MovimientoCaja
-2026-06-18T18:19:16.210-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Caja
-2026-06-18T18:19:16.210-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.ProductoMultimedia
-2026-06-18T18:19:16.210-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.MovimientoStock
-2026-06-18T18:19:16.210-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Gasto
-2026-06-18T18:19:16.212-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Token
-2026-06-18T18:19:16.212-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Venta
-2026-06-18T18:19:16.212-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Producto
-2026-06-18T18:19:16.213-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Cliente
-2026-06-18T18:19:16.213-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.InventarioSucursal
-2026-06-18T18:19:16.214-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Persona
-2026-06-18T18:19:16.214-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Auditoria
-2026-06-18T18:19:16.214-06:00  INFO 864 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.CorteCaja
-2026-06-18T18:19:17.666-06:00  INFO 864 --- [intranet] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-Hibernate: alter table auditoria modify column accion enum ('ACTUALIZACION','AJUSTE_STOCK','CREACION','ELIMINACION','ENTRADA_STOCK','SALIDA_STOCK') not null
-Hibernate: alter table auditoria_aud modify column accion enum ('ACTUALIZACION','AJUSTE_STOCK','CREACION','ELIMINACION','ENTRADA_STOCK','SALIDA_STOCK')
+2026-06-27T09:44:02.111-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Sucursal
+2026-06-27T09:44:02.112-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.ProductoMultimedia
+2026-06-27T09:44:02.116-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Token
+2026-06-27T09:44:02.117-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Cliente
+2026-06-27T09:44:02.117-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.InventarioSucursal
+2026-06-27T09:44:02.118-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Auditoria
+2026-06-27T09:44:02.118-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.MovimientoCredito
+2026-06-27T09:44:02.118-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.MovimientoCaja
+2026-06-27T09:44:02.118-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Abono
+2026-06-27T09:44:02.119-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Caja
+2026-06-27T09:44:02.119-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.MovimientoStock
+2026-06-27T09:44:02.120-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Gasto
+2026-06-27T09:44:02.120-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Credito
+2026-06-27T09:44:02.120-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Atributo
+2026-06-27T09:44:02.122-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Venta
+2026-06-27T09:44:02.123-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Producto
+2026-06-27T09:44:02.124-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.TipoPago
+2026-06-27T09:44:02.124-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.Persona
+2026-06-27T09:44:02.124-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.ProductoVarianteAtributo
+2026-06-27T09:44:02.124-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.CorteCaja
+2026-06-27T09:44:02.124-06:00  INFO 29312 --- [intranet] [           main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.bcsystems.intranet.domain.AtributoValor
+2026-06-27T09:44:03.773-06:00  INFO 29312 --- [intranet] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: alter table abono modify column tipo enum ('LIQUIDACION','PARCIAL') not null
+Hibernate: alter table abono_aud modify column tipo enum ('LIQUIDACION','PARCIAL')
+Hibernate: alter table auditoria modify column accion enum ('ACTUALIZACION','AJUSTE_STOCK','CREACION','ELIMINACION','ENTRADA_STOCK','SALIDA_STOCK','TRANSFERENCIA_STOCK') not null
+Hibernate: alter table auditoria_aud modify column accion enum ('ACTUALIZACION','AJUSTE_STOCK','CREACION','ELIMINACION','ENTRADA_STOCK','SALIDA_STOCK','TRANSFERENCIA_STOCK')
 Hibernate: alter table caja modify column estado enum ('ABIERTA','CERRADA') not null
 Hibernate: alter table caja_aud modify column estado enum ('ABIERTA','CERRADA')
+Hibernate: alter table credito modify column estado enum ('ACTIVO','CANCELADO','PAGADO','VENCIDO') not null
+Hibernate: alter table credito_aud modify column estado enum ('ACTIVO','CANCELADO','PAGADO','VENCIDO')
 Hibernate: alter table gasto modify column estado enum ('AUTORIZADO','PENDIENTE','RECHAZADO') not null
 Hibernate: alter table gasto_aud modify column estado enum ('AUTORIZADO','PENDIENTE','RECHAZADO')
 Hibernate: alter table movimiento_caja modify column tipo enum ('EGRESO','INGRESO') not null
 Hibernate: alter table movimiento_caja_aud modify column tipo enum ('EGRESO','INGRESO')
-Hibernate: alter table movimiento_stock modify column tipo_movimiento enum ('ACTUALIZACION','AJUSTE','CREACION','ENTRADA','SALIDA') not null
-Hibernate: alter table movimiento_stock_aud modify column tipo_movimiento enum ('ACTUALIZACION','AJUSTE','CREACION','ENTRADA','SALIDA')
+Hibernate: alter table movimiento_credito modify column tipo enum ('ABONO','AJUSTE','CARGO','INTERES','LIQUIDACION') not null
+Hibernate: alter table movimiento_credito_aud modify column tipo enum ('ABONO','AJUSTE','CARGO','INTERES','LIQUIDACION')
+Hibernate: alter table movimiento_stock modify column tipo_movimiento enum ('ACTUALIZACION','AJUSTE','CREACION','ENTRADA','SALIDA','TRANSFERENCIA') not null
+Hibernate: alter table movimiento_stock_aud modify column tipo_movimiento enum ('ACTUALIZACION','AJUSTE','CREACION','ENTRADA','SALIDA','TRANSFERENCIA')
 Hibernate: alter table persona modify column rol enum ('ADMINISTRADOR','AUDITORIAS','SISTEMAS','USUARIO') not null
 Hibernate: alter table persona_aud modify column rol enum ('ADMINISTRADOR','AUDITORIAS','SISTEMAS','USUARIO')
 Hibernate: alter table producto_multimedia modify column tipo enum ('IMAGEN','VIDEO') not null
 Hibernate: alter table producto_multimedia_aud modify column tipo enum ('IMAGEN','VIDEO')
+Hibernate: alter table promocion modify column tipo enum ('COMBO','PROMOCION') not null
 Hibernate: alter table venta modify column tipo_venta enum ('CONTADO','CREDITO') not null
 Hibernate: alter table venta_aud modify column tipo_venta enum ('CONTADO','CREDITO')
-2026-06-18T18:19:18.223-06:00  INFO 864 --- [intranet] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-18T18:19:18.325-06:00  INFO 864 --- [intranet] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-06-18T18:19:19.765-06:00  INFO 864 --- [intranet] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-18T18:19:20.716-06:00  WARN 864 --- [intranet] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-18T18:19:21.330-06:00  INFO 864 --- [intranet] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
-2026-06-18T18:19:21.336-06:00  INFO 864 --- [intranet] [           main] c.b.intranet.IntranetApplication         : Started IntranetApplication in 9.429 seconds (process running for 10.164)
-2026-06-18T18:19:30.492-06:00  INFO 864 --- [intranet] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-18T18:19:30.493-06:00  INFO 864 --- [intranet] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-06-18T18:19:30.496-06:00  INFO 864 --- [intranet] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_persona from persona p1_0 where upper(p1_0.usuario)=upper(?) limit ?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
-Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
-Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
-Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+2026-06-27T09:44:04.288-06:00  INFO 29312 --- [intranet] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27T09:44:04.384-06:00  INFO 29312 --- [intranet] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27T09:44:05.902-06:00  INFO 29312 --- [intranet] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-06-27T09:44:07.165-06:00  WARN 29312 --- [intranet] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-27T09:44:07.861-06:00  INFO 29312 --- [intranet] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-27T09:44:07.870-06:00  INFO 29312 --- [intranet] [           main] c.b.intranet.IntranetApplication         : Started IntranetApplication in 10.868 seconds (process running for 11.4)
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T09:44:10.955-06:00  INFO 29312 --- [intranet] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27T09:44:10.955-06:00  INFO 29312 --- [intranet] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-27T09:44:10.956-06:00  INFO 29312 --- [intranet] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
@@ -122,150 +100,599 @@ Hibernate: insert into revinfo (revtstmp) values (?)
 Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
 Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
+Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
+Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo from producto p1_0 where (? is null or lower(p1_0.nombre) like lower(concat('%',?,'%')) escape '' or lower(p1_0.sku) like lower(concat('%',?,'%')) escape '') and (? is null or p1_0.activo=?) and (? is null or exists(select is1_0.id from inventario_sucursal is1_0 where is1_0.id_producto=p1_0.id_producto and is1_0.id_sucursal=?)) order by p1_0.id_producto desc limit ?
-Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
-Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
 Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
-2026-06-18T18:20:08.435-06:00  WARN 864 --- [intranet] [nio-8080-exec-1] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
+Hibernate: select pva1_0.id,pva1_0.id_atributo,pva1_0.id_producto_variante,pva1_0.id_valor from producto_variante_atributo pva1_0 where pva1_0.id_producto_variante=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
+Hibernate: update inventario_sucursal set fecha_actualizacion=?,id_producto=?,stock=?,stock_maximo=?,stock_minimo=?,id_sucursal=? where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into inventario_sucursal_aud (revtype,fecha_actualizacion,id_producto,stock,stock_maximo,stock_minimo,id_sucursal,rev,id) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
+Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
+Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
+Hibernate: select pva1_0.id,pva1_0.id_atributo,pva1_0.id_producto_variante,pva1_0.id_valor from producto_variante_atributo pva1_0 where pva1_0.id_producto_variante=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where upper(p1_0.sku)=upper(?)
+Hibernate: insert into producto (activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into inventario_sucursal (fecha_actualizacion,id_producto,stock,stock_maximo,stock_minimo,id_sucursal) values (?,?,?,?,?,?)
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into inventario_sucursal_aud (revtype,fecha_actualizacion,id_producto,stock,stock_maximo,stock_minimo,id_sucursal,rev,id) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
+Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
+Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
+Hibernate: select pva1_0.id,pva1_0.id_atributo,pva1_0.id_producto_variante,pva1_0.id_valor from producto_variante_atributo pva1_0 where pva1_0.id_producto_variante=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
+Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
+Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
+Hibernate: select pva1_0.id,pva1_0.id_atributo,pva1_0.id_producto_variante,pva1_0.id_valor from producto_variante_atributo pva1_0 where pva1_0.id_producto_variante=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
+Hibernate: update inventario_sucursal set fecha_actualizacion=?,id_producto=?,stock=?,stock_maximo=?,stock_minimo=?,id_sucursal=? where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into inventario_sucursal_aud (revtype,fecha_actualizacion,id_producto,stock,stock_maximo,stock_minimo,id_sucursal,rev,id) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where (? is null or lower(p1_0.nombre) like lower(concat('%',?,'%')) escape '' or lower(p1_0.sku) like lower(concat('%',?,'%')) escape '') and (? is null or p1_0.activo=?) and (? is null or exists(select is1_0.id from inventario_sucursal is1_0 where is1_0.id_producto=p1_0.id_producto and is1_0.id_sucursal=?)) order by p1_0.id_producto desc limit ?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+2026-06-27T09:44:57.771-06:00  WARN 29312 --- [intranet] [nio-8080-exec-7] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
 	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
 	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
 
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T11:04:26.333-06:00  WARN 29312 --- [intranet] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h1m55s80ms485µs400ns).
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
+Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
+Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where (? is null or lower(p1_0.nombre) like lower(concat('%',?,'%')) escape '' or lower(p1_0.sku) like lower(concat('%',?,'%')) escape '') and (? is null or p1_0.activo=?) and (? is null or exists(select is1_0.id from inventario_sucursal is1_0 where is1_0.id_producto=p1_0.id_producto and is1_0.id_sucursal=?)) order by p1_0.id_producto desc limit ?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.activo=true order by a1_0.nombre
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.activa=true order by s1_0.nombre
+Hibernate: select v1_0.id_atributo,v1_0.id_valor,v1_0.activo,v1_0.codigo_sku,v1_0.valor from atributo_valor v1_0 where v1_0.id_atributo=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select v1_0.id_atributo,v1_0.id_valor,v1_0.activo,v1_0.codigo_sku,v1_0.valor from atributo_valor v1_0 where v1_0.id_atributo=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select count(*) from producto p1_0
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select count(p1_0.id_producto) from producto p1_0 where p1_0.activo=true
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select coalesce(sum(p1_0.stock_actual),0) from producto p1_0
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select coalesce(sum(p1_0.stock_minimo),0) from producto p1_0
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into revinfo (revtstmp) values (?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where (? is null or lower(p1_0.nombre) like lower(concat('%',?,'%')) escape '' or lower(p1_0.sku) like lower(concat('%',?,'%')) escape '') and (? is null or p1_0.activo=?) and (? is null or exists(select is1_0.id from inventario_sucursal is1_0 where is1_0.id_producto=p1_0.id_producto and is1_0.id_sucursal=?)) order by p1_0.id_producto desc limit ?
+Hibernate: select count(*) from producto p1_0
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select count(p1_0.id_producto) from producto p1_0 where p1_0.activo=true
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select coalesce(sum(p1_0.stock_actual),0) from producto p1_0
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select coalesce(sum(p1_0.stock_minimo),0) from producto p1_0
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select ms1_0.id_movimiento,ms1_0.cantidad,ms1_0.fecha_movimiento,ms1_0.observacion,ms1_0.id_producto,ms1_0.referencia,ms1_0.stock_anterior,ms1_0.stock_nuevo,ms1_0.id_sucursal,ms1_0.tipo_movimiento,ms1_0.usuario from movimiento_stock ms1_0 where (? is null or ms1_0.id_producto=?) and (? is null or ms1_0.id_sucursal=?) and (? is null or ms1_0.fecha_movimiento>=?) and (? is null or ms1_0.fecha_movimiento<=?) order by ms1_0.fecha_movimiento desc,ms1_0.fecha_movimiento desc limit ?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.activa=true order by s1_0.nombre
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
-Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
-Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
-Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: insert into cliente (activo,apellido_materno,apellido_paterno,codigo_pais,empresa,fecha_registro,nombre,regimen_fiscal,telefono,whatsapp) values (?,?,?,?,?,?,?,?,?,?)
-Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into cliente_aud (revtype,activo,apellido_materno,apellido_paterno,codigo_pais,empresa,fecha_registro,nombre,regimen_fiscal,telefono,whatsapp,rev,id_cliente) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select c1_0.id_cliente,c1_0.activo,c1_0.apellido_materno,c1_0.apellido_paterno,c1_0.codigo_pais,c1_0.empresa,c1_0.fecha_registro,c1_0.nombre,c1_0.regimen_fiscal,c1_0.telefono,c1_0.whatsapp from cliente c1_0 where c1_0.activo=true order by c1_0.nombre,c1_0.nombre limit ?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.activa=true order by c1_0.nombre
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
 Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.activa=true order by s1_0.nombre
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
 Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
-Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
-Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
-Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select v1_0.id_venta,v1_0.id_caja,v1_0.id_cliente,v1_0.descuento,v1_0.estado,v1_0.fecha,v1_0.precio_seleccionado,v1_0.subtotal,v1_0.tipo_venta,v1_0.total,v1_0.id_usuario from venta v1_0 where v1_0.id_caja=? and v1_0.estado=? order by v1_0.fecha desc
-Hibernate: select vd1_0.id_venta_detalle,vd1_0.cantidad,vd1_0.descripcion,vd1_0.precio_unitario,vd1_0.id_producto,vd1_0.subtotal,vd1_0.id_venta from venta_detalle vd1_0 where vd1_0.id_venta=?
-Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo from producto p1_0 where p1_0.id_producto=?
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.id_caja=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where p1_0.id_persona=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.id_caja=?
-Hibernate: select v1_0.id_venta,v1_0.id_caja,v1_0.id_cliente,v1_0.descuento,v1_0.estado,v1_0.fecha,v1_0.precio_seleccionado,v1_0.subtotal,v1_0.tipo_venta,v1_0.total,v1_0.id_usuario from venta v1_0 where v1_0.id_caja=? and v1_0.fecha between ? and ? order by v1_0.fecha desc
-Hibernate: select mc1_0.id_movimiento_caja,mc1_0.id_caja,mc1_0.fecha,mc1_0.monto,mc1_0.motivo,mc1_0.tipo,mc1_0.id_usuario from movimiento_caja mc1_0 where mc1_0.id_caja=? and mc1_0.fecha between ? and ? order by mc1_0.fecha desc
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.id_caja=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where p1_0.usuario=?
-Hibernate: insert into venta (id_caja,id_cliente,descuento,estado,fecha,precio_seleccionado,subtotal,tipo_venta,total,id_usuario) values (?,?,?,?,?,?,?,?,?,?)
-Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo from producto p1_0 where p1_0.id_producto=?
-Hibernate: insert into venta_detalle (cantidad,descripcion,precio_unitario,id_producto,subtotal,id_venta) values (?,?,?,?,?,?)
 Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
-Hibernate: update caja set activa=?,estado=?,fecha_apertura=?,fecha_cierre=?,nombre=?,saldo_actual=?,id_sucursal=? where id_caja=?
-Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=? where id_producto=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
 Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into venta_aud (revtype,id_caja,id_cliente,descuento,estado,fecha,precio_seleccionado,subtotal,tipo_venta,total,id_usuario,rev,id_venta) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
 Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
-Hibernate: insert into caja_aud (revtype,activa,estado,fecha_apertura,fecha_cierre,nombre,saldo_actual,id_sucursal,rev,id_caja) values (?,?,?,?,?,?,?,?,?,?)
-Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,sku,stock_actual,stock_maximo,stock_minimo,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where (? is null or lower(p1_0.nombre) like lower(concat('%',?,'%')) escape '' or lower(p1_0.sku) like lower(concat('%',?,'%')) escape '') and (? is null or p1_0.activo=?) and (? is null or exists(select is1_0.id from inventario_sucursal is1_0 where is1_0.id_producto=p1_0.id_producto and is1_0.id_sucursal=?)) order by p1_0.id_producto desc limit ?
+Hibernate: select count(*) from producto p1_0
+Hibernate: select count(p1_0.id_producto) from producto p1_0 where p1_0.activo=true
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select coalesce(sum(p1_0.stock_actual),0) from producto p1_0
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select coalesce(sum(p1_0.stock_minimo),0) from producto p1_0
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select g1_0.id_gasto,g1_0.id_autorizador,g1_0.id_caja,g1_0.descripcion,g1_0.estado,g1_0.fecha_autorizacion,g1_0.fecha_creacion,g1_0.monto,g1_0.id_usuario from gasto g1_0 where g1_0.estado=? order by g1_0.fecha_creacion desc
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.activa=true order by s1_0.nombre
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.id_persona=? and t1_0.is_expired=false and t1_0.is_revoked=false
-Hibernate: insert into token (is_expired,is_revoked,id_persona,refresh_token,token,type) values (?,?,?,?,?,?)
-Hibernate: update token set is_expired=?,is_revoked=?,id_persona=?,refresh_token=?,token=?,type=? where id_token=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.activa=true order by s1_0.nombre
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.activa=true order by s1_0.nombre
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
+Hibernate: select pva1_0.id,pva1_0.id_atributo,pva1_0.id_producto_variante,pva1_0.id_valor from producto_variante_atributo pva1_0 where pva1_0.id_producto_variante=?
+Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,precio_personalizado=?,id_producto_padre=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=?,tiene_variantes=? where id_producto=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: select is1_0.id,is1_0.fecha_actualizacion,is1_0.id_producto,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=? and is1_0.id_sucursal=?
+Hibernate: select pva1_0.id,pva1_0.id_atributo,pva1_0.id_producto_variante,pva1_0.id_valor from producto_variante_atributo pva1_0 where pva1_0.id_producto_variante=?
+Hibernate: delete from producto_variante_atributo where id=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where upper(p1_0.sku)=upper(?)
+Hibernate: insert into producto (activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into inventario_sucursal (fecha_actualizacion,id_producto,stock,stock_maximo,stock_minimo,id_sucursal) values (?,?,?,?,?,?)
+Hibernate: insert into movimiento_stock (cantidad,fecha_movimiento,observacion,id_producto,referencia,stock_anterior,stock_nuevo,id_sucursal,tipo_movimiento,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor in (?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into producto_variante_atributo (id_atributo,id_producto_variante,id_valor) values (?,?,?)
+Hibernate: insert into auditoria (accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
 Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
-Hibernate: insert into token_aud (revtype,is_expired,is_revoked,id_persona,refresh_token,token,type,rev,id_token) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,precio_personalizado,id_producto_padre,sku,stock_actual,stock_maximo,stock_minimo,tiene_variantes,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into inventario_sucursal_aud (revtype,fecha_actualizacion,id_producto,stock,stock_maximo,stock_minimo,id_sucursal,rev,id) values (?,?,?,?,?,?,?,?,?)
+Hibernate: insert into movimiento_stock_aud (revtype,cantidad,fecha_movimiento,observacion,id_producto,referencia,stock_anterior,stock_nuevo,id_sucursal,tipo_movimiento,usuario,rev,id_movimiento) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into producto_variante_atributo_aud (revtype,id_atributo,id_producto_variante,id_valor,rev,id) values (?,?,?,?,?,?)
+Hibernate: insert into auditoria_aud (revtype,accion,cantidad,detalle,entidad,entidad_id,fecha,referencia,stock_anterior,stock_nuevo,usuario,rev,id_auditoria) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select v1_0.id_venta,v1_0.id_caja,v1_0.id_cliente,v1_0.descuento,v1_0.estado,v1_0.fecha,v1_0.precio_seleccionado,v1_0.subtotal,v1_0.tipo_venta,v1_0.total,v1_0.id_usuario from venta v1_0 where v1_0.id_caja=? and v1_0.estado=? order by v1_0.fecha desc
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
+Hibernate: select count(*) from producto p1_0
 Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
+Hibernate: select count(p1_0.id_producto) from producto p1_0 where p1_0.activo=true
+Hibernate: select coalesce(sum(p1_0.stock_actual),0) from producto p1_0
 Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select v1_0.id_venta,v1_0.id_caja,v1_0.id_cliente,v1_0.descuento,v1_0.estado,v1_0.fecha,v1_0.precio_seleccionado,v1_0.subtotal,v1_0.tipo_venta,v1_0.total,v1_0.id_usuario from venta v1_0 where v1_0.id_venta=?
-Hibernate: select vd1_0.id_venta_detalle,vd1_0.cantidad,vd1_0.descripcion,vd1_0.precio_unitario,vd1_0.id_producto,vd1_0.subtotal,vd1_0.id_venta from venta_detalle vd1_0 where vd1_0.id_venta=?
-Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo from producto p1_0 where p1_0.id_producto=?
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.id_caja=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where p1_0.id_persona=?
-Hibernate: update venta set id_caja=?,id_cliente=?,descuento=?,estado=?,precio_seleccionado=?,subtotal=?,tipo_venta=?,total=?,id_usuario=? where id_venta=?
-Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into venta_aud (revtype,id_caja,id_cliente,descuento,estado,fecha,precio_seleccionado,subtotal,tipo_venta,total,id_usuario,rev,id_venta) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select v1_0.id_venta,v1_0.id_caja,v1_0.id_cliente,v1_0.descuento,v1_0.estado,v1_0.fecha,v1_0.precio_seleccionado,v1_0.subtotal,v1_0.tipo_venta,v1_0.total,v1_0.id_usuario from venta v1_0 where v1_0.id_caja=? and v1_0.estado=? order by v1_0.fecha desc
-Hibernate: select vd1_0.id_venta_detalle,vd1_0.cantidad,vd1_0.descripcion,vd1_0.precio_unitario,vd1_0.id_producto,vd1_0.subtotal,vd1_0.id_venta from venta_detalle vd1_0 where vd1_0.id_venta=?
-Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo from producto p1_0 where p1_0.id_producto=?
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.id_caja=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where p1_0.id_persona=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select v1_0.id_venta,v1_0.id_caja,v1_0.id_cliente,v1_0.descuento,v1_0.estado,v1_0.fecha,v1_0.precio_seleccionado,v1_0.subtotal,v1_0.tipo_venta,v1_0.total,v1_0.id_usuario from venta v1_0 where v1_0.id_venta=?
-Hibernate: select vd1_0.id_venta_detalle,vd1_0.cantidad,vd1_0.descripcion,vd1_0.precio_unitario,vd1_0.id_producto,vd1_0.subtotal,vd1_0.id_venta from venta_detalle vd1_0 where vd1_0.id_venta=?
-Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo from producto p1_0 where p1_0.id_producto=?
-Hibernate: select c1_0.id_caja,c1_0.activa,c1_0.estado,c1_0.fecha_apertura,c1_0.fecha_cierre,c1_0.nombre,c1_0.saldo_actual,c1_0.id_sucursal from caja c1_0 where c1_0.id_caja=?
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where p1_0.id_persona=?
-Hibernate: update venta set id_caja=?,id_cliente=?,descuento=?,estado=?,precio_seleccionado=?,subtotal=?,tipo_venta=?,total=?,id_usuario=? where id_venta=?
-Hibernate: update producto set activo=?,descripcion=?,fecha_actualizacion=?,nombre=?,precio1=?,precio2=?,precio3=?,precio4=?,sku=?,stock_actual=?,stock_maximo=?,stock_minimo=? where id_producto=?
-Hibernate: update caja set activa=?,estado=?,fecha_apertura=?,fecha_cierre=?,nombre=?,saldo_actual=?,id_sucursal=? where id_caja=?
-Hibernate: insert into revinfo (revtstmp) values (?)
-Hibernate: insert into venta_aud (revtype,id_caja,id_cliente,descuento,estado,fecha,precio_seleccionado,subtotal,tipo_venta,total,id_usuario,rev,id_venta) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
-Hibernate: insert into producto_aud (revtype,activo,descripcion,fecha_actualizacion,fecha_creacion,nombre,precio1,precio2,precio3,precio4,sku,stock_actual,stock_maximo,stock_minimo,rev,id_producto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-Hibernate: insert into caja_aud (revtype,activa,estado,fecha_apertura,fecha_cierre,nombre,saldo_actual,id_sucursal,rev,id_caja) values (?,?,?,?,?,?,?,?,?,?)
-Hibernate: select p1_0.id_persona,p1_0.activa,p1_0.apellido,p1_0.fecha_registro,p1_0.nombre,p1_0.password,p1_0.rol,p1_0.usuario from persona p1_0 where upper(p1_0.usuario)=upper(?)
-Hibernate: select t1_0.id_token,t1_0.is_expired,t1_0.is_revoked,t1_0.id_persona,t1_0.refresh_token,t1_0.token,t1_0.type from token t1_0 where t1_0.token=?
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  09:17 min
-[INFO] Finished at: 2026-06-18T18:28:24-06:00
-[INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.1.0:run (default-cli) on project intranet: Process terminated with exit code: 1 -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+Hibernate: select coalesce(sum(p1_0.stock_minimo),0) from producto p1_0
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where (? is null or lower(p1_0.nombre) like lower(concat('%',?,'%')) escape '' or lower(p1_0.sku) like lower(concat('%',?,'%')) escape '') and (? is null or p1_0.activo=?) and (? is null or exists(select is1_0.id from inventario_sucursal is1_0 where is1_0.id_producto=p1_0.id_producto and is1_0.id_sucursal=?)) order by p1_0.id_producto desc limit ?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select s1_0.id_sucursal,s1_0.activa,s1_0.direccion,s1_0.nombre,s1_0.telefono from sucursal s1_0 where s1_0.id_sucursal=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select a1_0.id_atributo,a1_0.activo,a1_0.nombre from atributo a1_0 where a1_0.id_atributo=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select av1_0.id_valor,av1_0.activo,av1_0.id_atributo,av1_0.codigo_sku,av1_0.valor from atributo_valor av1_0 where av1_0.id_valor=?
+Hibernate: select m1_0.id_producto,m1_0.id_multimedia,m1_0.es_principal,m1_0.fecha_subida,m1_0.nombre_archivo,m1_0.tipo,m1_0.url from producto_multimedia m1_0 where m1_0.id_producto=?
+Hibernate: select is1_0.id_producto,is1_0.id,is1_0.fecha_actualizacion,is1_0.stock,is1_0.stock_maximo,is1_0.stock_minimo,is1_0.id_sucursal from inventario_sucursal is1_0 where is1_0.id_producto=?
+Hibernate: select va1_0.id_producto_variante,va1_0.id,va1_0.id_atributo,va1_0.id_valor from producto_variante_atributo va1_0 where va1_0.id_producto_variante=?
+Hibernate: select p1_0.id_producto,p1_0.activo,p1_0.descripcion,p1_0.fecha_actualizacion,p1_0.fecha_creacion,p1_0.nombre,p1_0.precio1,p1_0.precio2,p1_0.precio3,p1_0.precio4,p1_0.precio_personalizado,p1_0.id_producto_padre,p1_0.sku,p1_0.stock_actual,p1_0.stock_maximo,p1_0.stock_minimo,p1_0.tiene_variantes from producto p1_0 where p1_0.id_producto_padre=?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T11:37:59.449-06:00  WARN 29312 --- [intranet] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=19m2s888ms608µs700ns).
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T12:12:12.116-06:00  WARN 29312 --- [intranet] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m28s935ms22µs).
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T12:30:56.845-06:00  WARN 29312 --- [intranet] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m14s513ms598µs100ns).
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T13:12:39.254-06:00  WARN 29312 --- [intranet] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m11s950ms244µs900ns).
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+2026-06-27T16:19:44.120-06:00  WARN 29312 --- [intranet] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h16m17s491ms420µs700ns).
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?
+Hibernate: select rp1_0.id_reserva,rp1_0.id_caja,rp1_0.cantidad,rp1_0.expira_en,rp1_0.fecha_reserva,rp1_0.id_producto from reserva_producto rp1_0 where rp1_0.expira_en<?

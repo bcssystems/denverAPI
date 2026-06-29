@@ -11,11 +11,22 @@ public record ProductoRequest(
     Double precio2,
     Double precio3,
     Double precio4,
-    String material,
-    String tipoMolde,
-    String talla,
-    String accesorio1,
-    String accesorio2,
     Boolean activo,
+    Boolean tieneVariantes,
+    Integer idProductoPadre,
+    List<VarianteRequest> variantes,
     List<InventarioSucursalRequest> inventarios
-) {}
+) {
+    public record VarianteRequest(
+        Integer idVariante,
+        String sku,
+        String nombre,
+        List<Integer> idAtributoValores,
+        Double precio1,
+        Double precio2,
+        Double precio3,
+        Double precio4,
+        Boolean precioPersonalizado,
+        List<InventarioSucursalRequest> inventarios
+    ) {}
+}

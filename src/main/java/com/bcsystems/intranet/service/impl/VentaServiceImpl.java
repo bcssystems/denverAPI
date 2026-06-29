@@ -110,6 +110,7 @@ public class VentaServiceImpl implements VentaService {
                         inv.setStock(inv.getStock() - dto.cantidad());
                         inventarioSucursalRepository.save(inv);
                     }
+                    actualizarStockPadre(p);
                 }
             }
         }
@@ -233,6 +234,7 @@ public class VentaServiceImpl implements VentaService {
                 Producto p = d.getProducto();
                 p.setStockActual(p.getStockActual() + d.getCantidad());
                 productoRepository.save(p);
+                actualizarStockPadre(p);
                 InventarioSucursal inv = inventarioSucursalRepository
                         .findByProductoIdProductoAndSucursalIdSucursal(p.getIdProducto(), sucursal.getIdSucursal())
                         .orElse(null);
@@ -362,5 +364,17 @@ public class VentaServiceImpl implements VentaService {
                 v.getTipoVenta().name(), v.getPrecioSeleccionado(),
                 v.getSubtotal(), v.getDescuento(), v.getTotal(),
                 v.getEstado().name(), v.getNota(), v.getFecha(), detalleResponses, pagoResponses);
+    }
+
+    private void actualizarStockPadre(Producto variante) {
+        Producto padre = variante.getProductoPadre();
+        if (padre != null) {
+            Integer totalStock = productoRepository.findByProductoPadreIdProducto(padre.getIdProducto())
+                    .stream()
+                    .mapToInt(Producto::getStockActual)
+                    .sum();
+            padre.setStockActual(totalStock);
+            productoRepository.save(padre);
+        }
     }
 }
