@@ -16,6 +16,7 @@ public record ProductoResponse(
     Integer stockActual,
     Integer stockMinimo,
     Integer stockMaximo,
+    Double costoPromedio,
     Boolean tieneVariantes,
     Integer idProductoPadre,
     Boolean activo,

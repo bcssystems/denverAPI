@@ -19,7 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "producto")
 public class Producto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProducto;
@@ -48,6 +47,8 @@ public class Producto {
 
     private Integer stockMinimo;
     private Integer stockMaximo;
+
+    private Double costoPromedio;
 
     @Builder.Default
     @Column(nullable = false)

@@ -834,7 +834,7 @@ public class ProductoServiceImpl implements ProductoService {
         return new ProductoVentaResponse(
                 p.getIdProducto(), p.getSku(), p.getNombre(),
                 p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
-                p.getStockActual(), p.getTieneVariantes(),
+                p.getStockActual(), p.getCostoPromedio(), p.getTieneVariantes(),
                 p.getProductoPadre() != null ? p.getProductoPadre().getIdProducto() : null,
                 p.getActivo(), multimedia, inventario, atributos);
     }
@@ -874,7 +874,7 @@ public class ProductoServiceImpl implements ProductoService {
                 p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
                 p.getPrecioPersonalizado(),
                 p.getStockActual(), p.getStockMinimo(), p.getStockMaximo(),
-                p.getTieneVariantes(),
+                p.getCostoPromedio(), p.getTieneVariantes(),
                 p.getProductoPadre() != null ? p.getProductoPadre().getIdProducto() : null,
                 p.getActivo(), p.getFechaCreacion(), p.getFechaActualizacion(),
                 multimedia, inventario, variantes, atributos);
