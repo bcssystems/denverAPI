@@ -128,6 +128,7 @@ public class ProductoServiceImpl implements ProductoService {
                 .precio2(request.precio2())
                 .precio3(request.precio3())
                 .precio4(request.precio4())
+                .costoPromedio(request.costoPromedio())
                 .precioPersonalizado(false)
                 .stockActual(stockTotal)
                 .stockMinimo(minTotal)
@@ -288,6 +289,11 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponse actualizar(Integer id, ProductoRequest request) {
         String usuario = obtenerUsuarioActual();
 
+        Producto existing = buscarOExcepcion(id);
+        if (existing.getProductoPadre() != null && Boolean.TRUE.equals(request.tieneVariantes())) {
+            throw new InvalidEntryException("Un producto variante no puede tener variantes hijas");
+        }
+
         if (Boolean.TRUE.equals(request.tieneVariantes()) && request.variantes() != null) {
             Producto padre = buscarOExcepcion(id);
 
@@ -338,6 +344,7 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setPrecio2(request.precio2());
         producto.setPrecio3(request.precio3());
         producto.setPrecio4(request.precio4());
+        if (request.costoPromedio() != null) producto.setCostoPromedio(request.costoPromedio());
         if (request.activo() != null) producto.setActivo(request.activo());
 
         if (request.inventarios() != null) {
@@ -418,6 +425,7 @@ public class ProductoServiceImpl implements ProductoService {
         variante.setPrecio3(varReq.precioPersonalizado() != null && varReq.precioPersonalizado() ? varReq.precio3() : padre.getPrecio3());
         variante.setPrecio4(varReq.precioPersonalizado() != null && varReq.precioPersonalizado() ? varReq.precio4() : padre.getPrecio4());
         variante.setPrecioPersonalizado(varReq.precioPersonalizado() != null && varReq.precioPersonalizado());
+        if (varReq.costoPromedio() != null) variante.setCostoPromedio(varReq.costoPromedio());
 
         int stockTotal = 0;
         int minTotal = 0;

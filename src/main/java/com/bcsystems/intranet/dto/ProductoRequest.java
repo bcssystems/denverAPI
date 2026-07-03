@@ -11,6 +11,7 @@ public record ProductoRequest(
     Double precio2,
     Double precio3,
     Double precio4,
+    Double costoPromedio,
     Boolean activo,
     Boolean tieneVariantes,
     Integer idProductoPadre,
@@ -27,6 +28,7 @@ public record ProductoRequest(
         Double precio3,
         Double precio4,
         Boolean precioPersonalizado,
+        Double costoPromedio,
         List<InventarioSucursalRequest> inventarios
     ) {}
 }
