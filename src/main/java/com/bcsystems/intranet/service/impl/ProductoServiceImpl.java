@@ -95,17 +95,27 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional
     @Override
     public ProductoResponse crear(ProductoRequest request) {
-        if (productoRepository.existsBySkuIgnoreCase(request.sku())) {
-            throw new InvalidEntryException("Ya existe un producto con el SKU: " + request.sku());
+        String sku = request.sku();
+        if (sku == null || sku.isBlank()) {
+            sku = codigoGenerator.generarSku();
+        } else if (productoRepository.existsBySkuIgnoreCase(sku)) {
+            throw new InvalidEntryException("Ya existe un producto con el SKU: " + sku);
         }
+
+        ProductoRequest requestConSku = new ProductoRequest(
+                sku, request.nombre(), request.descripcion(),
+                request.precio1(), request.precio2(), request.precio3(), request.precio4(),
+                request.costoPromedio(), request.activo(), request.tieneVariantes(),
+                request.idProductoPadre(), request.variantes(), request.inventarios()
+        );
 
         String usuario = obtenerUsuarioActual();
 
-        if (Boolean.TRUE.equals(request.tieneVariantes())) {
-            return crearProductoConVariantes(request, usuario);
+        if (Boolean.TRUE.equals(requestConSku.tieneVariantes())) {
+            return crearProductoConVariantes(requestConSku, usuario);
         }
 
-        return crearProductoSimple(request, usuario);
+        return crearProductoSimple(requestConSku, usuario);
     }
 
     private ProductoResponse crearProductoSimple(ProductoRequest request, String usuario) {
@@ -154,6 +164,7 @@ public class ProductoServiceImpl implements ProductoService {
                 .precio2(request.precio2())
                 .precio3(request.precio3())
                 .precio4(request.precio4())
+                .costoPromedio(request.costoPromedio())
                 .precioPersonalizado(false)
                 .stockActual(0)
                 .stockMinimo(0)
@@ -303,6 +314,7 @@ public class ProductoServiceImpl implements ProductoService {
             padre.setPrecio2(request.precio2());
             padre.setPrecio3(request.precio3());
             padre.setPrecio4(request.precio4());
+            if (request.costoPromedio() != null) padre.setCostoPromedio(request.costoPromedio());
             if (request.activo() != null) padre.setActivo(request.activo());
 
             List<Producto> existingVariants = productoRepository.findByProductoPadreIdProducto(id);
@@ -375,6 +387,8 @@ public class ProductoServiceImpl implements ProductoService {
         }
 
         producto = productoRepository.save(producto);
+
+        recalcularStockPadre(producto);
 
         auditoriaService.registrar("PRODUCTO", producto.getIdProducto(), AccionAuditoria.ACTUALIZACION.name(), usuario,
                 "Se actualiz\u00f3 el producto: " + producto.getNombre());
@@ -807,8 +821,8 @@ public class ProductoServiceImpl implements ProductoService {
         return auth != null ? auth.getName() : "SISTEMA";
     }
 
-    private void recalcularStockPadre(Producto variante) {
-        Producto padre = variante.getProductoPadre();
+    private void recalcularStockPadre(Producto producto) {
+        Producto padre = producto.getProductoPadre();
         if (padre != null) {
             Integer totalStock = productoRepository.findByProductoPadreIdProducto(padre.getIdProducto())
                     .stream()
@@ -816,6 +830,13 @@ public class ProductoServiceImpl implements ProductoService {
                     .sum();
             padre.setStockActual(totalStock);
             productoRepository.save(padre);
+        } else if (Boolean.TRUE.equals(producto.getTieneVariantes())) {
+            Integer totalStock = productoRepository.findByProductoPadreIdProducto(producto.getIdProducto())
+                    .stream()
+                    .mapToInt(Producto::getStockActual)
+                    .sum();
+            producto.setStockActual(totalStock);
+            productoRepository.save(producto);
         }
     }
 

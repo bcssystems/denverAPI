@@ -6,5 +6,6 @@ public enum TipoMovimiento {
     AJUSTE,
     TRANSFERENCIA,
     CREACION,
-    ACTUALIZACION
+    ACTUALIZACION,
+    RECEPCION_PEDIDO
 }

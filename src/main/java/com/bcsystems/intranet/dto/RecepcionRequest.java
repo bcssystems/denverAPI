@@ -12,6 +12,10 @@ public record RecepcionRequest(
         @NotNull Integer cantidadRecibida,
         Double precioCompraUnitario,
         Double precioVentaSugerido,
-        Double margenPorcentaje
+        Double margenPorcentaje,
+        Double precio1,
+        Double precio2,
+        Double precio3,
+        Double precio4
     ) {}
 }

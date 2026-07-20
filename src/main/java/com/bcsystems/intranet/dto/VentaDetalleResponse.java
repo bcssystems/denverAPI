@@ -8,5 +8,6 @@ public record VentaDetalleResponse(
         String descripcion,
         Integer cantidad,
         Double precioUnitario,
-        Double subtotal
+        Double subtotal,
+        String atributosText
 ) {}

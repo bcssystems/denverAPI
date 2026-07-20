@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 public record ProductoRequest(
-    @NotBlank String sku,
+    String sku,
     @NotBlank String nombre,
     String descripcion,
     Double precio1,

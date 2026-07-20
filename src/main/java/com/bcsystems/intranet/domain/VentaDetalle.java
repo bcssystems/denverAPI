@@ -35,4 +35,7 @@ public class VentaDetalle {
 
     @Column(nullable = false)
     private Double subtotal;
+
+    @Column(columnDefinition = "TEXT")
+    private String atributosText;
 }

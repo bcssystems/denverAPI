@@ -77,6 +77,7 @@ public class VentaServiceImpl implements VentaService {
                     .cantidad(dto.cantidad())
                     .precioUnitario(dto.precioUnitario())
                     .subtotal(dto.subtotal())
+                    .atributosText(dto.atributosText())
                     .build();
             detalles.add(ventaDetalleRepository.save(detalle));
 
@@ -341,7 +342,8 @@ public class VentaServiceImpl implements VentaService {
                         d.getProducto() != null ? d.getProducto().getSku() : null,
                         d.getProducto() != null ? d.getProducto().getNombre() : null,
                         d.getDescripcion(),
-                        d.getCantidad(), d.getPrecioUnitario(), d.getSubtotal()))
+                        d.getCantidad(), d.getPrecioUnitario(), d.getSubtotal(),
+                        d.getAtributosText()))
                 .toList();
 
         List<VentaPagoResponse> pagoResponses = ventaPagoRepository.findByVentaIdVenta(v.getIdVenta())

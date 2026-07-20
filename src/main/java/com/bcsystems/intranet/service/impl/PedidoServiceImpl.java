@@ -32,6 +32,7 @@ public class PedidoServiceImpl implements PedidoService {
     private final PersonaRepository personaRepository;
     private final ProductoRepository productoRepository;
     private final InventarioSucursalRepository inventarioSucursalRepository;
+    private final MovimientoStockRepository movimientoStockRepository;
 
     public PedidoServiceImpl(PedidoRepository pedidoRepository,
                              PedidoDetalleRepository pedidoDetalleRepository,
@@ -39,7 +40,8 @@ public class PedidoServiceImpl implements PedidoService {
                              SucursalRepository sucursalRepository,
                              PersonaRepository personaRepository,
                              ProductoRepository productoRepository,
-                             InventarioSucursalRepository inventarioSucursalRepository) {
+                             InventarioSucursalRepository inventarioSucursalRepository,
+                             MovimientoStockRepository movimientoStockRepository) {
         this.pedidoRepository = pedidoRepository;
         this.pedidoDetalleRepository = pedidoDetalleRepository;
         this.proveedorRepository = proveedorRepository;
@@ -47,6 +49,7 @@ public class PedidoServiceImpl implements PedidoService {
         this.personaRepository = personaRepository;
         this.productoRepository = productoRepository;
         this.inventarioSucursalRepository = inventarioSucursalRepository;
+        this.movimientoStockRepository = movimientoStockRepository;
     }
 
     @Override
@@ -185,10 +188,29 @@ public class PedidoServiceImpl implements PedidoService {
 
                 actualizarStockPadre(producto);
 
-                if (dr.precioVentaSugerido() != null && dr.precioVentaSugerido() > 0) {
+                if (dr.precio1() != null && dr.precio1() > 0) {
+                    producto.setPrecio1(dr.precio1());
+                } else if (dr.precioVentaSugerido() != null && dr.precioVentaSugerido() > 0) {
                     producto.setPrecio1(dr.precioVentaSugerido());
-                    productoRepository.save(producto);
                 }
+                if (dr.precio2() != null && dr.precio2() > 0) producto.setPrecio2(dr.precio2());
+                if (dr.precio3() != null && dr.precio3() > 0) producto.setPrecio3(dr.precio3());
+                if (dr.precio4() != null && dr.precio4() > 0) producto.setPrecio4(dr.precio4());
+                productoRepository.save(producto);
+
+                Persona persona = obtenerPersonaActual();
+                String usuario = persona != null ? persona.getNombre() + " " + (persona.getApellido() != null ? persona.getApellido() : "") : "SISTEMA";
+                MovimientoStock ms = MovimientoStock.builder()
+                        .producto(producto)
+                        .sucursal(pedido.getSucursal())
+                        .tipoMovimiento(TipoMovimiento.RECEPCION_PEDIDO)
+                        .cantidad(recibido)
+                        .stockAnterior(stockAnterior)
+                        .stockNuevo(nuevoStock)
+                        .referencia("Recepción pedido #" + pedido.getFolio())
+                        .usuario(usuario)
+                        .build();
+                movimientoStockRepository.save(ms);
             }
         }
 
