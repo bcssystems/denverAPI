@@ -1,11 +1,18 @@
 package com.bcsystems.intranet.controller;
 
+import com.bcsystems.intranet.domain.CarritoItemRapido;
+import com.bcsystems.intranet.domain.Caja;
+import com.bcsystems.intranet.dto.CarritoItemRapidoRequest;
+import com.bcsystems.intranet.dto.CarritoItemRapidoResponse;
 import com.bcsystems.intranet.dto.ReservaProductoResponse;
+import com.bcsystems.intranet.repository.CarritoItemRapidoRepository;
+import com.bcsystems.intranet.repository.CajaRepository;
 import com.bcsystems.intranet.service.ReservaProductoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +21,15 @@ import java.util.Map;
 public class CarritoController {
 
     private final ReservaProductoService reservaProductoService;
+    private final CarritoItemRapidoRepository carritoRapidoRepository;
+    private final CajaRepository cajaRepository;
 
-    public CarritoController(ReservaProductoService reservaProductoService) {
+    public CarritoController(ReservaProductoService reservaProductoService,
+                             CarritoItemRapidoRepository carritoRapidoRepository,
+                             CajaRepository cajaRepository) {
         this.reservaProductoService = reservaProductoService;
+        this.carritoRapidoRepository = carritoRapidoRepository;
+        this.cajaRepository = cajaRepository;
     }
 
     @PostMapping("/agregar")
@@ -57,5 +70,69 @@ public class CarritoController {
             @PathVariable Integer idSucursal) {
         return ResponseEntity.ok(
                 reservaProductoService.obtenerReservasPorSucursal(idSucursal));
+    }
+
+    @GetMapping("/rapidos/{idCaja}")
+    public ResponseEntity<List<CarritoItemRapidoResponse>> listarRapidos(
+            @PathVariable Integer idCaja) {
+        List<CarritoItemRapidoResponse> items = carritoRapidoRepository.findByCajaIdCaja(idCaja)
+                .stream().map(r -> new CarritoItemRapidoResponse(
+                        r.getIdItemRapido(),
+                        r.getCaja().getIdCaja(),
+                        r.getDescripcion(),
+                        r.getPrecioVenta(),
+                        r.getPrecioCompra(),
+                        r.getCantidad()
+                )).toList();
+        return ResponseEntity.ok(items);
+    }
+
+    @PostMapping("/rapidos")
+    public ResponseEntity<CarritoItemRapidoResponse> agregarRapido(
+            @RequestBody CarritoItemRapidoRequest request) {
+        Caja caja = cajaRepository.findById(request.idCaja())
+                .orElseThrow(() -> new RuntimeException("Caja no encontrada"));
+        CarritoItemRapido item = CarritoItemRapido.builder()
+                .caja(caja)
+                .descripcion(request.descripcion())
+                .precioVenta(request.precioVenta())
+                .precioCompra(request.precioCompra())
+                .cantidad(request.cantidad() != null ? request.cantidad() : 1)
+                .fechaAgregado(LocalDateTime.now())
+                .build();
+        item = carritoRapidoRepository.save(item);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CarritoItemRapidoResponse(
+                item.getIdItemRapido(),
+                item.getCaja().getIdCaja(),
+                item.getDescripcion(),
+                item.getPrecioVenta(),
+                item.getPrecioCompra(),
+                item.getCantidad()
+        ));
+    }
+
+    @DeleteMapping("/rapidos/limpiar")
+    public ResponseEntity<Void> limpiarRapidos(@RequestParam Integer idCaja) {
+        carritoRapidoRepository.deleteByCajaIdCajaNative(idCaja);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/rapidos/{id}")
+    public ResponseEntity<Void> actualizarRapido(
+            @PathVariable Integer id,
+            @RequestBody CarritoItemRapidoRequest request) {
+        CarritoItemRapido item = carritoRapidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+        item.setCantidad(request.cantidad());
+        if (request.precioVenta() != null) item.setPrecioVenta(request.precioVenta());
+        if (request.precioCompra() != null) item.setPrecioCompra(request.precioCompra());
+        carritoRapidoRepository.save(item);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/rapidos/{id}")
+    public ResponseEntity<Void> eliminarRapido(@PathVariable Integer id) {
+        carritoRapidoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

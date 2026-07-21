@@ -6,6 +6,7 @@ public record GastoResponse(
         Integer idGasto,
         Integer idCaja,
         String cajaNombre,
+        String sucursalNombre,
         String descripcion,
         Double monto,
         String usuario,

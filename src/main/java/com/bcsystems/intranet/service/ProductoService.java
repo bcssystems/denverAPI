@@ -16,6 +16,7 @@ public interface ProductoService {
     ProductoResponse crear(ProductoRequest request);
     ProductoResponse actualizar(Integer id, ProductoRequest request);
     void eliminar(Integer id);
+    void reactivar(Integer id);
     ProductoResponse agregarMultimedia(Integer idProducto, MultipartFile archivo, Boolean esPrincipal);
     void eliminarMultimedia(Integer idMultimedia);
     ProductoResponse marcarMultimediaPrincipal(Integer idProducto, Integer idMultimedia);
@@ -23,6 +24,7 @@ public interface ProductoService {
     ProductoResponse registrarMovimientoStock(Integer idProducto, MovimientoStockRequest request);
     ProductoResponse transferirStock(Integer idProducto, TransferenciaRequest request);
     ProductoStats obtenerStats();
+    java.util.List<java.util.Map<String, Object>> costoPorSucursal();
 
-    record ProductoStats(long total, long activos, long stockGlobal, long stockMinimo) {}
+    record ProductoStats(long total, long activos, long stockGlobal, long stockMinimo, double costoTotalInventario) {}
 }

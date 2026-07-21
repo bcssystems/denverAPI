@@ -481,12 +481,37 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public void eliminar(Integer id) {
         Producto producto = buscarOExcepcion(id);
+
+        if (producto.getStockActual() != null && producto.getStockActual() > 0) {
+            throw new InvalidEntryException("No se puede desactivar un producto con stock mayor a 0");
+        }
+
+        List<InventarioSucursal> inventarios = inventarioSucursalRepository.findByProductoIdProducto(id);
+        for (InventarioSucursal inv : inventarios) {
+            if (inv.getStock() != null && inv.getStock() > 0) {
+                throw new InvalidEntryException("No se puede desactivar: stock en sucursal " +
+                        (inv.getSucursal() != null ? inv.getSucursal().getNombre() : "") + " es " + inv.getStock());
+            }
+        }
+
         producto.setActivo(false);
         productoRepository.save(producto);
 
         String usuario = obtenerUsuarioActual();
         auditoriaService.registrar("PRODUCTO", id, AccionAuditoria.ELIMINACION.name(), usuario,
                 "Se elimin\u00f3 (desactiv\u00f3) el producto: " + producto.getNombre());
+    }
+
+    @Transactional
+    @Override
+    public void reactivar(Integer id) {
+        Producto producto = buscarOExcepcion(id);
+        producto.setActivo(true);
+        productoRepository.save(producto);
+
+        String usuario = obtenerUsuarioActual();
+        auditoriaService.registrar("PRODUCTO", id, AccionAuditoria.ACTUALIZACION.name(), usuario,
+                "Se reactiv\u00f3 el producto: " + producto.getNombre());
     }
 
     @Transactional
@@ -806,9 +831,24 @@ public class ProductoServiceImpl implements ProductoService {
         long activos = productoRepository.countByActivoTrue();
         Integer stockGlobal = productoRepository.sumStockActual();
         Integer stockMinimo = productoRepository.sumStockMinimo();
+        Double costoTotal = productoRepository.sumCostoTotalInventario();
         return new ProductoStats(total, activos,
                 stockGlobal != null ? stockGlobal : 0,
-                stockMinimo != null ? stockMinimo : 0);
+                stockMinimo != null ? stockMinimo : 0,
+                costoTotal != null ? costoTotal : 0);
+    }
+
+    @Override
+    public List<Map<String, Object>> costoPorSucursal() {
+        List<Object[]> rows = inventarioSucursalRepository.sumCostoPorSucursal();
+        List<Map<String, Object>> result = new java.util.ArrayList<>();
+        for (Object[] row : rows) {
+            Map<String, Object> map = new java.util.HashMap<>();
+            map.put("sucursal", row[0]);
+            map.put("costo", row[1]);
+            result.add(map);
+        }
+        return result;
     }
 
     private Producto buscarOExcepcion(Integer id) {

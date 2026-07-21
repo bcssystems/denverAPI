@@ -9,4 +9,5 @@ import java.util.List;
 public interface GastoRepository extends JpaRepository<Gasto, Integer> {
     List<Gasto> findByCajaIdCajaOrderByFechaCreacionDesc(Integer idCaja);
     List<Gasto> findByEstadoOrderByFechaCreacionDesc(EstadoGasto estado);
+    long countByCajaIdCajaAndEstado(Integer idCaja, EstadoGasto estado);
 }

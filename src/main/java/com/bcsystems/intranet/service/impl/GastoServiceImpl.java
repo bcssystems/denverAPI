@@ -60,6 +60,11 @@ public class GastoServiceImpl implements GastoService {
     }
 
     @Override
+    public long contarPendientesPorCaja(Integer idCaja) {
+        return gastoRepository.countByCajaIdCajaAndEstado(idCaja, EstadoGasto.PENDIENTE);
+    }
+
+    @Override
     @Transactional
     public GastoResponse autorizar(Integer idGasto) {
         Gasto gasto = gastoRepository.findById(idGasto)
@@ -122,7 +127,9 @@ public class GastoServiceImpl implements GastoService {
     private GastoResponse toResponse(Gasto g) {
         return new GastoResponse(
                 g.getIdGasto(), g.getCaja().getIdCaja(),
-                g.getCaja().getNombre(), g.getDescripcion(),
+                g.getCaja().getNombre(),
+                g.getCaja().getSucursal() != null ? g.getCaja().getSucursal().getNombre() : null,
+                g.getDescripcion(),
                 g.getMonto(), g.getUsuario().getUsuario(),
                 g.getAutorizador() != null ? g.getAutorizador().getUsuario() : null,
                 g.getEstado().name(), g.getFechaCreacion(),

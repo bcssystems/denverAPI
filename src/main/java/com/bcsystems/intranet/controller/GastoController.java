@@ -35,6 +35,11 @@ public class GastoController {
         return ResponseEntity.ok(gastoService.listarPorCaja(idCaja));
     }
 
+    @GetMapping("/pendientes/{idCaja}/count")
+    public ResponseEntity<Long> contarPendientesPorCaja(@PathVariable Integer idCaja) {
+        return ResponseEntity.ok(gastoService.contarPendientesPorCaja(idCaja));
+    }
+
     @PostMapping("/{idGasto}/autorizar")
     public ResponseEntity<GastoResponse> autorizar(@PathVariable Integer idGasto) {
         return ResponseEntity.ok(gastoService.autorizar(idGasto));

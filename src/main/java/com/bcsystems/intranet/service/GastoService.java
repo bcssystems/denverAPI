@@ -9,6 +9,7 @@ public interface GastoService {
     GastoResponse solicitar(GastoRequest request);
     List<GastoResponse> pendientes();
     List<GastoResponse> listarPorCaja(Integer idCaja);
+    long contarPendientesPorCaja(Integer idCaja);
     GastoResponse autorizar(Integer idGasto);
     GastoResponse rechazar(Integer idGasto);
 }

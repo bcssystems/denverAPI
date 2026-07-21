@@ -36,6 +36,7 @@ public class VentaServiceImpl implements VentaService {
     private final CreditoRepository creditoRepository;
     private final MovimientoCreditoRepository movimientoCreditoRepository;
     private final ReservaProductoRepository reservaProductoRepository;
+    private final CarritoItemRapidoRepository carritoItemRapidoRepository;
 
     @Override
     @Transactional
@@ -187,6 +188,7 @@ public class VentaServiceImpl implements VentaService {
         }
 
         reservaProductoRepository.deleteByCajaIdCaja(request.idCaja());
+        carritoItemRapidoRepository.deleteByCajaIdCajaNative(request.idCaja());
 
         auditoriaService.registrar("Venta", venta.getIdVenta(), AccionAuditoria.CREACION.name(),
                 usuario.getUsuario(), "Venta $" + request.total() + " - " + caja.getNombre());

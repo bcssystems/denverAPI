@@ -17,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/productos")
 public class ProductoController {
@@ -30,6 +33,11 @@ public class ProductoController {
     @GetMapping("/stats")
     public ResponseEntity<ProductoService.ProductoStats> stats() {
         return ResponseEntity.ok(productoService.obtenerStats());
+    }
+
+    @GetMapping("/stats/costo-por-sucursal")
+    public ResponseEntity<List<Map<String, Object>>> costoPorSucursal() {
+        return ResponseEntity.ok(productoService.costoPorSucursal());
     }
 
     @GetMapping
@@ -68,6 +76,12 @@ public class ProductoController {
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         productoService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/reactivar")
+    public ResponseEntity<Void> reactivar(@PathVariable Integer id) {
+        productoService.reactivar(id);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/{id}/multimedia", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
