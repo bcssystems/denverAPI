@@ -234,9 +234,12 @@ public class CajaServiceImpl implements CajaService {
                     TipoPago tp = pagosEnRango.stream()
                             .filter(vp -> vp.getTipoPago().getIdTipoPago().equals(e.getKey()))
                             .findFirst().get().getTipoPago();
-                    return new CorteDetallePagoDto(e.getKey(), tp.getNombre(), e.getValue());
+                    return new CorteDetallePagoDto(e.getKey(), tp.getNombre(), e.getValue(), null);
                 })
                 .toList();
+
+        double totalReal = 0.0;
+        double diferencia = 0.0;
 
         return new CorteResponse(null, id, caja.getNombre(),
                 caja.getSucursal().getIdSucursal(), caja.getSucursal().getNombre(),
@@ -244,7 +247,8 @@ public class CajaServiceImpl implements CajaService {
                 totalVentas, totalContado, totalCredito,
                 totalIngresos, totalEgresos, caja.getSaldoActual(),
                 saldoEsperado,
-                apertura, ahora, obtenerUsuarioActual(), detallePagos);
+                apertura, ahora, obtenerUsuarioActual(), detallePagos,
+                totalReal, diferencia);
     }
 
     @Override
@@ -301,7 +305,64 @@ public class CajaServiceImpl implements CajaService {
                 preview.totalIngresos(), preview.totalEgresos(),
                 preview.saldoFinalContado(), preview.saldoEsperado(),
                 preview.fechaApertura(),
-                corte.getFechaCierre(), usuario, preview.detallePagos());
+                corte.getFechaCierre(), usuario, preview.detallePagos(),
+                preview.totalReal(), preview.diferencia());
+    }
+
+    @Override
+    @Transactional
+    public CorteResponse actualizarDetallePagos(Integer idCorte,
+                                                  List<CorteDetallePagoUpdateRequest.ItemDetallePago> pagos) {
+        Persona persona = obtenerPersonaActual();
+        if (persona.getRol() != Rol.ADMINISTRADOR && persona.getRol() != Rol.SISTEMAS) {
+            throw new InvalidEntryException("Solo los administradores pueden editar los conteos de un corte");
+        }
+
+        CorteCaja corte = corteCajaRepository.findById(idCorte)
+                .orElseThrow(() -> new NotFoundException("Corte no encontrado con id: " + idCorte));
+
+        List<CorteDetallePago> detalles = corteDetallePagoRepository.findByCorteIdCorte(idCorte);
+
+        for (CorteDetallePagoUpdateRequest.ItemDetallePago item : pagos) {
+            detalles.stream()
+                    .filter(d -> d.getTipoPago().getIdTipoPago().equals(item.idTipoPago()))
+                    .findFirst()
+                    .ifPresent(d -> d.setMontoReal(item.montoReal()));
+        }
+        corteDetallePagoRepository.saveAll(detalles);
+
+        auditoriaService.registrar("CorteCaja", idCorte, AccionAuditoria.ACTUALIZACION.name(),
+                persona.getUsuario(), "Conteos reales actualizados en corte #" + idCorte);
+
+        return toResponseCorte(corte);
+    }
+
+    private CorteResponse toResponseCorte(CorteCaja corte) {
+        List<CorteDetallePago> detalles = corteDetallePagoRepository.findByCorteIdCorte(corte.getIdCorte());
+        List<CorteDetallePagoDto> detallePagos = detalles.stream()
+                .map(d -> new CorteDetallePagoDto(
+                        d.getTipoPago().getIdTipoPago(),
+                        d.getTipoPago().getNombre(),
+                        d.getMonto(),
+                        d.getMontoReal()))
+                .toList();
+        double totalReal = detallePagos.stream()
+                .filter(d -> d.montoReal() != null)
+                .mapToDouble(CorteDetallePagoDto::montoReal)
+                .sum();
+        double sistema = detallePagos.stream().mapToDouble(CorteDetallePagoDto::monto).sum();
+        double diferencia = totalReal > 0 ? totalReal - sistema : 0.0;
+        return new CorteResponse(
+                corte.getIdCorte(), corte.getCaja().getIdCaja(), corte.getCaja().getNombre(),
+                corte.getCaja().getSucursal().getIdSucursal(), corte.getCaja().getSucursal().getNombre(),
+                corte.getSaldoInicial(), corte.getTotalVentas(),
+                corte.getTotalVentasContado(), corte.getTotalVentasCredito(),
+                corte.getTotalIngresos(), corte.getTotalEgresos(),
+                corte.getSaldoFinalContado(), null,
+                corte.getFechaApertura(), corte.getFechaCierre(),
+                corte.getUsuario().getUsuario(), detallePagos,
+                totalReal > 0 ? totalReal : null,
+                totalReal > 0 ? diferencia : null);
     }
 
     private Caja buscarOExcepcion(Integer id) {

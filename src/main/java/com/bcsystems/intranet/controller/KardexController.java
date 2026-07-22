@@ -35,10 +35,11 @@ public class KardexController {
 
     @GetMapping("/todo")
     public ResponseEntity<Page<KardexUnificadoResponse>> listarTodo(
+            @RequestParam(required = false) Integer idSucursal,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaFin,
             @RequestParam(required = false) String tipo,
             @PageableDefault(size = 20, sort = "fecha", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok(kardexService.listarTodo(fechaInicio, fechaFin, tipo, pageable));
+        return ResponseEntity.ok(kardexService.listarTodo(idSucursal, fechaInicio, fechaFin, tipo, pageable));
     }
 }

@@ -17,5 +17,6 @@ public interface VentaService {
     VentaResponse ponerEnEspera(Integer id);
     VentaResponse reanudar(Integer id);
     List<VentaResponse> ventasEnEspera(Integer idCaja);
+    List<VentaResponse> listarPorSucursal(Integer idSucursal);
     VentaResponse ventaRapida(Integer idCaja, String descripcion, Double precioCompra, Double precioVenta, Integer cantidad, Integer idCliente);
 }

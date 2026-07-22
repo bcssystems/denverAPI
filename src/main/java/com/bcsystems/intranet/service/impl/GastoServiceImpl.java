@@ -54,6 +54,12 @@ public class GastoServiceImpl implements GastoService {
     }
 
     @Override
+    public List<GastoResponse> listarTodos() {
+        return gastoRepository.findAllByOrderByFechaCreacionDesc().stream()
+                .map(this::toResponse).toList();
+    }
+
+    @Override
     public List<GastoResponse> listarPorCaja(Integer idCaja) {
         return gastoRepository.findByCajaIdCajaOrderByFechaCreacionDesc(idCaja).stream()
                 .map(this::toResponse).toList();

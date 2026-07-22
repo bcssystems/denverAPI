@@ -19,4 +19,5 @@ public interface CajaService {
     List<MovimientoCajaResponse> movimientos(Integer id);
     CorteResponse previewCorte(Integer id);
     CorteResponse realizarCorte(Integer id);
+    CorteResponse actualizarDetallePagos(Integer idCorte, List<CorteDetallePagoUpdateRequest.ItemDetallePago> pagos);
 }

@@ -11,6 +11,6 @@ public interface KardexService {
     Page<MovimientoStockResponse> listarMovimientos(Integer idProducto, Integer idSucursal,
                                                      LocalDateTime fechaInicio, LocalDateTime fechaFin,
                                                      Pageable pageable);
-    Page<KardexUnificadoResponse> listarTodo(LocalDateTime fechaInicio, LocalDateTime fechaFin,
+    Page<KardexUnificadoResponse> listarTodo(Integer idSucursal, LocalDateTime fechaInicio, LocalDateTime fechaFin,
                                               String tipo, Pageable pageable);
 }

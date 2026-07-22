@@ -2,9 +2,11 @@ package com.bcsystems.intranet.controller;
 
 import com.bcsystems.intranet.domain.CorteCaja;
 import com.bcsystems.intranet.dto.CorteDetallePagoDto;
+import com.bcsystems.intranet.dto.CorteDetallePagoUpdateRequest;
 import com.bcsystems.intranet.dto.CorteResponse;
 import com.bcsystems.intranet.repository.CorteCajaRepository;
 import com.bcsystems.intranet.repository.CorteDetallePagoRepository;
+import com.bcsystems.intranet.service.CajaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,11 +23,14 @@ public class CorteController {
 
     private final CorteCajaRepository corteCajaRepository;
     private final CorteDetallePagoRepository corteDetallePagoRepository;
+    private final CajaService cajaService;
 
     public CorteController(CorteCajaRepository corteCajaRepository,
-                           CorteDetallePagoRepository corteDetallePagoRepository) {
+                           CorteDetallePagoRepository corteDetallePagoRepository,
+                           CajaService cajaService) {
         this.corteCajaRepository = corteCajaRepository;
         this.corteDetallePagoRepository = corteDetallePagoRepository;
+        this.cajaService = cajaService;
     }
 
     @GetMapping
@@ -46,13 +51,27 @@ public class CorteController {
         return ResponseEntity.ok(toResponse(corte));
     }
 
+    @PutMapping("/{id}/detalle-pagos")
+    public ResponseEntity<CorteResponse> actualizarDetallePagos(
+            @PathVariable Integer id,
+            @RequestBody CorteDetallePagoUpdateRequest request) {
+        return ResponseEntity.ok(cajaService.actualizarDetallePagos(id, request.pagos()));
+    }
+
     private CorteResponse toResponse(CorteCaja c) {
         List<CorteDetallePagoDto> detallePagos = corteDetallePagoRepository.findByCorteIdCorte(c.getIdCorte())
                 .stream().map(d -> new CorteDetallePagoDto(
                         d.getTipoPago().getIdTipoPago(),
                         d.getTipoPago().getNombre(),
-                        d.getMonto()))
+                        d.getMonto(),
+                        d.getMontoReal()))
                 .toList();
+        double totalReal = detallePagos.stream()
+                .filter(d -> d.montoReal() != null)
+                .mapToDouble(CorteDetallePagoDto::montoReal)
+                .sum();
+        double sistema = detallePagos.stream().mapToDouble(CorteDetallePagoDto::monto).sum();
+        double diferencia = totalReal > 0 ? totalReal - sistema : 0.0;
         return new CorteResponse(
                 c.getIdCorte(), c.getCaja().getIdCaja(), c.getCaja().getNombre(),
                 c.getCaja().getSucursal().getIdSucursal(), c.getCaja().getSucursal().getNombre(),
@@ -61,6 +80,8 @@ public class CorteController {
                 c.getTotalIngresos(), c.getTotalEgresos(),
                 c.getSaldoFinalContado(), null,
                 c.getFechaApertura(), c.getFechaCierre(),
-                c.getUsuario().getUsuario(), detallePagos);
+                c.getUsuario().getUsuario(), detallePagos,
+                totalReal > 0 ? totalReal : null,
+                totalReal > 0 ? diferencia : null);
     }
 }

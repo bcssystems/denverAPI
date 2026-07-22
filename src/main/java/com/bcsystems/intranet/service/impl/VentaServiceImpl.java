@@ -286,6 +286,14 @@ public class VentaServiceImpl implements VentaService {
     }
 
     @Override
+    public List<VentaResponse> listarPorSucursal(Integer idSucursal) {
+        return ventaRepository.findByCajaSucursalIdSucursalAndEstadoOrderByFechaDesc(idSucursal, EstadoVenta.COMPLETADA)
+                .stream().limit(50)
+                .map(v -> toResponse(v, ventaDetalleRepository.findByVentaIdVenta(v.getIdVenta())))
+                .toList();
+    }
+
+    @Override
     @Transactional
     public VentaResponse ventaRapida(Integer idCaja, String descripcion, Double precioCompra,
                                       Double precioVenta, Integer cantidad, Integer idCliente) {

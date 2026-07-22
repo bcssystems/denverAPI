@@ -30,6 +30,11 @@ public class GastoController {
         return ResponseEntity.ok(gastoService.pendientes());
     }
 
+    @GetMapping("/todos")
+    public ResponseEntity<List<GastoResponse>> listarTodos() {
+        return ResponseEntity.ok(gastoService.listarTodos());
+    }
+
     @GetMapping("/caja/{idCaja}")
     public ResponseEntity<List<GastoResponse>> listarPorCaja(@PathVariable Integer idCaja) {
         return ResponseEntity.ok(gastoService.listarPorCaja(idCaja));

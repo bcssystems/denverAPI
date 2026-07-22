@@ -55,10 +55,10 @@ public class KardexServiceImpl implements KardexService {
     }
 
     @Override
-    public Page<KardexUnificadoResponse> listarTodo(LocalDateTime fechaInicio, LocalDateTime fechaFin,
+    public Page<KardexUnificadoResponse> listarTodo(Integer idSucursal, LocalDateTime fechaInicio, LocalDateTime fechaFin,
                                                      String tipo, Pageable pageable) {
         List<MovimientoStock> movimientos = movimientoStockRepository
-                .buscarMovimientosPorFechas(fechaInicio, fechaFin);
+                .buscarMovimientosPorFechas(idSucursal, fechaInicio, fechaFin);
         List<Auditoria> auditorias = auditoriaRepository.buscarPorFechas(fechaInicio, fechaFin);
 
         AtomicLong counter = new AtomicLong(0);

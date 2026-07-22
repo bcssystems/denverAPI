@@ -26,4 +26,6 @@ public class CorteDetallePago {
 
     @Column(nullable = false)
     private Double monto;
+
+    private Double montoReal;
 }

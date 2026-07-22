@@ -18,6 +18,9 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
     List<Venta> findByCajaIdCajaAndFechaBetweenOrderByFechaDesc(
             Integer idCaja, LocalDateTime inicio, LocalDateTime fin);
 
+    List<Venta> findByCajaSucursalIdSucursalAndEstadoOrderByFechaDesc(
+            Integer idSucursal, EstadoVenta estado);
+
     @Query("""
         SELECT v FROM Venta v
         WHERE (:idSucursal IS NULL OR v.caja.sucursal.idSucursal = :idSucursal)

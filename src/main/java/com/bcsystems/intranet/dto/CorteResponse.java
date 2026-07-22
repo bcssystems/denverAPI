@@ -20,5 +20,7 @@ public record CorteResponse(
         LocalDateTime fechaApertura,
         LocalDateTime fechaCierre,
         String usuario,
-        List<CorteDetallePagoDto> detallePagos
+        List<CorteDetallePagoDto> detallePagos,
+        Double totalReal,
+        Double diferencia
 ) {}

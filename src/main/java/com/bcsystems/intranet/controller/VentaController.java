@@ -51,6 +51,11 @@ public class VentaController {
         return ResponseEntity.ok(ventaService.listarPorCaja(idCaja));
     }
 
+    @GetMapping("/sucursal/{idSucursal}")
+    public ResponseEntity<List<VentaResponse>> listarPorSucursal(@PathVariable Integer idSucursal) {
+        return ResponseEntity.ok(ventaService.listarPorSucursal(idSucursal));
+    }
+
     @PostMapping("/{id}/cancelar")
     public ResponseEntity<VentaResponse> cancelar(@PathVariable Integer id) {
         return ResponseEntity.ok(ventaService.cancelar(id));

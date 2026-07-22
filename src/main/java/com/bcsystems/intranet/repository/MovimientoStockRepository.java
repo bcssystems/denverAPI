@@ -26,9 +26,11 @@ public interface MovimientoStockRepository extends JpaRepository<MovimientoStock
                                             Pageable pageable);
 
     @Query("SELECT m FROM MovimientoStock m WHERE " +
+           "(:idSucursal IS NULL OR m.sucursal.idSucursal = :idSucursal) AND " +
            "(:fechaInicio IS NULL OR m.fechaMovimiento >= :fechaInicio) AND " +
            "(:fechaFin IS NULL OR m.fechaMovimiento <= :fechaFin) " +
            "ORDER BY m.fechaMovimiento DESC")
-    List<MovimientoStock> buscarMovimientosPorFechas(@Param("fechaInicio") LocalDateTime fechaInicio,
+    List<MovimientoStock> buscarMovimientosPorFechas(@Param("idSucursal") Integer idSucursal,
+                                                      @Param("fechaInicio") LocalDateTime fechaInicio,
                                                       @Param("fechaFin") LocalDateTime fechaFin);
 }
