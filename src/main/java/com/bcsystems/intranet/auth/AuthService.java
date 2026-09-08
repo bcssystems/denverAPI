@@ -1,16 +1,19 @@
 package com.bcsystems.intranet.auth;
 
 import com.bcsystems.intranet.domain.Persona;
+import com.bcsystems.intranet.domain.Rol;
 import com.bcsystems.intranet.domain.Token;
-import com.bcsystems.intranet.domain.en.Rol;
 import com.bcsystems.intranet.exception.InvalidEntryException;
 import com.bcsystems.intranet.repository.PersonaRepository;
+import com.bcsystems.intranet.repository.RolRepository;
 import com.bcsystems.intranet.repository.TokenRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -20,17 +23,20 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final RolRepository rolRepository;
 
     public AuthService(PersonaRepository personaRepository,
                        TokenRepository tokenRepository,
                        PasswordEncoder passwordEncoder,
                        JwtService jwtService,
-                       AuthenticationManager authenticationManager) {
+                       AuthenticationManager authenticationManager,
+                       RolRepository rolRepository) {
         this.personaRepository = personaRepository;
         this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.rolRepository = rolRepository;
     }
 
     @Transactional
@@ -39,12 +45,15 @@ public class AuthService {
             throw new InvalidEntryException("El usuario ya existe");
         }
 
+        Rol rol = rolRepository.findById(request.idRol())
+                .orElseThrow(() -> new InvalidEntryException("Rol no encontrado"));
+
         Persona persona = Persona.builder()
                 .nombre(request.nombre())
                 .apellido(request.apellido())
                 .usuario(request.usuario())
                 .password(passwordEncoder.encode(request.password()))
-                .rol(request.rol())
+                .rol(rol)
                 .activa(true)
                 .build();
 
@@ -129,12 +138,15 @@ public class AuthService {
     }
 
     private AuthResponse buildAuthResponse(Token token, Persona persona) {
+        var permisos = jwtService.extractPermissions(token.getToken());
+
         return new AuthResponse(
                 token.getToken(),
                 token.getRefreshToken(),
                 persona.getUsuario(),
                 persona.getNombre() + " " + persona.getApellido(),
-                persona.getRol().name()
+                persona.getRol().getNombre(),
+                permisos.stream().sorted().collect(Collectors.toList())
         );
     }
 }

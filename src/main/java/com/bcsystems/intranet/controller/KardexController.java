@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class KardexController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('KARDEX_VER')")
     public ResponseEntity<Page<MovimientoStockResponse>> listarMovimientos(
             @RequestParam(required = false) Integer idProducto,
             @RequestParam(required = false) Integer idSucursal,
@@ -34,6 +36,7 @@ public class KardexController {
     }
 
     @GetMapping("/todo")
+    @PreAuthorize("hasAuthority('KARDEX_VER')")
     public ResponseEntity<Page<KardexUnificadoResponse>> listarTodo(
             @RequestParam(required = false) Integer idSucursal,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,

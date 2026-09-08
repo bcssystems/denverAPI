@@ -1,0 +1,36 @@
+package com.bcsystems.intranet.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.envers.Audited;
+
+@Audited
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "permiso")
+public class Permiso {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idPermiso;
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String clave;
+
+    @Column(nullable = false, length = 100)
+    private String nombre;
+
+    @Column(length = 255)
+    private String descripcion;
+
+    @Column(nullable = false, length = 50)
+    private String modulo;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean activo = true;
+}

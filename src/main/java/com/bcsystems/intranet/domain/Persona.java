@@ -1,12 +1,13 @@
 package com.bcsystems.intranet.domain;
 
-import com.bcsystems.intranet.domain.en.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.envers.Audited;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Audited
 @Entity
@@ -28,8 +29,8 @@ public class Persona {
     @Column(nullable = false, length = 100)
     private String apellido;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rol", nullable = false)
     private Rol rol;
 
     @Column(nullable = false)
@@ -44,4 +45,8 @@ public class Persona {
 
     @Column(length = 100)
     private String password;
+
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<PermisoAdicional> permisosAdicionales = new ArrayList<>();
 }

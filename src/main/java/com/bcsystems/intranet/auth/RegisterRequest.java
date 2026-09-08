@@ -1,6 +1,5 @@
 package com.bcsystems.intranet.auth;
 
-import com.bcsystems.intranet.domain.en.Rol;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,5 +8,5 @@ public record RegisterRequest(
         @NotBlank String apellido,
         @NotBlank String usuario,
         @NotBlank String password,
-        @NotNull Rol rol
+        @NotNull Integer idRol
 ) {}
