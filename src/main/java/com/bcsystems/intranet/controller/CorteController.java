@@ -82,10 +82,14 @@ public class CorteController {
                 c.getSaldoInicial(), c.getTotalVentas(),
                 c.getTotalVentasContado(), c.getTotalVentasCredito(),
                 c.getTotalIngresos(), c.getTotalEgresos(),
+                c.getTotalGastos() != null ? c.getTotalGastos() : 0.0,
+                c.getTotalAbonos() != null ? c.getTotalAbonos() : 0.0,
                 c.getSaldoFinalContado(), null,
                 c.getFechaApertura(), c.getFechaCierre(),
                 c.getUsuario().getUsuario(), detallePagos,
+                List.of(),
                 totalReal > 0 ? totalReal : null,
-                totalReal > 0 ? diferencia : null);
+                totalReal > 0 ? diferencia : null,
+                List.of());
     }
 }

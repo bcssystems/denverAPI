@@ -12,5 +12,6 @@ public record MovimientoCreditoResponse(
         Double saldoNuevo,
         String descripcion,
         LocalDateTime fecha,
-        String usuario
+        String usuario,
+        String tipoPago
 ) {}

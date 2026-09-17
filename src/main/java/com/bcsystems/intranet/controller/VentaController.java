@@ -1,5 +1,6 @@
 package com.bcsystems.intranet.controller;
 
+import com.bcsystems.intranet.dto.VentaEsperaRequest;
 import com.bcsystems.intranet.dto.VentaRequest;
 import com.bcsystems.intranet.dto.VentaResponse;
 import com.bcsystems.intranet.service.VentaService;
@@ -72,6 +73,19 @@ public class VentaController {
     @PreAuthorize("hasAuthority('VENTAS_CREAR')")
     public ResponseEntity<VentaResponse> ponerEnEspera(@PathVariable Integer id) {
         return ResponseEntity.ok(ventaService.ponerEnEspera(id));
+    }
+
+    @PutMapping("/{id}/espera")
+    @PreAuthorize("hasAuthority('VENTAS_CREAR')")
+    public ResponseEntity<VentaResponse> actualizarEspera(@PathVariable Integer id,
+                                  @Valid @RequestBody VentaEsperaRequest request) {
+        return ResponseEntity.ok(ventaService.actualizarEspera(id, request));
+    }
+
+    @PostMapping("/{id}/cancelar-espera")
+    @PreAuthorize("hasAuthority('VENTAS_CREAR')")
+    public ResponseEntity<VentaResponse> cancelarEspera(@PathVariable Integer id) {
+        return ResponseEntity.ok(ventaService.cancelarEspera(id));
     }
 
     @PostMapping("/{id}/reanudar")
