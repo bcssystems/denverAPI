@@ -28,15 +28,17 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     @Query("SELECT COALESCE(SUM(COALESCE(p.costoPromedio, 0) * p.stockActual), 0) FROM Producto p WHERE p.activo = true")
     Double sumCostoTotalInventario();
 
-    @Query("SELECT p FROM Producto p WHERE " +
-           "(:search IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%', :search, '%')) " +
+    @Query("SELECT p FROM Producto p WHERE p.productoPadre IS NULL " +
+           "AND (:search IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%', :search, '%')) " +
            "OR LOWER(p.sku) LIKE LOWER(CONCAT('%', :search, '%')) " +
            "OR EXISTS (SELECT pva FROM ProductoVarianteAtributo pva " +
-           "WHERE pva.productoVariante.idProducto = p.idProducto " +
+           "WHERE (pva.productoVariante.idProducto = p.idProducto " +
+           "OR pva.productoVariante.productoPadre.idProducto = p.idProducto) " +
            "AND (LOWER(pva.valor.valor) LIKE LOWER(CONCAT('%', :search, '%')) " +
            "OR LOWER(pva.atributo.nombre) LIKE LOWER(CONCAT('%', :search, '%'))))) " +
            "AND (:activo IS NULL OR p.activo = :activo) " +
-           "AND (:idSucursal IS NULL OR EXISTS (SELECT i FROM InventarioSucursal i WHERE i.producto.idProducto = p.idProducto AND i.sucursal.idSucursal = :idSucursal))")
+           "AND (:idSucursal IS NULL OR EXISTS (SELECT i FROM InventarioSucursal i WHERE i.producto.idProducto = p.idProducto AND i.sucursal.idSucursal = :idSucursal) " +
+           "OR EXISTS (SELECT i2 FROM InventarioSucursal i2 WHERE i2.producto.productoPadre.idProducto = p.idProducto AND i2.sucursal.idSucursal = :idSucursal))")
     Page<Producto> buscarConFiltros(@Param("search") String search,
                                     @Param("activo") Boolean activo,
                                     @Param("idSucursal") Integer idSucursal,

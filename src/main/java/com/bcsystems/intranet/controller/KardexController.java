@@ -29,10 +29,11 @@ public class KardexController {
     public ResponseEntity<Page<MovimientoStockResponse>> listarMovimientos(
             @RequestParam(required = false) Integer idProducto,
             @RequestParam(required = false) Integer idSucursal,
+            @RequestParam(required = false) String tipo,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaFin,
             @PageableDefault(size = 20, sort = "fechaMovimiento", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok(kardexService.listarMovimientos(idProducto, idSucursal, fechaInicio, fechaFin, pageable));
+        return ResponseEntity.ok(kardexService.listarMovimientos(idProducto, idSucursal, tipo, fechaInicio, fechaFin, pageable));
     }
 
     @GetMapping("/todo")

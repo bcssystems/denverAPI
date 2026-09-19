@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 public interface KardexService {
     Page<MovimientoStockResponse> listarMovimientos(Integer idProducto, Integer idSucursal,
+                                                     String tipo,
                                                      LocalDateTime fechaInicio, LocalDateTime fechaFin,
                                                      Pageable pageable);
     Page<KardexUnificadoResponse> listarTodo(Integer idSucursal, LocalDateTime fechaInicio, LocalDateTime fechaFin,
