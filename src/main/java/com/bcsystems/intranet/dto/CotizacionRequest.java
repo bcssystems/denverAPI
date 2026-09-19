@@ -2,7 +2,6 @@ package com.bcsystems.intranet.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,6 +17,7 @@ public record CotizacionRequest(
         String tipoVenta,
         Integer plazoMeses,
         Double porcentajeInteres,
+        String nota,
         @NotEmpty @Valid List<Detalle> detalles
 ) {
     public record Detalle(

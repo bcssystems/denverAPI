@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface CreditoRepository extends JpaRepository<Credito, Integer> {
 
+    boolean existsByFolio(String folio);
+
     List<Credito> findByClienteIdClienteAndEstadoOrderByFechaCreacionDesc(Integer idCliente, EstadoCredito estado);
 
     List<Credito> findByClienteIdClienteOrderByFechaCreacionDesc(Integer idCliente);

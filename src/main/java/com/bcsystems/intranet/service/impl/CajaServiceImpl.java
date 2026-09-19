@@ -30,6 +30,8 @@ public class CajaServiceImpl implements CajaService {
     private final VentaPagoRepository ventaPagoRepository;
     private final CorteDetallePagoRepository corteDetallePagoRepository;
     private final TipoPagoRepository tipoPagoRepository;
+    private final GastoRepository gastoRepository;
+    private final AbonoRepository abonoRepository;
 
     @Override
     public List<CajaResponse> listar() {
@@ -221,34 +223,57 @@ public class CajaServiceImpl implements CajaService {
                 .filter(m -> m.getTipo() == TipoMovimientoCaja.EGRESO)
                 .mapToDouble(MovimientoCaja::getMonto).sum();
 
-        double saldoInicial = caja.getSaldoActual() - totalIngresos + totalEgresos - totalContado;
-        double saldoEsperado = saldoInicial + totalVentas + totalIngresos - totalEgresos;
+        List<Gasto> gastosPeriodo = gastoRepository
+                .findByCajaIdCajaAndFechaAutorizacionBetweenOrderByFechaAutorizacionAsc(id, apertura, ahora);
+        double totalGastos = gastosPeriodo.stream()
+                .mapToDouble(Gasto::getMonto).sum();
+
+        double saldoInicial = caja.getSaldoActual() - totalIngresos + totalEgresos + totalGastos - totalContado;
+        double saldoEsperado = saldoInicial + totalVentas + totalIngresos - totalEgresos - totalGastos;
 
         List<VentaPago> pagosEnRango = ventaPagoRepository.findByCajaAndFechaRange(id, apertura, ahora);
-        List<CorteDetallePagoDto> detallePagos = pagosEnRango.stream()
-                .collect(java.util.stream.Collectors.groupingBy(
+        List<Abono> abonosEnRango = abonoRepository
+                .findByCajaIdCajaAndFechaBetweenOrderByFechaDesc(id, apertura, ahora);
+        double totalAbonos = abonosEnRango.stream().mapToDouble(Abono::getMonto).sum();
+
+        java.util.Map<Integer, TipoPago> tipoPorId = pagosEnRango.stream()
+                .map(VentaPago::getTipoPago)
+                .collect(java.util.stream.Collectors.toMap(
+                        TipoPago::getIdTipoPago, tp -> tp,
+                        (a, b) -> a, java.util.LinkedHashMap::new));
+        java.util.Map<Integer, Double> montosPorTipo = new java.util.HashMap<>(
+                pagosEnRango.stream().collect(java.util.stream.Collectors.groupingBy(
                         vp -> vp.getTipoPago().getIdTipoPago(),
-                        java.util.stream.Collectors.summingDouble(VentaPago::getMonto)))
-                .entrySet().stream()
-                .map(e -> {
-                    TipoPago tp = pagosEnRango.stream()
-                            .filter(vp -> vp.getTipoPago().getIdTipoPago().equals(e.getKey()))
-                            .findFirst().get().getTipoPago();
-                    return new CorteDetallePagoDto(e.getKey(), tp.getNombre(), e.getValue(), null);
-                })
+                        java.util.stream.Collectors.summingDouble(VentaPago::getMonto))));
+
+        for (Abono a : abonosEnRango) {
+            if (a.getTipoPago() == null) continue;
+            Integer idTipo = a.getTipoPago().getIdTipoPago();
+            montosPorTipo.merge(idTipo, a.getMonto(), Double::sum);
+            tipoPorId.putIfAbsent(idTipo, a.getTipoPago());
+        }
+
+        List<CorteDetallePagoDto> detallePagos = montosPorTipo.entrySet().stream()
+                .map(e -> new CorteDetallePagoDto(
+                        e.getKey(), tipoPorId.get(e.getKey()).getNombre(), e.getValue(), null))
                 .toList();
 
         double totalReal = 0.0;
         double diferencia = 0.0;
 
+        List<AbonoCorteDto> abonosList = abonosEnRango.stream()
+                .map(this::toAbonoCorteDto)
+                .toList();
+
         return new CorteResponse(null, id, caja.getNombre(),
                 caja.getSucursal().getIdSucursal(), caja.getSucursal().getNombre(),
                 saldoInicial,
                 totalVentas, totalContado, totalCredito,
-                totalIngresos, totalEgresos, caja.getSaldoActual(),
+                totalIngresos, totalEgresos, totalGastos, totalAbonos, caja.getSaldoActual(),
                 saldoEsperado,
                 apertura, ahora, obtenerUsuarioActual(), detallePagos,
-                totalReal, diferencia);
+                gastosPeriodo.stream().map(this::toGastoResponse).toList(),
+                totalReal, diferencia, abonosList);
     }
 
     @Override
@@ -268,6 +293,8 @@ public class CajaServiceImpl implements CajaService {
                 .totalVentasCredito(preview.totalVentasCredito())
                 .totalIngresos(preview.totalIngresos())
                 .totalEgresos(preview.totalEgresos())
+                .totalAbonos(preview.totalAbonos())
+                .totalGastos(preview.totalGastos())
                 .saldoFinalContado(preview.saldoFinalContado())
                 .fechaApertura(preview.fechaApertura())
                 .fechaCierre(LocalDateTime.now())
@@ -302,11 +329,14 @@ public class CajaServiceImpl implements CajaService {
                 caja.getSucursal().getIdSucursal(), caja.getSucursal().getNombre(),
                 preview.saldoInicial(), preview.totalVentas(),
                 preview.totalVentasContado(), preview.totalVentasCredito(),
-                preview.totalIngresos(), preview.totalEgresos(),
+                preview.totalIngresos(), preview.totalEgresos(), preview.totalGastos(),
+                preview.totalAbonos(),
                 preview.saldoFinalContado(), preview.saldoEsperado(),
                 preview.fechaApertura(),
                 corte.getFechaCierre(), usuario, preview.detallePagos(),
-                preview.totalReal(), preview.diferencia());
+                preview.gastos(),
+                preview.totalReal(), preview.diferencia(),
+                preview.abonos());
     }
 
     @Override
@@ -349,17 +379,63 @@ public class CajaServiceImpl implements CajaService {
                 .sum();
         double sistema = detallePagos.stream().mapToDouble(CorteDetallePagoDto::monto).sum();
         double diferencia = totalReal > 0 ? totalReal - sistema : 0.0;
+
+        List<AbonoCorteDto> abonosList = (corte.getCaja() != null && corte.getFechaApertura() != null
+                && corte.getFechaCierre() != null)
+                ? abonoRepository
+                        .findByCajaIdCajaAndFechaBetweenOrderByFechaDesc(corte.getCaja().getIdCaja(),
+                                corte.getFechaApertura(), corte.getFechaCierre())
+                        .stream().map(this::toAbonoCorteDto).toList()
+                : java.util.List.of();
+
         return new CorteResponse(
                 corte.getIdCorte(), corte.getCaja().getIdCaja(), corte.getCaja().getNombre(),
                 corte.getCaja().getSucursal().getIdSucursal(), corte.getCaja().getSucursal().getNombre(),
                 corte.getSaldoInicial(), corte.getTotalVentas(),
                 corte.getTotalVentasContado(), corte.getTotalVentasCredito(),
                 corte.getTotalIngresos(), corte.getTotalEgresos(),
+                corte.getTotalGastos() != null ? corte.getTotalGastos() : 0.0,
+                corte.getTotalAbonos() != null ? corte.getTotalAbonos() : 0.0,
                 corte.getSaldoFinalContado(), null,
                 corte.getFechaApertura(), corte.getFechaCierre(),
                 corte.getUsuario().getUsuario(), detallePagos,
+                java.util.List.of(),
                 totalReal > 0 ? totalReal : null,
-                totalReal > 0 ? diferencia : null);
+                totalReal > 0 ? diferencia : null,
+                abonosList);
+    }
+
+    private AbonoCorteDto toAbonoCorteDto(Abono a) {
+        String cliente = null;
+        Integer idCredito = null;
+        Integer idCliente = null;
+        String folio = null;
+        if (a.getCredito() != null) {
+            idCredito = a.getCredito().getIdCredito();
+            folio = a.getCredito().getFolio();
+            if (a.getCredito().getCliente() != null) {
+                idCliente = a.getCredito().getCliente().getIdCliente();
+                cliente = a.getCredito().getCliente().getNombre() + " "
+                        + a.getCredito().getCliente().getApellidoPaterno();
+            }
+        }
+        return new AbonoCorteDto(
+                a.getIdAbono(), idCredito, folio, idCliente, cliente,
+                a.getFecha(),
+                a.getTipoPago() != null ? a.getTipoPago().getNombre() : a.getTipo().name(),
+                a.getMonto());
+    }
+
+    private GastoResponse toGastoResponse(Gasto g) {
+        return new GastoResponse(
+                g.getIdGasto(), g.getCaja().getIdCaja(),
+                g.getCaja().getNombre(),
+                g.getCaja().getSucursal() != null ? g.getCaja().getSucursal().getNombre() : null,
+                g.getDescripcion(),
+                g.getMonto(), g.getUsuario().getUsuario(),
+                g.getAutorizador() != null ? g.getAutorizador().getUsuario() : null,
+                g.getEstado().name(), g.getFechaCreacion(),
+                g.getFechaAutorizacion());
     }
 
     private Caja buscarOExcepcion(Integer id) {

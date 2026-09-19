@@ -2,6 +2,7 @@ package com.bcsystems.intranet.service.impl;
 
 import com.bcsystems.intranet.domain.Auditoria;
 import com.bcsystems.intranet.domain.MovimientoStock;
+import com.bcsystems.intranet.domain.en.TipoMovimiento;
 import com.bcsystems.intranet.dto.KardexUnificadoResponse;
 import com.bcsystems.intranet.dto.MovimientoStockResponse;
 import com.bcsystems.intranet.repository.AuditoriaRepository;
@@ -33,9 +34,19 @@ public class KardexServiceImpl implements KardexService {
 
     @Override
     public Page<MovimientoStockResponse> listarMovimientos(Integer idProducto, Integer idSucursal,
+                                                            String tipo,
                                                             LocalDateTime fechaInicio, LocalDateTime fechaFin,
                                                             Pageable pageable) {
-        return movimientoStockRepository.buscarConFiltros(idProducto, idSucursal, fechaInicio, fechaFin, pageable)
+        TipoMovimiento tipoEnum = null;
+        if (tipo != null && !tipo.isBlank()) {
+            try {
+                tipoEnum = TipoMovimiento.valueOf(tipo.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                tipoEnum = null;
+            }
+        }
+        TipoMovimiento tipoFiltro = tipoEnum;
+        return movimientoStockRepository.buscarConFiltros(idProducto, idSucursal, tipoFiltro, fechaInicio, fechaFin, pageable)
                 .map(m -> new MovimientoStockResponse(
                         m.getIdMovimiento(),
                         m.getProducto().getIdProducto(),

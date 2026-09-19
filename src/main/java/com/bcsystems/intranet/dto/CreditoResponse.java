@@ -7,6 +7,7 @@ public record CreditoResponse(
         Integer idCredito,
         Integer idVenta,
         Integer folioVenta,
+        String folio,
         Integer idCliente,
         String clienteNombre,
         Double montoOriginal,
@@ -15,5 +16,6 @@ public record CreditoResponse(
         Double porcentajeInteres,
         LocalDateTime fechaVencimiento,
         EstadoCredito estado,
-        LocalDateTime fechaCreacion
+        LocalDateTime fechaCreacion,
+        String nota
 ) {}

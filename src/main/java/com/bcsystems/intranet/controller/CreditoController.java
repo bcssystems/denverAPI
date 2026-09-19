@@ -27,7 +27,7 @@ public class CreditoController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         if (search != null && !search.isBlank()) {
-            return ResponseEntity.ok(clienteService.listar(search, page, size));
+            return ResponseEntity.ok(clienteService.listar(search, true, page, size));
         }
         return ResponseEntity.ok(clienteService.listarCreditClients(page, size));
     }
@@ -42,6 +42,12 @@ public class CreditoController {
     @PreAuthorize("hasAuthority('CREDITOS_VER')")
     public ResponseEntity<List<MovimientoCreditoResponse>> listarMovimientos(@PathVariable Integer id) {
         return ResponseEntity.ok(creditoService.listarMovimientosPorCliente(id));
+    }
+
+    @GetMapping("/clientes/{id}/estado-cuenta")
+    @PreAuthorize("hasAuthority('CREDITOS_VER')")
+    public ResponseEntity<EstadoCuentaResponse> estadoCuenta(@PathVariable Integer id) {
+        return ResponseEntity.ok(creditoService.estadoCuenta(id));
     }
 
     @PostMapping("/abonos")

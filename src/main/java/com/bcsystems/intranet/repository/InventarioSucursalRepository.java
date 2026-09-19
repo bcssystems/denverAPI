@@ -19,6 +19,6 @@ public interface InventarioSucursalRepository extends JpaRepository<InventarioSu
     @Query("DELETE FROM InventarioSucursal i WHERE i.producto.idProducto = :idProducto")
     void deleteByProductoIdProducto(@Param("idProducto") Integer idProducto);
 
-    @Query("SELECT i.sucursal.nombre, COALESCE(SUM(COALESCE(i.producto.costoPromedio, 0) * i.stock), 0) FROM InventarioSucursal i GROUP BY i.sucursal.nombre")
+    @Query("SELECT s.nombre, COALESCE(SUM(COALESCE(i.producto.costoPromedio, 0) * i.stock), 0) FROM Sucursal s LEFT JOIN InventarioSucursal i ON i.sucursal.idSucursal = s.idSucursal GROUP BY s.nombre")
     List<Object[]> sumCostoPorSucursal();
 }

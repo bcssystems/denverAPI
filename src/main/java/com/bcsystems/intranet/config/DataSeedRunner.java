@@ -36,14 +36,15 @@ public class DataSeedRunner implements CommandLineRunner {
     }
 
     private void seedPermisosYRoles() {
-        if (permisoRepository.count() > 0) return;
-
         Map<String, List<String[]>> permisosPorModulo = buildCatalogo();
 
         Map<String, Permiso> permisoMap = new HashMap<>();
+        permisoRepository.findAll().forEach(p -> permisoMap.put(p.getClave(), p));
+
         for (var entry : permisosPorModulo.entrySet()) {
             String modulo = entry.getKey();
             for (String[] perm : entry.getValue()) {
+                if (permisoMap.containsKey(perm[0])) continue;
                 Permiso p = Permiso.builder()
                         .clave(perm[0])
                         .nombre(perm[1])
@@ -58,64 +59,70 @@ public class DataSeedRunner implements CommandLineRunner {
 
         Set<Permiso> todosLosPermisos = new HashSet<>(permisoMap.values());
 
-        Rol admin = Rol.builder()
-                .nombre("ADMINISTRADOR")
-                .descripcion("Administrador del sistema - acceso total")
-                .esSistema(true)
-                .activo(true)
-                .permisos(todosLosPermisos)
-                .build();
-        rolRepository.save(admin);
+        asegurarRolAccesoTotal("ADMINISTRADOR", todosLosPermisos);
+        asegurarRolAccesoTotal("SISTEMAS", todosLosPermisos);
 
-        Rol sistemas = Rol.builder()
-                .nombre("SISTEMAS")
-                .descripcion("Soporte tecnico - acceso total")
-                .esSistema(true)
-                .activo(true)
-                .permisos(todosLosPermisos)
-                .build();
-        rolRepository.save(sistemas);
-
-        Set<String> auditoriaModulos = new HashSet<>(
-                List.of("KARDEX", "AUDITORIAS", "HISTORIAL_VENTAS", "CORTES", "GASTOS"));
-        Set<Permiso> auditoriaPermisos = permisosPorModulo.entrySet().stream()
-                .filter(e -> auditoriaModulos.contains(e.getKey()))
-                .flatMap(e -> e.getValue().stream())
-                .map(p -> permisoMap.get(p[0]))
-                .collect(Collectors.toSet());
-
-        Rol auditoria = Rol.builder()
-                .nombre("AUDITORIAS")
-                .descripcion("Auditoria - solo lectura en areas financieras")
-                .esSistema(true)
-                .activo(true)
-                .permisos(auditoriaPermisos)
-                .build();
-        rolRepository.save(auditoria);
-
-        Set<Permiso> usuarioPermisos = new HashSet<>();
-        for (String clave : List.of(
-                "VENTAS_VER", "VENTAS_CREAR",
-                "CLIENTES_VER", "CLIENTES_CREAR",
-                "COTIZACIONES_VER", "COTIZACIONES_CREAR",
-                "GASTOS_VER",
-                "CREDITOS_VER", "CREDITOS_ABONAR",
-                "CAJAS_VER", "CAJAS_APERTURA", "CAJAS_CIERRE", "CAJAS_CORTE",
-                "HISTORIAL_VENTAS_VER",
-                "PRODUCTOS_VER",
-                "SUCURSALES_VER",
-                "TIPOS_PAGO_VER")) {
-            usuarioPermisos.add(permisoMap.get(clave));
+        if (!rolRepository.existsByNombreIgnoreCase("AUDITORIAS")) {
+            Set<String> auditoriaModulos = new HashSet<>(
+                    List.of("KARDEX", "AUDITORIAS", "HISTORIAL_VENTAS", "CORTES", "GASTOS"));
+            Set<Permiso> auditoriaPermisos = permisosPorModulo.entrySet().stream()
+                    .filter(e -> auditoriaModulos.contains(e.getKey()))
+                    .flatMap(e -> e.getValue().stream())
+                    .map(p -> permisoMap.get(p[0]))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toSet());
+            rolRepository.save(Rol.builder()
+                    .nombre("AUDITORIAS")
+                    .descripcion("Auditoria - solo lectura en areas financieras")
+                    .esSistema(true)
+                    .activo(true)
+                    .permisos(auditoriaPermisos)
+                    .build());
         }
 
-        Rol usuario = Rol.builder()
-                .nombre("USUARIO")
-                .descripcion("Usuario estandar - ventas y cajas")
-                .esSistema(true)
-                .activo(true)
-                .permisos(usuarioPermisos)
-                .build();
-        rolRepository.save(usuario);
+        if (!rolRepository.existsByNombreIgnoreCase("USUARIO")) {
+            Set<Permiso> usuarioPermisos = new HashSet<>();
+            for (String clave : List.of(
+                    "VENTAS_VER", "VENTAS_CREAR",
+                    "CLIENTES_VER", "CLIENTES_CREAR",
+                    "COTIZACIONES_VER", "COTIZACIONES_CREAR",
+                    "GASTOS_VER",
+                    "CREDITOS_VER", "CREDITOS_ABONAR",
+                    "CAJAS_VER", "CAJAS_APERTURA", "CAJAS_CIERRE", "CAJAS_CORTE",
+                    "HISTORIAL_VENTAS_VER",
+                    "PRODUCTOS_VER",
+                    "SUCURSALES_VER",
+                    "TIPOS_PAGO_VER",
+                    "CONFIGURACION_VER")) {
+                Permiso permiso = permisoMap.get(clave);
+                if (permiso != null) usuarioPermisos.add(permiso);
+            }
+            rolRepository.save(Rol.builder()
+                    .nombre("USUARIO")
+                    .descripcion("Usuario estandar - ventas y cajas")
+                    .esSistema(true)
+                    .activo(true)
+                    .permisos(usuarioPermisos)
+                    .build());
+        }
+    }
+
+    private void asegurarRolAccesoTotal(String nombre, Set<Permiso> permisos) {
+        Optional<Rol> existente = rolRepository.findByNombreIgnoreCase(nombre);
+        if (existente.isEmpty()) {
+            rolRepository.save(Rol.builder()
+                    .nombre(nombre)
+                    .descripcion(nombre.equals("ADMINISTRADOR")
+                            ? "Administrador del sistema - acceso total"
+                            : "Soporte tecnico - acceso total")
+                    .esSistema(true)
+                    .activo(true)
+                    .permisos(new HashSet<>(permisos))
+                    .build());
+        } else {
+            existente.get().getPermisos().addAll(permisos);
+            rolRepository.save(existente.get());
+        }
     }
 
     private void migrarPersonasRol() {
@@ -232,6 +239,10 @@ public class DataSeedRunner implements CommandLineRunner {
                 new String[]{"PROMOCIONES_CREAR", "Crear Promociones"},
                 new String[]{"PROMOCIONES_EDITAR", "Editar Promociones"},
                 new String[]{"PROMOCIONES_ELIMINAR", "Eliminar Promociones"}
+        ));
+        map.put("CONFIGURACION", List.of(
+                new String[]{"CONFIGURACION_VER", "Ver Configuracion"},
+                new String[]{"CONFIGURACION_EDITAR", "Editar Configuracion"}
         ));
         map.put("ROLES", List.of(
                 new String[]{"ROLES_VER", "Ver Roles"},
