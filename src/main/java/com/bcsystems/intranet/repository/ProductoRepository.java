@@ -1,6 +1,9 @@
 package com.bcsystems.intranet.repository;
 
+import com.bcsystems.intranet.domain.InventarioSucursal;
 import com.bcsystems.intranet.domain.Producto;
+import com.bcsystems.intranet.domain.ProductoMultimedia;
+import com.bcsystems.intranet.domain.ProductoVarianteAtributo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,13 +20,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     Optional<Producto> findBySkuIgnoreCase(String sku);
     boolean existsBySkuIgnoreCase(String sku);
     boolean existsBySkuIgnoreCaseAndIdProductoNot(String sku, Integer idProducto);
-    long countByActivoTrue();
-
-    @Query("SELECT COALESCE(SUM(p.stockActual), 0) FROM Producto p")
-    Integer sumStockActual();
-
-    @Query("SELECT COALESCE(SUM(p.stockMinimo), 0) FROM Producto p")
-    Integer sumStockMinimo();
 
     @Query("SELECT COALESCE(SUM(COALESCE(p.costoPromedio, 0) * p.stockActual), 0) FROM Producto p WHERE p.activo = true")
     Double sumCostoTotalInventario();
@@ -54,6 +50,29 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
                                    Pageable pageable);
 
     List<Producto> findByProductoPadreIdProducto(Integer idProductoPadre);
+
+    @Query("SELECT p FROM Producto p WHERE p.productoPadre.idProducto IN :ids")
+    List<Producto> findByProductoPadreIdProductoIn(@Param("ids") java.util.Collection<Integer> ids);
+
+    @Query("SELECT m FROM ProductoMultimedia m WHERE m.producto.idProducto IN :ids")
+    List<ProductoMultimedia> findMultimediaByProductoIdIn(@Param("ids") java.util.Collection<Integer> ids);
+
+    @Query("SELECT i FROM InventarioSucursal i JOIN FETCH i.sucursal WHERE i.producto.idProducto IN :ids")
+    List<InventarioSucursal> findInventarioByProductoIdIn(@Param("ids") java.util.Collection<Integer> ids);
+
+    @Query("SELECT pva FROM ProductoVarianteAtributo pva JOIN FETCH pva.atributo JOIN FETCH pva.valor " +
+           "WHERE pva.productoVariante.idProducto IN :ids")
+    List<ProductoVarianteAtributo> findVarianteAtributosByProductoIdIn(@Param("ids") java.util.Collection<Integer> ids);
+
+    @Query("SELECT COALESCE(SUM(p.stockActual), 0) FROM Producto p WHERE p.productoPadre.idProducto = :idProductoPadre")
+    Integer sumStockByProductoPadreId(@Param("idProductoPadre") Integer idProductoPadre);
+
+    @Query(value = "SELECT COUNT(*) AS total, " +
+                   "COALESCE(SUM(IF(p.activo, 1, 0)), 0) AS activos, " +
+                   "COALESCE(SUM(p.stock_actual), 0) AS stock_actual, " +
+                   "COALESCE(SUM(p.stock_minimo), 0) AS stock_minimo " +
+                   "FROM producto p", nativeQuery = true)
+    List<Object[]> resumenStats();
 
     @Modifying
     @Query(value = "DELETE FROM producto WHERE id_producto_padre = :padreId", nativeQuery = true)

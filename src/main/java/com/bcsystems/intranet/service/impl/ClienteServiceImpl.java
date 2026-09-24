@@ -1,19 +1,15 @@
 package com.bcsystems.intranet.service.impl;
 
 import com.bcsystems.intranet.domain.Cliente;
-import com.bcsystems.intranet.domain.ClienteIne;
-import com.bcsystems.intranet.dto.ClienteIneResponse;
 import com.bcsystems.intranet.dto.ClienteRequest;
 import com.bcsystems.intranet.dto.ClienteResponse;
 import com.bcsystems.intranet.dto.ListaNegraRequest;
 import com.bcsystems.intranet.exception.InvalidEntryException;
 import com.bcsystems.intranet.exception.NotFoundException;
-import com.bcsystems.intranet.repository.ClienteIneRepository;
 import com.bcsystems.intranet.repository.ClienteRepository;
 import com.bcsystems.intranet.service.AuditoriaService;
 import com.bcsystems.intranet.service.ClienteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,27 +17,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
-    private final ClienteIneRepository clienteIneRepository;
     private final AuditoriaService auditoriaService;
-
-    @Value("${app.upload.dir:./uploads/multimedia}")
-    private String uploadDir;
 
     @Override
     public Page<ClienteResponse> listar(String search, Boolean activo, int page, int size) {
@@ -181,52 +166,6 @@ public class ClienteServiceImpl implements ClienteService {
         return toResponse(cliente);
     }
 
-    @Override
-    @Transactional
-    public ClienteIneResponse subirIne(Integer id, MultipartFile frontal, MultipartFile trasera) {
-        Cliente cliente = buscarOExcepcion(id);
-        if (frontal == null && trasera == null) {
-            throw new InvalidEntryException("Debe proporcionar al menos una foto del INE");
-        }
-        try {
-            Path uploadPath = Paths.get(uploadDir);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            ClienteIne ine = clienteIneRepository.findByClienteIdCliente(id)
-                    .orElse(ClienteIne.builder().cliente(cliente).subidoEn(LocalDateTime.now()).build());
-
-            if (frontal != null && !frontal.isEmpty()) {
-                String nombre = UUID.randomUUID() + ".ine.f.jpg";
-                Files.copy(frontal.getInputStream(), uploadPath.resolve(nombre), StandardCopyOption.REPLACE_EXISTING);
-                ine.setUrlFotoFrontal("/uploads/" + nombre);
-                ine.setNombreArchivoFrontal(frontal.getOriginalFilename());
-            }
-            if (trasera != null && !trasera.isEmpty()) {
-                String nombre = UUID.randomUUID() + ".ine.t.jpg";
-                Files.copy(trasera.getInputStream(), uploadPath.resolve(nombre), StandardCopyOption.REPLACE_EXISTING);
-                ine.setUrlFotoTrasera("/uploads/" + nombre);
-                ine.setNombreArchivoTrasera(trasera.getOriginalFilename());
-            }
-            ine.setSubidoEn(LocalDateTime.now());
-            ine = clienteIneRepository.save(ine);
-
-            auditoriaService.registrar("ClienteIne", id, "CREACION",
-                    obtenerUsuarioActual(), "INE subido para: " + cliente.getNombre());
-            return toIneResponse(ine);
-        } catch (IOException e) {
-            throw new RuntimeException("Error al guardar las fotos del INE: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public ClienteIneResponse obtenerIne(Integer id) {
-        return clienteIneRepository.findByClienteIdCliente(id)
-                .map(this::toIneResponse)
-                .orElse(null);
-    }
-
     private Cliente buscarOExcepcion(Integer id) {
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Cliente no encontrado con id: " + id));
@@ -237,16 +176,7 @@ public class ClienteServiceImpl implements ClienteService {
         return auth != null ? auth.getName() : "SISTEMA";
     }
 
-    private ClienteIneResponse toIneResponse(ClienteIne ine) {
-        return new ClienteIneResponse(
-                ine.getIdClienteIne(), ine.getCliente().getIdCliente(),
-                ine.getUrlFotoFrontal(), ine.getUrlFotoTrasera(),
-                ine.getNombreArchivoFrontal(), ine.getNombreArchivoTrasera(),
-                ine.getSubidoEn());
-    }
-
     private ClienteResponse toResponse(Cliente c) {
-        boolean tieneIne = clienteIneRepository.findByClienteIdCliente(c.getIdCliente()).isPresent();
         return new ClienteResponse(
                 c.getIdCliente(), c.getNombre(),
                 c.getApellidoPaterno(), c.getApellidoMaterno(),
@@ -258,7 +188,6 @@ public class ClienteServiceImpl implements ClienteService {
                 c.getRfc(), c.getRepresentanteLegal(), c.getDireccionEntrega(),
                 c.getActivo(), c.getFechaRegistro(),
                 c.getTieneCredito(), c.getLimiteCredito(), c.getSaldoActual(),
-                c.getEnListaNegra(), c.getFechaListaNegra(), c.getMotivoListaNegra(),
-                tieneIne);
+                c.getEnListaNegra(), c.getFechaListaNegra(), c.getMotivoListaNegra());
     }
 }

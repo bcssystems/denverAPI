@@ -19,6 +19,8 @@ public record VentaResponse(
         Double total,
         String estado,
         String nota,
+        String motivoCancelacion,
+        String solicitanteCancelacion,
         LocalDateTime fecha,
         List<VentaDetalleResponse> detalles,
         List<VentaPagoResponse> pagos

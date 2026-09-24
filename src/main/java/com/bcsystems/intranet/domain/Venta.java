@@ -57,6 +57,12 @@ public class Venta {
     @Column(length = 500)
     private String nota;
 
+    @Column(length = 300)
+    private String motivoCancelacion;
+
+    @Column(length = 200)
+    private String solicitanteCancelacion;
+
     @Column(updatable = false)
     private LocalDateTime fecha;
 }
