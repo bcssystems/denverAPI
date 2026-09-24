@@ -1,5 +1,6 @@
 package com.bcsystems.intranet.controller;
 
+import com.bcsystems.intranet.dto.CancelarVentaRequest;
 import com.bcsystems.intranet.dto.VentaEsperaRequest;
 import com.bcsystems.intranet.dto.VentaRequest;
 import com.bcsystems.intranet.dto.VentaResponse;
@@ -64,9 +65,10 @@ public class VentaController {
     }
 
     @PostMapping("/{id}/cancelar")
-    @PreAuthorize("hasAuthority('VENTAS_CANCELAR')")
-    public ResponseEntity<VentaResponse> cancelar(@PathVariable Integer id) {
-        return ResponseEntity.ok(ventaService.cancelar(id));
+    @PreAuthorize("hasAnyAuthority('VENTAS_CANCELAR','VENTAS_CREAR')")
+    public ResponseEntity<VentaResponse> cancelar(@PathVariable Integer id,
+                                  @RequestBody(required = false) CancelarVentaRequest request) {
+        return ResponseEntity.ok(ventaService.cancelar(id, request));
     }
 
     @PostMapping("/{id}/espera")

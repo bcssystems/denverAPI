@@ -39,6 +39,9 @@ public class ReservaProductoServiceImpl implements ReservaProductoService {
     @Override
     @Transactional
     public void reservar(Integer idCaja, Integer idProducto, Integer cantidad) {
+        if (cantidad == null || cantidad < 1) {
+            throw new InvalidEntryException("La cantidad debe ser mayor a cero");
+        }
         Caja caja = cajaRepository.findById(idCaja)
                 .orElseThrow(() -> new NotFoundException("Caja no encontrada"));
 
@@ -67,6 +70,9 @@ public class ReservaProductoServiceImpl implements ReservaProductoService {
     @Override
     @Transactional
     public void actualizarCantidad(Integer idCaja, Integer idProducto, Integer cantidad) {
+        if (cantidad == null || cantidad < 1) {
+            throw new InvalidEntryException("La cantidad debe ser mayor a cero");
+        }
         ReservaProducto reserva = reservaProductoRepository
                 .findByCajaIdCajaAndIdProducto(idCaja, idProducto)
                 .orElseThrow(() -> new NotFoundException("No hay reserva activa para este producto"));

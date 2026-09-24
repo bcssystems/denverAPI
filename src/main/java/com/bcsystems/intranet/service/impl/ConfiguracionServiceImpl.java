@@ -28,18 +28,14 @@ public class ConfiguracionServiceImpl implements ConfiguracionService {
 
     private static final Map<String, String> DEFAULTS = Map.ofEntries(
             Map.entry("fondoCajaChica", "2000"),
-            Map.entry("tasaInteresMoraPagare", "5"),
             Map.entry("diasListaNegra", "90"),
-            Map.entry("titularPagare", "PRISCILA ARONG KIM LOPEZ"),
             Map.entry("descripcionEmpresa", "PRISCILA ARONG KIM LOPEZ / BONDS"),
             Map.entry("direccionEmpresa", "")
     );
 
     private static final Map<String, String> DESCRIPCIONES = Map.ofEntries(
             Map.entry("fondoCajaChica", "Monto inicial de la caja chica al abrirla"),
-            Map.entry("tasaInteresMoraPagare", "Tasa de interes mensual de mora que se imprime en el pagare"),
             Map.entry("diasListaNegra", "Dias sin abonar para pasar automaticamente a lista negra"),
-            Map.entry("titularPagare", "Nombre del titular que se imprime en el pagare"),
             Map.entry("descripcionEmpresa", "Nombre/datos de la empresa en tickets y documentos"),
             Map.entry("direccionEmpresa", "Direccion de la empresa en tickets y documentos")
     );

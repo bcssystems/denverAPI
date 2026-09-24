@@ -38,6 +38,7 @@ public class VentaServiceImpl implements VentaService {
     private final ReservaProductoRepository reservaProductoRepository;
     private final CarritoItemRapidoRepository carritoItemRapidoRepository;
     private final MovimientoStockRepository movimientoStockRepository;
+    private final SolicitudCancelacionRepository solicitudCancelacionRepository;
 
     @Override
     @Transactional
@@ -71,6 +72,9 @@ public class VentaServiceImpl implements VentaService {
 
         List<VentaDetalle> detalles = new ArrayList<>();
         for (VentaDetalleRequest dto : request.detalles()) {
+            if (dto.cantidad() == null || dto.cantidad() < 1) {
+                throw new InvalidEntryException("La cantidad de cada producto debe ser mayor a cero");
+            }
             VentaDetalle detalle = VentaDetalle.builder()
                     .venta(venta)
                     .producto(dto.idProducto() != null
@@ -157,7 +161,7 @@ public class VentaServiceImpl implements VentaService {
 
             Credito credito = Credito.builder()
                     .venta(venta)
-                    .folio(generarFolioPagaré())
+                    .folio(generarFolioCredito())
                     .cliente(cliente)
                     .montoOriginal(montoOriginal)
                     .saldoPendiente(montoOriginal)
@@ -223,12 +227,48 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     @Transactional
-    public VentaResponse cancelar(Integer id) {
+    public VentaResponse cancelar(Integer id, CancelarVentaRequest request) {
         Venta venta = ventaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Venta no encontrada"));
         if (venta.getEstado() == EstadoVenta.CANCELADA) {
             throw new InvalidEntryException("La venta ya está cancelada");
         }
+
+        Persona usuario = obtenerPersonaActual();
+
+        boolean esAutorizado = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("VENTAS_CANCELAR"));
+
+        if (!esAutorizado) {
+            SolicitudCancelacion solicitud = solicitudCancelacionRepository
+                    .findFirstByVentaIdVentaAndEstadoOrderByFechaSolicitudDesc(id, EstadoSolicitud.PENDIENTE)
+                    .orElseThrow(() -> new InvalidEntryException(
+                            "Esta venta no tiene una solicitud de cancelación. Solicítala primero"));
+            if (request == null || request.codigo() == null || request.codigo().isBlank()) {
+                throw new InvalidEntryException("Ingresa el código de autorización del administrador");
+            }
+            if (!request.codigo().trim().equals(solicitud.getCodigo())) {
+                throw new InvalidEntryException("Código de autorización inválido");
+            }
+            if (solicitud.getFechaGeneracionCodigo() == null
+                    || solicitud.getFechaGeneracionCodigo().plusMinutes(10).isBefore(LocalDateTime.now())) {
+                solicitud.setEstado(EstadoSolicitud.EXPIRADA);
+                solicitudCancelacionRepository.save(solicitud);
+                throw new InvalidEntryException("El código de autorización expiró. Pide uno nuevo al administrador");
+            }
+
+            venta.setMotivoCancelacion(solicitud.getMotivo());
+            venta.setSolicitanteCancelacion(solicitud.getSolicitante().getUsuario());
+
+            solicitud.setEstado(EstadoSolicitud.AUTORIZADO);
+            solicitud.setAutorizador(usuario);
+            solicitud.setFechaAutorizacion(LocalDateTime.now());
+            solicitudCancelacionRepository.save(solicitud);
+        } else if (request != null && request.motivo() != null && !request.motivo().isBlank()) {
+            venta.setMotivoCancelacion(request.motivo().trim());
+            venta.setSolicitanteCancelacion(usuario.getUsuario());
+        }
+
         venta.setEstado(EstadoVenta.CANCELADA);
         venta = ventaRepository.save(venta);
 
@@ -480,8 +520,8 @@ public class VentaServiceImpl implements VentaService {
                 .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
     }
 
-    private String generarFolioPagaré() {
-        String prefix = "PAGARE-";
+    private String generarFolioCredito() {
+        String prefix = "CRED-";
         int num = 1;
         while (creditoRepository.existsByFolio(prefix + String.format("%05d", num))) {
             num++;
@@ -520,7 +560,8 @@ public class VentaServiceImpl implements VentaService {
                 v.getUsuario().getUsuario(),
                 v.getTipoVenta().name(), v.getPrecioSeleccionado(),
                 v.getSubtotal(), v.getDescuento(), v.getTotal(),
-                v.getEstado().name(), v.getNota(), v.getFecha(), detalleResponses, pagoResponses);
+                v.getEstado().name(), v.getNota(), v.getMotivoCancelacion(), v.getSolicitanteCancelacion(),
+                v.getFecha(), detalleResponses, pagoResponses);
     }
 
     private void actualizarStockPadre(Producto variante) {

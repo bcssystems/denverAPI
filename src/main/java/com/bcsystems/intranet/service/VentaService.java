@@ -1,5 +1,6 @@
 package com.bcsystems.intranet.service;
 
+import com.bcsystems.intranet.dto.CancelarVentaRequest;
 import com.bcsystems.intranet.dto.VentaEsperaRequest;
 import com.bcsystems.intranet.dto.VentaRequest;
 import com.bcsystems.intranet.dto.VentaResponse;
@@ -14,7 +15,7 @@ public interface VentaService {
     VentaResponse obtenerPorId(Integer id);
     List<VentaResponse> listarPorCaja(Integer idCaja);
     Page<VentaResponse> listar(Integer idSucursal, Integer idCaja, String estado, LocalDateTime fechaInicio, LocalDateTime fechaFin, Pageable pageable);
-    VentaResponse cancelar(Integer id);
+    VentaResponse cancelar(Integer id, CancelarVentaRequest request);
     VentaResponse ponerEnEspera(Integer id);
     VentaResponse actualizarEspera(Integer id, VentaEsperaRequest request);
     VentaResponse cancelarEspera(Integer id);

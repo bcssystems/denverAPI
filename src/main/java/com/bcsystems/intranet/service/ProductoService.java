@@ -1,6 +1,7 @@
 package com.bcsystems.intranet.service;
 
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
+import com.bcsystems.intranet.dto.ProductoListaResponse;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
 import com.bcsystems.intranet.dto.ProductoVentaResponse;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductoService {
-    Page<ProductoResponse> listar(String search, Boolean activo, Integer idSucursal, Pageable pageable);
+    Page<ProductoListaResponse> listar(String search, Boolean activo, Integer idSucursal, Pageable pageable);
     Page<ProductoVentaResponse> listarParaVenta(String search, Integer idSucursal, Pageable pageable);
     ProductoResponse obtenerPorId(Integer id);
     ProductoResponse crear(ProductoRequest request);

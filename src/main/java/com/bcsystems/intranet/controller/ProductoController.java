@@ -1,6 +1,7 @@
 package com.bcsystems.intranet.controller;
 
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
+import com.bcsystems.intranet.dto.ProductoListaResponse;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
 import com.bcsystems.intranet.dto.ProductoVentaResponse;
@@ -45,7 +46,7 @@ public class ProductoController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('PRODUCTOS_VER')")
-    public ResponseEntity<Page<ProductoResponse>> listar(
+    public ResponseEntity<Page<ProductoListaResponse>> listar(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) Boolean activo,
             @RequestParam(required = false) Integer idSucursal,

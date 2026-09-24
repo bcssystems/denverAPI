@@ -131,6 +131,9 @@ public class CarritoController {
     public ResponseEntity<Void> actualizarRapido(
             @PathVariable Integer id,
             @RequestBody CarritoItemRapidoRequest request) {
+        if (request.cantidad() == null || request.cantidad() < 1) {
+            throw new com.bcsystems.intranet.exception.InvalidEntryException("La cantidad debe ser mayor a cero");
+        }
         CarritoItemRapido item = carritoRapidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item no encontrado"));
         item.setCantidad(request.cantidad());

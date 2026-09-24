@@ -6,6 +6,7 @@ import com.bcsystems.intranet.domain.en.TipoMovimiento;
 import com.bcsystems.intranet.domain.en.TipoMultimedia;
 import com.bcsystems.intranet.dto.InventarioSucursalRequest;
 import com.bcsystems.intranet.dto.MovimientoStockRequest;
+import com.bcsystems.intranet.dto.ProductoListaResponse;
 import com.bcsystems.intranet.dto.ProductoRequest;
 import com.bcsystems.intranet.dto.ProductoResponse;
 import com.bcsystems.intranet.dto.ProductoVentaResponse;
@@ -19,6 +20,7 @@ import com.bcsystems.intranet.util.CodigoGeneratorService;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -74,16 +76,45 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Page<ProductoResponse> listar(String search, Boolean activo, Integer idSucursal, Pageable pageable) {
-        return productoRepository.buscarConFiltros(search, activo, idSucursal, pageable)
-                .map(this::toResponse);
+    @Transactional(readOnly = true)
+    public Page<ProductoListaResponse> listar(String search, Boolean activo, Integer idSucursal, Pageable pageable) {
+        Page<Producto> page = productoRepository.buscarConFiltros(search, activo, idSucursal, pageable);
+        List<Producto> content = page.getContent();
+        if (content.isEmpty()) {
+            return new PageImpl<>(Collections.emptyList(), pageable, page.getTotalElements());
+        }
+        Map<Integer, ProductoListaResponse> mapa = buildListaResponseMap(content);
+        List<ProductoListaResponse> resultado = content.stream()
+                .map(p -> mapa.get(p.getIdProducto()))
+                .collect(Collectors.toList());
+        return new PageImpl<>(resultado, pageable, page.getTotalElements());
     }
 
     @Transactional(readOnly = true)
     @Override
     public Page<ProductoVentaResponse> listarParaVenta(String search, Integer idSucursal, Pageable pageable) {
-        return productoRepository.buscarParaVenta(search, idSucursal, pageable)
-                .map(this::toVentaResponse);
+        Page<Producto> page = productoRepository.buscarParaVenta(search, idSucursal, pageable);
+        List<Producto> content = page.getContent();
+        if (content.isEmpty()) {
+            return new PageImpl<>(Collections.emptyList(), pageable, page.getTotalElements());
+        }
+
+        Set<Integer> ids = content.stream().map(Producto::getIdProducto).collect(Collectors.toSet());
+
+        Map<Integer, List<ProductoVentaResponse.InventarioSucursalResponse>> inventario = productoRepository.findInventarioByProductoIdIn(ids).stream()
+                .collect(Collectors.groupingBy(i -> i.getProducto().getIdProducto(),
+                        Collectors.mapping(this::toVentaInventario, Collectors.toList())));
+
+        Map<Integer, List<ProductoVentaResponse.AtributoInfo>> atributos = productoRepository.findVarianteAtributosByProductoIdIn(ids).stream()
+                .collect(Collectors.groupingBy(pva -> pva.getProductoVariante().getIdProducto(),
+                        Collectors.mapping(this::toVentaAtributo, Collectors.toList())));
+
+        List<ProductoVentaResponse> resultado = content.stream()
+                .map(p -> toVentaResponse(p,
+                        inventario.getOrDefault(p.getIdProducto(), Collections.emptyList()),
+                        atributos.getOrDefault(p.getIdProducto(), Collections.emptyList())))
+                .collect(Collectors.toList());
+        return new PageImpl<>(resultado, pageable, page.getTotalElements());
     }
 
     @Transactional(readOnly = true)
@@ -259,11 +290,13 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     private void guardarInventarios(Producto producto, List<InventarioSucursalRequest> inventarios, String usuario) {
-        if (inventarios == null) return;
+        if (inventarios == null || inventarios.isEmpty()) return;
+
+        Map<Integer, Sucursal> sucursales = cargarSucursales(inventarios);
 
         for (var invReq : inventarios) {
-            Sucursal sucursal = sucursalRepository.findById(invReq.idSucursal())
-                    .orElseThrow(() -> new NotFoundException("Sucursal no encontrada"));
+            Sucursal sucursal = sucursales.get(invReq.idSucursal());
+            if (sucursal == null) throw new NotFoundException("Sucursal no encontrada");
 
             InventarioSucursal inventario = InventarioSucursal.builder()
                     .producto(producto)
@@ -359,21 +392,24 @@ public class ProductoServiceImpl implements ProductoService {
         if (request.costoPromedio() != null) producto.setCostoPromedio(request.costoPromedio());
         if (request.activo() != null) producto.setActivo(request.activo());
 
-        if (request.inventarios() != null) {
+        if (request.inventarios() != null && !request.inventarios().isEmpty()) {
             int stockTotal = 0;
             int minTotal = 0;
             int maxTotal = 0;
+            Map<Integer, Sucursal> sucursales = cargarSucursales(request.inventarios());
             for (var invReq : request.inventarios()) {
                 stockTotal += invReq.stock() != null ? invReq.stock() : 0;
                 minTotal += invReq.stockMinimo() != null ? invReq.stockMinimo() : 0;
                 maxTotal += invReq.stockMaximo() != null ? invReq.stockMaximo() : 0;
 
+                Sucursal sucursal = sucursales.get(invReq.idSucursal());
+                if (sucursal == null) throw new NotFoundException("Sucursal no encontrada");
+
                 InventarioSucursal inv = inventarioSucursalRepository
                         .findByProductoIdProductoAndSucursalIdSucursal(id, invReq.idSucursal())
                         .orElse(InventarioSucursal.builder()
                                 .producto(producto)
-                                .sucursal(sucursalRepository.findById(invReq.idSucursal())
-                                        .orElseThrow(() -> new NotFoundException("Sucursal no encontrada")))
+                                .sucursal(sucursal)
                                 .stock(0)
                                 .build());
                 inv.setStock(invReq.stock() != null ? invReq.stock() : 0);
@@ -397,11 +433,13 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     private void actualizarInventarios(Producto producto, List<InventarioSucursalRequest> inventarios, String usuario) {
-        if (inventarios == null) return;
+        if (inventarios == null || inventarios.isEmpty()) return;
+
+        Map<Integer, Sucursal> sucursales = cargarSucursales(inventarios);
 
         for (var invReq : inventarios) {
-            Sucursal sucursal = sucursalRepository.findById(invReq.idSucursal())
-                    .orElseThrow(() -> new NotFoundException("Sucursal no encontrada"));
+            Sucursal sucursal = sucursales.get(invReq.idSucursal());
+            if (sucursal == null) throw new NotFoundException("Sucursal no encontrada");
             InventarioSucursal inv = inventarioSucursalRepository
                     .findByProductoIdProductoAndSucursalIdSucursal(producto.getIdProducto(), invReq.idSucursal())
                     .orElse(InventarioSucursal.builder()
@@ -657,6 +695,10 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponse registrarMovimientoStock(Integer idProducto, MovimientoStockRequest request) {
         Producto producto = buscarOExcepcion(idProducto);
 
+        if (request.tipoMovimiento() == TipoMovimiento.AJUSTE) {
+            throw new InvalidEntryException("El tipo de movimiento Ajuste ya no está disponible. Usa Entrada, Salida o Traslado");
+        }
+
         Sucursal sucursal = null;
         if (request.idSucursal() != null) {
             sucursal = sucursalRepository.findById(request.idSucursal())
@@ -827,14 +869,14 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoStats obtenerStats() {
-        long total = productoRepository.count();
-        long activos = productoRepository.countByActivoTrue();
-        Integer stockGlobal = productoRepository.sumStockActual();
-        Integer stockMinimo = productoRepository.sumStockMinimo();
+        List<Object[]> rows = productoRepository.resumenStats();
+        Object[] r = rows.isEmpty() ? new Object[]{0L, 0L, 0L, 0L} : rows.get(0);
+        long total = r != null && r[0] != null ? ((Number) r[0]).longValue() : 0L;
+        long activos = r != null && r[1] != null ? ((Number) r[1]).longValue() : 0L;
+        long stockGlobal = r != null && r[2] != null ? ((Number) r[2]).longValue() : 0L;
+        long stockMinimo = r != null && r[3] != null ? ((Number) r[3]).longValue() : 0L;
         Double costoTotal = productoRepository.sumCostoTotalInventario();
-        return new ProductoStats(total, activos,
-                stockGlobal != null ? stockGlobal : 0,
-                stockMinimo != null ? stockMinimo : 0,
+        return new ProductoStats(total, activos, stockGlobal, stockMinimo,
                 costoTotal != null ? costoTotal : 0);
     }
 
@@ -864,48 +906,125 @@ public class ProductoServiceImpl implements ProductoService {
     private void recalcularStockPadre(Producto producto) {
         Producto padre = producto.getProductoPadre();
         if (padre != null) {
-            Integer totalStock = productoRepository.findByProductoPadreIdProducto(padre.getIdProducto())
-                    .stream()
-                    .mapToInt(Producto::getStockActual)
-                    .sum();
+            Integer totalStock = productoRepository.sumStockByProductoPadreId(padre.getIdProducto());
             padre.setStockActual(totalStock);
             productoRepository.save(padre);
         } else if (Boolean.TRUE.equals(producto.getTieneVariantes())) {
-            Integer totalStock = productoRepository.findByProductoPadreIdProducto(producto.getIdProducto())
-                    .stream()
-                    .mapToInt(Producto::getStockActual)
-                    .sum();
+            Integer totalStock = productoRepository.sumStockByProductoPadreId(producto.getIdProducto());
             producto.setStockActual(totalStock);
             productoRepository.save(producto);
         }
     }
 
-    private ProductoVentaResponse toVentaResponse(Producto p) {
-        List<ProductoVentaResponse.MultimediaResponse> multimedia = p.getMultimedia().stream()
-                .map(m -> new ProductoVentaResponse.MultimediaResponse(
-                        m.getIdMultimedia(), m.getTipo().name(), m.getUrl(),
-                        m.getNombreArchivo(), m.getEsPrincipal()))
-                .collect(Collectors.toList());
-
-        List<ProductoVentaResponse.InventarioSucursalResponse> inventario = p.getInventarioSucursales().stream()
-                .map(i -> new ProductoVentaResponse.InventarioSucursalResponse(
-                        i.getId(), i.getSucursal().getIdSucursal(),
-                        i.getSucursal().getNombre(), i.getStock(),
-                        i.getStockMinimo(), i.getStockMaximo()))
-                .collect(Collectors.toList());
-
-        List<ProductoVentaResponse.AtributoInfo> atributos = p.getVarianteAtributos().stream()
-                .map(pva -> new ProductoVentaResponse.AtributoInfo(
-                        pva.getAtributo().getNombre(),
-                        pva.getValor().getValor()))
-                .collect(Collectors.toList());
-
+    private ProductoVentaResponse toVentaResponse(Producto p,
+            List<ProductoVentaResponse.InventarioSucursalResponse> inventario,
+            List<ProductoVentaResponse.AtributoInfo> atributos) {
         return new ProductoVentaResponse(
                 p.getIdProducto(), p.getSku(), p.getNombre(),
                 p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
                 p.getStockActual(), p.getCostoPromedio(), p.getTieneVariantes(),
                 p.getProductoPadre() != null ? p.getProductoPadre().getIdProducto() : null,
-                p.getActivo(), multimedia, inventario, atributos);
+                p.getActivo(), inventario, atributos);
+    }
+
+    private ProductoVentaResponse.InventarioSucursalResponse toVentaInventario(InventarioSucursal i) {
+        return new ProductoVentaResponse.InventarioSucursalResponse(
+                i.getId(), i.getSucursal().getIdSucursal(),
+                i.getSucursal().getNombre(), i.getStock(),
+                i.getStockMinimo(), i.getStockMaximo());
+    }
+
+    private ProductoVentaResponse.AtributoInfo toVentaAtributo(ProductoVarianteAtributo pva) {
+        return new ProductoVentaResponse.AtributoInfo(
+                pva.getAtributo().getNombre(), pva.getValor().getValor());
+    }
+
+    private Map<Integer, Sucursal> cargarSucursales(List<InventarioSucursalRequest> inventarios) {
+        List<Integer> ids = inventarios.stream()
+                .map(InventarioSucursalRequest::idSucursal)
+                .distinct()
+                .collect(Collectors.toList());
+        if (ids.isEmpty()) return Collections.emptyMap();
+        return sucursalRepository.findAllById(ids).stream()
+                .collect(Collectors.toMap(Sucursal::getIdSucursal, s -> s));
+    }
+
+    private Map<Integer, ProductoListaResponse> buildListaResponseMap(List<Producto> padres) {
+        if (padres.isEmpty()) return Collections.emptyMap();
+
+        Set<Integer> ids = padres.stream().map(Producto::getIdProducto).collect(Collectors.toSet());
+        List<Producto> hijos = productoRepository.findByProductoPadreIdProductoIn(ids);
+
+        Set<Integer> todos = new HashSet<>(ids);
+        hijos.forEach(h -> todos.add(h.getIdProducto()));
+
+        Map<Integer, List<ProductoListaResponse.MultimediaResponse>> multimedia = productoRepository.findMultimediaByProductoIdIn(todos).stream()
+                .collect(Collectors.groupingBy(m -> m.getProducto().getIdProducto(),
+                        Collectors.mapping(this::toListaMultimedia, Collectors.toList())));
+
+        Map<Integer, List<ProductoListaResponse.InventarioSucursalResponse>> inventario = productoRepository.findInventarioByProductoIdIn(todos).stream()
+                .collect(Collectors.groupingBy(i -> i.getProducto().getIdProducto(),
+                        Collectors.mapping(this::toListaInventario, Collectors.toList())));
+
+        Map<Integer, List<ProductoListaResponse.VarianteAtributoResponse>> atributos = productoRepository.findVarianteAtributosByProductoIdIn(todos).stream()
+                .collect(Collectors.groupingBy(pva -> pva.getProductoVariante().getIdProducto(),
+                        Collectors.mapping(this::toListaAtributo, Collectors.toList())));
+
+        Map<Integer, List<ProductoListaResponse>> hijosPorPadre = new HashMap<>();
+        for (Producto h : hijos) {
+            Integer padreId = h.getProductoPadre().getIdProducto();
+            hijosPorPadre.computeIfAbsent(padreId, k -> new ArrayList<>())
+                    .add(toListaInterno(h, multimedia, inventario, atributos, null));
+        }
+
+        Map<Integer, ProductoListaResponse> resultado = new HashMap<>();
+        for (Producto p : padres) {
+            List<ProductoListaResponse> variantes = hijosPorPadre.getOrDefault(p.getIdProducto(), Collections.emptyList());
+            resultado.put(p.getIdProducto(), toListaInterno(p, multimedia, inventario, atributos, variantes));
+        }
+        return resultado;
+    }
+
+    private ProductoListaResponse toListaInterno(Producto p,
+            Map<Integer, List<ProductoListaResponse.MultimediaResponse>> multimedia,
+            Map<Integer, List<ProductoListaResponse.InventarioSucursalResponse>> inventario,
+            Map<Integer, List<ProductoListaResponse.VarianteAtributoResponse>> atributos,
+            List<ProductoListaResponse> variantes) {
+        return new ProductoListaResponse(
+                p.getIdProducto(), p.getSku(), p.getNombre(), p.getDescripcion(),
+                p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
+                p.getPrecioPersonalizado(),
+                p.getStockActual(), p.getStockMinimo(), p.getStockMaximo(),
+                p.getCostoPromedio(), p.getTieneVariantes(),
+                p.getProductoPadre() != null ? p.getProductoPadre().getIdProducto() : null,
+                p.getActivo(), p.getFechaCreacion(), p.getFechaActualizacion(),
+                multimedia.getOrDefault(p.getIdProducto(), Collections.emptyList()),
+                inventario.getOrDefault(p.getIdProducto(), Collections.emptyList()),
+                variantes,
+                atributos.getOrDefault(p.getIdProducto(), Collections.emptyList()));
+    }
+
+    private ProductoListaResponse.MultimediaResponse toListaMultimedia(ProductoMultimedia m) {
+        return new ProductoListaResponse.MultimediaResponse(
+                m.getIdMultimedia(),
+                m.getTipo() != null ? m.getTipo().name() : null,
+                m.getUrl(), m.getNombreArchivo(), m.getEsPrincipal());
+    }
+
+    private ProductoListaResponse.InventarioSucursalResponse toListaInventario(InventarioSucursal i) {
+        return new ProductoListaResponse.InventarioSucursalResponse(
+                i.getId(), i.getSucursal().getIdSucursal(),
+                i.getSucursal().getNombre(), i.getStock(),
+                i.getStockMinimo(), i.getStockMaximo());
+    }
+
+    private ProductoListaResponse.VarianteAtributoResponse toListaAtributo(ProductoVarianteAtributo pva) {
+        return new ProductoListaResponse.VarianteAtributoResponse(
+                pva.getAtributo().getIdAtributo(),
+                pva.getAtributo().getNombre(),
+                pva.getValor().getIdValor(),
+                pva.getValor().getValor(),
+                pva.getValor().getCodigoSku());
     }
 
     private ProductoResponse toResponse(Producto p) {

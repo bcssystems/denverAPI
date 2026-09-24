@@ -6,7 +6,6 @@ import com.bcsystems.intranet.dto.*;
 import com.bcsystems.intranet.exception.InvalidEntryException;
 import com.bcsystems.intranet.exception.NotFoundException;
 import com.bcsystems.intranet.repository.*;
-import com.bcsystems.intranet.service.ConfiguracionService;
 import com.bcsystems.intranet.service.CreditoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,8 +26,6 @@ public class CreditoServiceImpl implements CreditoService {
     private final ClienteRepository clienteRepository;
     private final PersonaRepository personaRepository;
     private final TipoPagoRepository tipoPagoRepository;
-    private final ConfiguracionService configuracionService;
-    private final ClienteIneRepository clienteIneRepository;
     private final CajaRepository cajaRepository;
     private final MovimientoCajaRepository movimientoCajaRepository;
 
@@ -50,7 +47,8 @@ public class CreditoServiceImpl implements CreditoService {
         Credito credito = creditoRepository.findById(request.idCredito())
                 .orElseThrow(() -> new NotFoundException("Credito no encontrado"));
 
-        if (credito.getEstado() != EstadoCredito.ACTIVO) {
+        if (credito.getEstado() != EstadoCredito.ACTIVO
+                && credito.getEstado() != EstadoCredito.VENCIDO) {
             throw new InvalidEntryException("El credito no esta activo");
         }
 
@@ -202,9 +200,13 @@ public class CreditoServiceImpl implements CreditoService {
     }
 
     @Override
-    public EstadoCuentaResponse estadoCuenta(Integer idCredito) {
-        Credito credito = creditoRepository.findById(idCredito)
-                .orElseThrow(() -> new NotFoundException("Credito no encontrado"));
+    public EstadoCuentaResponse estadoCuenta(Integer idCliente) {
+        List<Credito> creditos = creditoRepository.findByClienteIdClienteOrderByFechaCreacionDesc(idCliente);
+        if (creditos.isEmpty()) {
+            throw new NotFoundException("El cliente no tiene creditos");
+        }
+        Credito credito = creditos.get(0);
+        Integer idCredito = credito.getIdCredito();
 
         List<AbonoResponse> abonos = abonoRepository.findByCreditoIdCreditoOrderByFechaDesc(idCredito).stream()
                 .map(a -> new AbonoResponse(
@@ -219,7 +221,6 @@ public class CreditoServiceImpl implements CreditoService {
                 .map(this::toMovimientoResponse).toList();
 
         Cliente c = credito.getCliente();
-        boolean tieneIne = clienteIneRepository.findByClienteIdCliente(c.getIdCliente()).isPresent();
         ClienteResponse clienteResponse = new ClienteResponse(
                 c.getIdCliente(), c.getNombre(), c.getApellidoPaterno(), c.getApellidoMaterno(),
                 c.getTelefono(), c.getCodigoPais(), c.getWhatsapp(), c.getEmpresa(),
@@ -229,15 +230,11 @@ public class CreditoServiceImpl implements CreditoService {
                 c.getRfc(), c.getRepresentanteLegal(), c.getDireccionEntrega(),
                 c.getActivo(), c.getFechaRegistro(),
                 c.getTieneCredito(), c.getLimiteCredito(), c.getSaldoActual(),
-                c.getEnListaNegra(), c.getFechaListaNegra(), c.getMotivoListaNegra(),
-                tieneIne);
-
-        String titular = configuracionService.getValor("titularPagare", "PRISCILA ARONG KIM LOPEZ");
-        double tasaMora = configuracionService.getValorDouble("tasaInteresMoraPagare", 5.0);
+                c.getEnListaNegra(), c.getFechaListaNegra(), c.getMotivoListaNegra());
 
         return new EstadoCuentaResponse(
                 toCreditoResponse(credito), clienteResponse,
-                abonos, movimientos, titular, tasaMora);
+                abonos, movimientos);
     }
 
     private Persona obtenerPersonaActual() {
