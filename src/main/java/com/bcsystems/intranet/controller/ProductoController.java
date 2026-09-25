@@ -63,6 +63,20 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.listarParaVenta(search, idSucursal, pageable));
     }
 
+    @GetMapping("/exportar")
+    @PreAuthorize("hasAuthority('PRODUCTOS_VER')")
+    public ResponseEntity<List<ProductoListaResponse>> exportar(
+            @RequestParam(required = false) Boolean activo,
+            @RequestParam(required = false) Integer idSucursal) {
+        return ResponseEntity.ok(productoService.exportar(activo, idSucursal));
+    }
+
+    @GetMapping("/{id}/variantes")
+    @PreAuthorize("hasAuthority('PRODUCTOS_VER')")
+    public ResponseEntity<List<ProductoListaResponse>> listarVariantes(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.listarVariantes(id));
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('PRODUCTOS_VER')")
     public ResponseEntity<ProductoResponse> obtenerPorId(@PathVariable Integer id) {

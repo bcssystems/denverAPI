@@ -49,6 +49,11 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
                                    @Param("idSucursal") Integer idSucursal,
                                    Pageable pageable);
 
+    @Query("SELECT p FROM Producto p WHERE (:activo IS NULL OR p.activo = :activo) " +
+           "AND (:idSucursal IS NULL OR EXISTS (SELECT i FROM InventarioSucursal i WHERE i.producto.idProducto = p.idProducto AND i.sucursal.idSucursal = :idSucursal))")
+    List<Producto> buscarParaExportar(@Param("activo") Boolean activo,
+                                     @Param("idSucursal") Integer idSucursal);
+
     List<Producto> findByProductoPadreIdProducto(Integer idProductoPadre);
 
     @Query("SELECT p FROM Producto p WHERE p.productoPadre.idProducto IN :ids")

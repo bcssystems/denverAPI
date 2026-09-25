@@ -20,6 +20,7 @@ public record ProductoListaResponse(
     Boolean tieneVariantes,
     Integer idProductoPadre,
     Boolean activo,
+    String imagenUrl,
     LocalDateTime fechaCreacion,
     LocalDateTime fechaActualizacion,
     List<MultimediaResponse> multimedia,

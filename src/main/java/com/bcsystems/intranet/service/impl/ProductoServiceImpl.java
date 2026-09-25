@@ -83,11 +83,73 @@ public class ProductoServiceImpl implements ProductoService {
         if (content.isEmpty()) {
             return new PageImpl<>(Collections.emptyList(), pageable, page.getTotalElements());
         }
-        Map<Integer, ProductoListaResponse> mapa = buildListaResponseMap(content);
+        Map<Integer, String> imagenes = extraerImagenPrincipal(
+                productoRepository.findMultimediaByProductoIdIn(content.stream()
+                        .map(Producto::getIdProducto).collect(Collectors.toSet())));
         List<ProductoListaResponse> resultado = content.stream()
-                .map(p -> mapa.get(p.getIdProducto()))
+                .map(p -> toListaInterno(p,
+                        Boolean.TRUE.equals(p.getTieneVariantes()) ? null : imagenes.get(p.getIdProducto()),
+                        Collections.emptyList(), Collections.emptyList(), null, Collections.emptyList()))
                 .collect(Collectors.toList());
         return new PageImpl<>(resultado, pageable, page.getTotalElements());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ProductoListaResponse> listarVariantes(Integer idProductoPadre) {
+        List<Producto> hijos = productoRepository.findByProductoPadreIdProducto(idProductoPadre);
+        if (hijos.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Set<Integer> ids = hijos.stream().map(Producto::getIdProducto).collect(Collectors.toSet());
+
+        List<ProductoMultimedia> multimediaList = productoRepository.findMultimediaByProductoIdIn(ids);
+        Map<Integer, String> imagenes = extraerImagenPrincipal(multimediaList);
+        Map<Integer, List<ProductoListaResponse.MultimediaResponse>> multimedia = multimediaList.stream()
+                .collect(Collectors.groupingBy(m -> m.getProducto().getIdProducto(),
+                        Collectors.mapping(this::toListaMultimedia, Collectors.toList())));
+
+        Map<Integer, List<ProductoListaResponse.InventarioSucursalResponse>> inventario = productoRepository.findInventarioByProductoIdIn(ids).stream()
+                .collect(Collectors.groupingBy(i -> i.getProducto().getIdProducto(),
+                        Collectors.mapping(this::toListaInventario, Collectors.toList())));
+
+        Map<Integer, List<ProductoListaResponse.VarianteAtributoResponse>> atributos = productoRepository.findVarianteAtributosByProductoIdIn(ids).stream()
+                .collect(Collectors.groupingBy(pva -> pva.getProductoVariante().getIdProducto(),
+                        Collectors.mapping(this::toListaAtributo, Collectors.toList())));
+
+        return hijos.stream()
+                .map(h -> toListaInterno(h, imagenes.get(h.getIdProducto()),
+                        multimedia.getOrDefault(h.getIdProducto(), Collections.emptyList()),
+                        inventario.getOrDefault(h.getIdProducto(), Collections.emptyList()),
+                        null,
+                        atributos.getOrDefault(h.getIdProducto(), Collections.emptyList())))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ProductoListaResponse> exportar(Boolean activo, Integer idSucursal) {
+        List<Producto> todos = productoRepository.buscarParaExportar(activo, idSucursal);
+        if (todos.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Set<Integer> ids = todos.stream().map(Producto::getIdProducto).collect(Collectors.toSet());
+
+        Map<Integer, List<ProductoListaResponse.InventarioSucursalResponse>> inventario = productoRepository.findInventarioByProductoIdIn(ids).stream()
+                .collect(Collectors.groupingBy(i -> i.getProducto().getIdProducto(),
+                        Collectors.mapping(this::toListaInventario, Collectors.toList())));
+
+        Map<Integer, List<ProductoListaResponse.VarianteAtributoResponse>> atributos = productoRepository.findVarianteAtributosByProductoIdIn(ids).stream()
+                .collect(Collectors.groupingBy(pva -> pva.getProductoVariante().getIdProducto(),
+                        Collectors.mapping(this::toListaAtributo, Collectors.toList())));
+
+        return todos.stream()
+                .map(p -> toListaInterno(p, null,
+                        Collections.emptyList(),
+                        inventario.getOrDefault(p.getIdProducto(), Collections.emptyList()),
+                        null,
+                        atributos.getOrDefault(p.getIdProducto(), Collections.emptyList())))
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -949,47 +1011,24 @@ public class ProductoServiceImpl implements ProductoService {
                 .collect(Collectors.toMap(Sucursal::getIdSucursal, s -> s));
     }
 
-    private Map<Integer, ProductoListaResponse> buildListaResponseMap(List<Producto> padres) {
-        if (padres.isEmpty()) return Collections.emptyMap();
-
-        Set<Integer> ids = padres.stream().map(Producto::getIdProducto).collect(Collectors.toSet());
-        List<Producto> hijos = productoRepository.findByProductoPadreIdProductoIn(ids);
-
-        Set<Integer> todos = new HashSet<>(ids);
-        hijos.forEach(h -> todos.add(h.getIdProducto()));
-
-        Map<Integer, List<ProductoListaResponse.MultimediaResponse>> multimedia = productoRepository.findMultimediaByProductoIdIn(todos).stream()
-                .collect(Collectors.groupingBy(m -> m.getProducto().getIdProducto(),
-                        Collectors.mapping(this::toListaMultimedia, Collectors.toList())));
-
-        Map<Integer, List<ProductoListaResponse.InventarioSucursalResponse>> inventario = productoRepository.findInventarioByProductoIdIn(todos).stream()
-                .collect(Collectors.groupingBy(i -> i.getProducto().getIdProducto(),
-                        Collectors.mapping(this::toListaInventario, Collectors.toList())));
-
-        Map<Integer, List<ProductoListaResponse.VarianteAtributoResponse>> atributos = productoRepository.findVarianteAtributosByProductoIdIn(todos).stream()
-                .collect(Collectors.groupingBy(pva -> pva.getProductoVariante().getIdProducto(),
-                        Collectors.mapping(this::toListaAtributo, Collectors.toList())));
-
-        Map<Integer, List<ProductoListaResponse>> hijosPorPadre = new HashMap<>();
-        for (Producto h : hijos) {
-            Integer padreId = h.getProductoPadre().getIdProducto();
-            hijosPorPadre.computeIfAbsent(padreId, k -> new ArrayList<>())
-                    .add(toListaInterno(h, multimedia, inventario, atributos, null));
+    private Map<Integer, String> extraerImagenPrincipal(List<ProductoMultimedia> multimediaList) {
+        Map<Integer, String> imagenes = new HashMap<>();
+        for (ProductoMultimedia m : multimediaList) {
+            Integer id = m.getProducto().getIdProducto();
+            String actual = imagenes.get(id);
+            if (actual == null || Boolean.TRUE.equals(m.getEsPrincipal())) {
+                imagenes.put(id, m.getUrl());
+            }
         }
-
-        Map<Integer, ProductoListaResponse> resultado = new HashMap<>();
-        for (Producto p : padres) {
-            List<ProductoListaResponse> variantes = hijosPorPadre.getOrDefault(p.getIdProducto(), Collections.emptyList());
-            resultado.put(p.getIdProducto(), toListaInterno(p, multimedia, inventario, atributos, variantes));
-        }
-        return resultado;
+        return imagenes;
     }
 
     private ProductoListaResponse toListaInterno(Producto p,
-            Map<Integer, List<ProductoListaResponse.MultimediaResponse>> multimedia,
-            Map<Integer, List<ProductoListaResponse.InventarioSucursalResponse>> inventario,
-            Map<Integer, List<ProductoListaResponse.VarianteAtributoResponse>> atributos,
-            List<ProductoListaResponse> variantes) {
+            String imagenUrl,
+            List<ProductoListaResponse.MultimediaResponse> multimedia,
+            List<ProductoListaResponse.InventarioSucursalResponse> inventario,
+            List<ProductoListaResponse> variantes,
+            List<ProductoListaResponse.VarianteAtributoResponse> atributos) {
         return new ProductoListaResponse(
                 p.getIdProducto(), p.getSku(), p.getNombre(), p.getDescripcion(),
                 p.getPrecio1(), p.getPrecio2(), p.getPrecio3(), p.getPrecio4(),
@@ -997,11 +1036,8 @@ public class ProductoServiceImpl implements ProductoService {
                 p.getStockActual(), p.getStockMinimo(), p.getStockMaximo(),
                 p.getCostoPromedio(), p.getTieneVariantes(),
                 p.getProductoPadre() != null ? p.getProductoPadre().getIdProducto() : null,
-                p.getActivo(), p.getFechaCreacion(), p.getFechaActualizacion(),
-                multimedia.getOrDefault(p.getIdProducto(), Collections.emptyList()),
-                inventario.getOrDefault(p.getIdProducto(), Collections.emptyList()),
-                variantes,
-                atributos.getOrDefault(p.getIdProducto(), Collections.emptyList()));
+                p.getActivo(), imagenUrl, p.getFechaCreacion(), p.getFechaActualizacion(),
+                multimedia, inventario, variantes, atributos);
     }
 
     private ProductoListaResponse.MultimediaResponse toListaMultimedia(ProductoMultimedia m) {
