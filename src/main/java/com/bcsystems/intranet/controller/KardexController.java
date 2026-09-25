@@ -25,7 +25,7 @@ public class KardexController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('KARDEX_VER')")
+    @PreAuthorize("hasAnyAuthority('KARDEX_VER','MOVIMIENTOS_INVENTARIO_VER')")
     public ResponseEntity<Page<MovimientoStockResponse>> listarMovimientos(
             @RequestParam(required = false) Integer idProducto,
             @RequestParam(required = false) Integer idSucursal,
@@ -37,7 +37,7 @@ public class KardexController {
     }
 
     @GetMapping("/todo")
-    @PreAuthorize("hasAuthority('KARDEX_VER')")
+    @PreAuthorize("hasAnyAuthority('KARDEX_VER','MOVIMIENTOS_INVENTARIO_VER')")
     public ResponseEntity<Page<KardexUnificadoResponse>> listarTodo(
             @RequestParam(required = false) Integer idSucursal,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,
