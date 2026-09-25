@@ -22,7 +22,7 @@ public class GastoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('GASTOS_VER')")
+    @PreAuthorize("hasAnyAuthority('GASTOS_CREAR','GASTOS_VER')")
     public ResponseEntity<GastoResponse> solicitar(@Valid @RequestBody GastoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(gastoService.solicitar(request));
     }

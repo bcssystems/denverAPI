@@ -25,19 +25,19 @@ public class RolController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLES_VER')")
+    @PreAuthorize("hasAnyAuthority('ROLES_VER','PERSONAS_VER')")
     public ResponseEntity<List<RolResponse>> listar() {
         return ResponseEntity.ok(rolService.listar());
     }
 
     @GetMapping("/permisos")
-    @PreAuthorize("hasAuthority('ROLES_VER')")
+    @PreAuthorize("hasAnyAuthority('ROLES_VER','PERSONAS_VER')")
     public ResponseEntity<Map<String, List<PermisoResponse>>> permisosPorModulo() {
         return ResponseEntity.ok(rolService.permisosPorModulo());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLES_VER')")
+    @PreAuthorize("hasAnyAuthority('ROLES_VER','PERSONAS_VER')")
     public ResponseEntity<RolResponse> obtenerPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(rolService.obtenerPorId(id));
     }

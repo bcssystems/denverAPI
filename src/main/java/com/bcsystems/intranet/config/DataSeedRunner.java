@@ -156,6 +156,7 @@ public class DataSeedRunner implements CommandLineRunner {
         ));
         map.put("GASTOS", List.of(
                 new String[]{"GASTOS_VER", "Ver Gastos"},
+                new String[]{"GASTOS_CREAR", "Crear Gastos"},
                 new String[]{"GASTOS_AUTORIZAR", "Autorizar Gastos"}
         ));
         map.put("COTIZACIONES", List.of(
@@ -214,8 +215,9 @@ public class DataSeedRunner implements CommandLineRunner {
                 new String[]{"PROVEEDORES_EDITAR", "Editar Proveedores"},
                 new String[]{"PROVEEDORES_ELIMINAR", "Eliminar Proveedores"}
         ));
-        map.put("KARDEX", List.<String[]>of(
-                new String[]{"KARDEX_VER", "Ver Kardex"}
+        map.put("KARDEX", List.of(
+                new String[]{"KARDEX_VER", "Ver Kardex"},
+                new String[]{"MOVIMIENTOS_INVENTARIO_VER", "Ver Movimientos de Inventario"}
         ));
         map.put("AUDITORIAS", List.<String[]>of(
                 new String[]{"AUDITORIAS_VER", "Ver Auditorias"}
